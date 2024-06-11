@@ -1,0 +1,19 @@
+<main class="chatboard">
+    <div class="chatboard__list">
+        <div class="chatboard__profile">
+            {{> Button type='secondary' label='Profile' page='profile' icon-name='arrow-right' icon-size='small'}}
+        </div>
+
+        <div class="chatboard__search">
+            {{> Input type='text' selector='search' placeholder='Search' }}
+        </div>
+
+        <div class="chatboard__list-items">
+            {{> ChatList messages=messages }}
+        </div>
+    </div>
+
+    <div class="chatboard__chat">
+        {{>Chat messages=messages }}
+    </div>
+</main>

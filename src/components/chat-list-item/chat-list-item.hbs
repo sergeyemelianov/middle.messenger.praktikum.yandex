@@ -1,0 +1,20 @@
+<div class="chat-list-item">
+    {{#with (lastMessage conversation)}}
+        <div class="chat-list-item__avatar">
+            <img class="chat-list-item__avatar-pict" src="{{avatar}}" alt="avatar">
+        </div>
+
+        <div class="chat-list-item__message">
+            <div class="chat-list-item__message-author">{{name}}</div>
+            <div class="chat-list-item__message-text">{{message.text}}</div>
+        </div>
+
+        <div class="chat-list-item__message-info">
+            <div class="chat-list-item__message-time">{{formatTime timestamp}}</div>
+        </div>
+    {{/with}}
+
+    {{#if (countUnread conversation) includeZero=false}}
+        <div class="chat-list-item__message-unread">{{countUnread conversation}}</div>
+    {{/if}}
+</div>

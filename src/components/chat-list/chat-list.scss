@@ -1,0 +1,8 @@
+@import "../../assets/styles/variables";
+
+.chat-list {
+
+  &__divider {
+    border: 1px solid $light-grey-4;
+  }
+}
