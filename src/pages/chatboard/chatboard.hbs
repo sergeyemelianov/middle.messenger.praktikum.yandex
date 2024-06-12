@@ -1,7 +1,7 @@
 <main class="chatboard">
     <div class="chatboard__list">
         <div class="chatboard__profile">
-            {{> Button type='secondary' label='Profile' page='profile' icon-name='arrow-right' icon-size='small'}}
+            {{> Button type='secondary' label='Profile' page='profile' icon-name='arrow-right' icon-size='small' }}
         </div>
 
         <div class="chatboard__search">
@@ -14,6 +14,6 @@
     </div>
 
     <div class="chatboard__chat">
-        {{>Chat messages=messages }}
+        {{> Chat messages=(firstUtil messages) userdata=userData}}
     </div>
 </main>

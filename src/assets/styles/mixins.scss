@@ -12,6 +12,18 @@
   box-sizing: border-box;
 }
 
+@mixin text-40() {
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 500;
+}
+
+@mixin text-20() {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
 @mixin text-13() {
   font-size: 13px;
   line-height: 13px;

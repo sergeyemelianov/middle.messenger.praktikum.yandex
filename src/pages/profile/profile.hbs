@@ -1,1 +1,24 @@
-<div class="profile"></div>
+<main class="profile">
+    <form class="profile__container">
+        <div class="profile__avatar">
+            {{> Avatar avatar=userData.avatar size='big' name="avatar"}}
+        </div>
+        <div class="profile__name">
+            {{userData.name}}
+        </div>
+
+        <div class="profile__details">
+            {{> Input type='text' selector='edit' label='Email' name='email' showLabel='true' showDivider='true' placeholder=userData.email readonly=true}}
+            {{> Input type='text' selector='edit' label='Login' name='login' showLabel='true' showDivider='true' placeholder=userData.login readonly=true}}
+            {{> Input type='text' selector='edit' label='Name' name='first_name' showLabel='true' showDivider='true' placeholder=userData.first_name readonly=true}}
+            {{> Input type='text' selector='edit' label='Second name' name='second_name' showLabel='true' showDivider='true' placeholder=userData.second_name readonly=true}}
+            {{> Input type='tel' selector='edit' label='Phone number' name='phone' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" showLabel='true' showDivider='true' placeholder=userData.phone readonly=true}}
+        </div>
+
+        <div class="profile__buttons">
+            {{> Button type='link' page='login' label='Change details'}}
+            {{> Button type='link' page='login' label='Change password'}}
+            {{> Button type='link' page='login' selector='danger' label='Quit'}}
+        </div>
+    </form>
+</main>

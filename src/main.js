@@ -1,22 +1,26 @@
 import Handlebars from 'handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
+import { first } from "./utils/first.js";
+import { last } from "./utils/last.js";
 import { messages } from "./data-chat/messages.js";
+import { userData } from "./data-chat/user-data.js";
 
 Object.entries(Components).forEach(([ name, component ]) => {
     Handlebars.registerPartial(name, component);
 });
 
 const pages = {
-    'chatboard': [ Pages.Chatboard, {messages: messages} ],
-    'login': [ Pages.Login ],
+    'chatboard': [ Pages.Chatboard, { messages: messages, userData: userData } ],
+    'login': [ Pages.Login, { userData: userData } ],
     'signup': [ Pages.Signup ],
-    'profile': [ Pages.Profile ],
-    'error': [ Pages.Error ],
+    'profile': [ Pages.Profile, { userData: userData } ],
+    'error5xx': [ Pages.Error5xx ],
+    'error4xx': [ Pages.Error4xx ],
 };
 
 
-document.addEventListener('DOMContentLoaded', () => navigate('signup'));
+document.addEventListener('DOMContentLoaded', () => navigate('profile'));
 
 function navigate(page) {
     const [ source, args ] = pages[page];
@@ -33,4 +37,36 @@ document.addEventListener('click', e => {
         e.preventDefault();
         e.stopImmediatePropagation();
     }
+});
+
+Handlebars.registerHelper('lastUtil', function (array) {
+    return last(array);
+});
+
+Handlebars.registerHelper('firstUtil', function (array) {
+    return first(array);
+});
+
+Handlebars.registerHelper('formatTime', function (timestamp) {
+    return timestamp.slice(11, 16);
+});
+
+Handlebars.registerHelper('countUnread', function (conversation) {
+    return conversation.filter((elem) => !elem.message.isRead).length;
+});
+
+Handlebars.registerHelper('isAuthor', function (messageUserId, ownerUserId) {
+    return messageUserId === ownerUserId ? 'author' : 'not-author';
+});
+
+Handlebars.registerHelper('isSignup', (value) => {
+    return value === 'signup';
+});
+
+Handlebars.registerHelper('isLogin', (value) => {
+    return value === 'login';
+});
+
+Handlebars.registerHelper('capitalize', function(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 });

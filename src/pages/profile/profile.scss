@@ -1,0 +1,26 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.profile {
+  @include full-width-height();
+  @include display-flex-center();
+
+  &__container {
+    @include display-flex-center();
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    gap: 30px;
+  }
+
+  &__details {
+    width: 100%;
+  }
+
+  &__buttons {
+    @include display-flex-start();
+    flex-direction: column;
+    margin-right: auto;
+    gap: 10px;
+  }
+}

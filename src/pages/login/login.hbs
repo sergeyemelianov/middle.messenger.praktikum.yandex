@@ -1,4 +1,10 @@
-<main class="main-content">
-    {{#> Auth type='login'}}
-    {{/Auth}}
-</main>
+{{#>Auth type='login'}}
+    <form class="{{type}}-wrapper__inputs">
+        {{> Input type='text' selector='edit' label='Username' name='login' showLabel='true' showDivider='true'}}
+        {{> Input type='password'selector='edit'  label='Password' name='password' showLabel='true' showDivider='true'}}
+        <div class="{{type}}-wrapper__buttons">
+            {{> Button type='confirmation' page='chatboard' label='Confirm'}}
+            {{> Button type='link' page='signup' label='Create account'}}
+        </div>
+    </form>
+{{/Auth}}

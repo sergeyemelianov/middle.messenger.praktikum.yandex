@@ -1,7 +1,7 @@
-<div class="chat-list-item">
-    {{#with (lastMessage conversation)}}
+<li class="chat-list-item" id={{id}}>
+    {{#with (lastUtil conversation)}}
         <div class="chat-list-item__avatar">
-            <img class="chat-list-item__avatar-pict" src="{{avatar}}" alt="avatar">
+            {{> Avatar avatar=avatar size='medium'}}
         </div>
 
         <div class="chat-list-item__message">
@@ -17,4 +17,4 @@
     {{#if (countUnread conversation) includeZero=false}}
         <div class="chat-list-item__message-unread">{{countUnread conversation}}</div>
     {{/if}}
-</div>
+</li>

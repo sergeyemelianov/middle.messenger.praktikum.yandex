@@ -6,12 +6,13 @@
   padding: 2px;
   position: relative;
 
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
   &__avatar {
     margin-right: 12px;
-  }
-  &__avatar-pict {
-    width: 48px;
-    height: 48px;
   }
 
   &__message {
@@ -47,8 +48,8 @@
     width: 20px;
     border-radius: 50%;
     position: absolute;
-    right: 0;
-    top: 30px;
+    right: 2px;
+    top:22px;
     background: $light-blue-1;
     color: $white;
   }

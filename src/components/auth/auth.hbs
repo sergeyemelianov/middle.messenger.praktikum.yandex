@@ -1,29 +1,8 @@
-<div class="{{type}}-wrapper">
-    <h1 class="{{type}}-wrapper__title">{{capitalize type}}</h1>
-    {{#if (isSignup type)}}
-        <form class="{{type}}-wrapper__inputs">
-            {{> Input type='text' selector='edit' label='Email' name='email' showLabel='true' showDivider='true'}}
-            {{> Input type='text' selector='edit' label='Login' name='login' showLabel='true' showDivider='true'}}
-            {{> Input type='text' selector='edit' label='Name' name='first_name' showLabel='true' showDivider='true'}}
-            {{> Input type='text' selector='edit' label='Second name' name='second_name' showLabel='true' showDivider='true'}}
-            {{> Input type='tel' selector='edit' label='Phone number' name='phone' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" showLabel='true' showDivider='true'}}
-            {{> Input type='text' selector='edit' label='Password' name='password' showLabel='true' showDivider='true'}}
-            {{> Input type='text' selector='edit' label='Repeat password' name='repeat_password' showLabel='true' showDivider='true'}}
-            <div class="{{type}}-wrapper__buttons">
-                {{> Button type='confirmation' page='chatboard' label='Confirm'}}
-                {{> Button type='link' page='login' label='Already have an account?'}}
-            </div>
-        </form>
-    {{else if (isLogin type)}}
-        <form class="{{type}}-wrapper__inputs">
-            {{> Input type='text' selector='edit' label='Username' name='login' showLabel='true' showDivider='true'}}
-            {{> Input type='password'selector='edit'  label='Password' name='password' showLabel='true' showDivider='true'}}
-            <div class="{{type}}-wrapper__buttons">
-                {{> Button type='confirmation' page='chatboard' label='Confirm'}}
-                {{> Button type='link' page='signup' label='Create account'}}
-            </div>
-        </form>
-    {{else}}
-        {{> Error type='403'}}
-    {{/if}}
+<main class="main-content">
+<div class="{{ type }}-wrapper">
+    <div class="wrapper__title">
+        <h1 class="{{ type }}-wrapper__title">{{ capitalize type }}</h1>
+    </div>
+    {{> @partial-block }}
 </div>
+</main>

@@ -1,10 +1,13 @@
-<button class="button button__{{ type }}"
+<button class="button
+        {{#if type}} button__{{ type }} {{/if}}
+    {{#if selector}} button__{{ selector }} {{/if}}
+"
     {{#if page}} page="{{ page }}" {{/if}}
 >
     {{ label }}
 
     {{#if icon-name}}
-        <span class="button__icon button__icon_{{icon-size}}">
+        <span class="button__icon {{#if icon-size}} button__icon_{{icon-size}} {{/if}} ">
             <img src="../../assets/icons/{{icon-name}}.svg" alt="{{icon-name}}"/>
         </span>
     {{/if}}

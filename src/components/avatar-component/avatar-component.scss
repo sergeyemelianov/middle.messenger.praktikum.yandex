@@ -1,0 +1,24 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.avatar {
+
+  &__size {
+    &_small {
+      width: 34px;
+      height: 34px;
+    }
+
+    &_medium {
+      width: 48px;
+      height: 48px;
+    }
+
+    &_big {
+      width: 130px;
+      height: 130px;
+    }
+  }
+
+}
+
