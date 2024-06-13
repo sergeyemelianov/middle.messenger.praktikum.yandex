@@ -10,8 +10,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.static('./dist'));
+app.use(express.static('./src'));
 app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'))
+    res.sendFile(path.join(__dirname, './dist/index.html'))
 });
 
 server.listen(port, function () {

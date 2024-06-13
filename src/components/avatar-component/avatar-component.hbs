@@ -1,3 +1,7 @@
 <div class="avatar-block" {{#if name}} name="{{name}}"{{/if}}>
-    <img class="avatar {{#if size}} avatar__size_{{size}}" {{/if}} src="{{avatar}}" alt="user-avatar">
+    {{#if avatar}}
+        <img class="avatar {{#if size}} avatar__size_{{size}}" {{/if}} src="{{avatar}}" alt="user-avatar">
+    {{else}}
+        <img class="avatar {{#if size}} avatar__size_{{size}}" {{/if}} src="../../assets/icons/avatar-default.svg" alt="user-avatar">
+    {{/if}}
 </div>

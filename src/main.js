@@ -20,7 +20,7 @@ const pages = {
 };
 
 
-document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+document.addEventListener('DOMContentLoaded', () => navigate('chatboard'));
 
 function navigate(page) {
     const [ source, args ] = pages[page];
