@@ -1,4 +1,4 @@
-<main class="profile">
+{{#> PageContainer}}
     <form class="profile__container">
         <div class="profile__avatar">
             {{> Avatar avatar=userData.avatar size='big' name="avatar"}}
@@ -21,4 +21,4 @@
             {{> Button type='link' page='login' selector='danger' label='Quit'}}
         </div>
     </form>
-</main>
+{{/PageContainer}}

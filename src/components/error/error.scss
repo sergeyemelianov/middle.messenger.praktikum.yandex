@@ -2,8 +2,6 @@
 @import "../../assets/styles/mixins";
 
 .error {
-  @include full-width-height();
-
   &__container {
     @include display-flex-center();
     flex-direction: column;

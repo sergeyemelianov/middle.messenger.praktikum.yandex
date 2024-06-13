@@ -2,9 +2,6 @@
 @import "../../assets/styles/mixins";
 
 .profile {
-  @include full-width-height();
-  @include display-flex-center();
-
   &__container {
     @include display-flex-center();
     flex-direction: column;

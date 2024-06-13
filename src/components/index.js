@@ -6,3 +6,5 @@ export { Chat } from './chat';
 export { ChatListItem } from './chat-list-item';
 export { Error } from './error';
 export { Avatar } from './avatar-component';
+export { Navigation } from './navigation-component';
+export { PageContainer } from './page-container-component';

@@ -1,0 +1,60 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.input {
+    @include display-flex-center();
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    &__label {
+        @include text-11();
+        color: $light-grey-1;
+        margin: 0 0 10px 2px;
+    }
+
+    &__edit {
+        @include text-13();;
+        border: unset;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+
+        &:visited, &:focus-visible, &:active {
+            outline: none;
+        }
+    }
+
+    &__search {
+        @include text-13();
+        border: unset;
+        width: 100%;
+        height: 100%;
+        background: $light-grey-3;
+        border-radius: 5px;
+        padding: 0 8px;
+        box-sizing: border-box;
+
+        &:visited, &:focus-visible, &:active {
+            &::placeholder {
+                color: $transp;
+            }
+        }
+    }
+
+    &__message {
+        @include text-13();
+        width: 100%;
+        border: unset;
+        background: $light-grey-3;
+        border-radius: 30px;
+    }
+
+    &__divider {
+        border: 1px solid $light-blue-1;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0;
+    }
+}

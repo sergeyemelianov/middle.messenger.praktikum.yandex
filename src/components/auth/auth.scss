@@ -1,11 +1,6 @@
 @import "../../assets/styles/variables";
 @import "../../assets/styles/mixins";
 
-.main-content {
-  @include display-flex-center();
-  @include full-width-height();
-}
-
 .login-wrapper,
 .signup-wrapper {
   @include display-flex-center();
