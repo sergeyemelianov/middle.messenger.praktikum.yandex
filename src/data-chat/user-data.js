@@ -6,6 +6,6 @@ export const userData = {
     "login": "example",
     "first_name": "Alice",
     "second_name": "Smith",
-    "phone": "123456789",
+    "phone": "123-456-7890",
     "password": "password"
 }

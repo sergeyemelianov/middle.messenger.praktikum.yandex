@@ -1,3 +1,3 @@
-import './auth.scss';
+import './auth-component.scss';
 
-export { default as Auth } from './auth.hbs?raw';
+export { default as Auth } from './auth-component.hbs?raw';

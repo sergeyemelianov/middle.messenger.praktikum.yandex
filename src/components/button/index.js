@@ -1,3 +1,3 @@
-import './button.scss';
+import './button-component.scss';
 
-export { default as Button } from './button.hbs?raw';
+export { default as Button } from './button-component.hbs?raw';

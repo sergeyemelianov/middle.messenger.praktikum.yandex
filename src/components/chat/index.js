@@ -1,3 +1,3 @@
-import './chat.scss';
+import './chat-component.scss';
 
-export { default as Chat } from './chat.hbs?raw';
+export { default as Chat } from './chat-component.hbs?raw';

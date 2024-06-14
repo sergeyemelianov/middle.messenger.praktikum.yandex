@@ -3,6 +3,7 @@ import * as Components from './components';
 import * as Pages from './pages';
 import { first } from "./utils/first.js";
 import { last } from "./utils/last.js";
+import { identity } from "./utils/identity.js";
 import { messages } from "./data-chat/messages.js";
 import { userData } from "./data-chat/user-data.js";
 
@@ -15,12 +16,14 @@ const pages = {
     'login': [ Pages.Login, { userData: userData } ],
     'signup': [ Pages.Signup ],
     'profile': [ Pages.Profile, { userData: userData } ],
+    'profile-details-edit': [ Pages.ProfileDetailsEdit, { userData: userData } ],
+    'profile-password-edit': [ Pages.ProfilePasswordEdit, { userData: userData } ],
     'error5xx': [ Pages.Error5xx ],
     'error4xx': [ Pages.Error4xx ],
 };
 
 
-document.addEventListener('DOMContentLoaded', () => navigate('error4xx'));
+document.addEventListener('DOMContentLoaded', () => navigate('chatboard'));
 
 function navigate(page) {
     const [ source, args ] = pages[page];
@@ -59,12 +62,8 @@ Handlebars.registerHelper('isAuthor', function (messageUserId, ownerUserId) {
     return messageUserId === ownerUserId ? 'author' : 'not-author';
 });
 
-Handlebars.registerHelper('isSignup', (value) => {
-    return value === 'signup';
-});
-
-Handlebars.registerHelper('isLogin', (value) => {
-    return value === 'login';
+Handlebars.registerHelper('isEdit', (value) => {
+    return value === 'edit';
 });
 
 Handlebars.registerHelper('capitalize', function(str) {

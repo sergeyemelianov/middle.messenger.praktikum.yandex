@@ -1,0 +1,25 @@
+<form class="profile__container">
+    <div class="profile__avatar">
+        {{> Avatar avatar=userData.avatar size='big' name="avatar"}}
+    </div>
+    <div class="profile__name">
+        {{userData.name}}
+    </div>
+
+    {{> @partial-block}}
+
+    <div class="profile__buttons">
+        {{#if type}}
+            {{#if (isEdit type)}}
+                {{> Button type='confirmation' label='Save'}}
+                {{> Button page='profile' type='confirmation' label='Cancel'}}
+            {{else}}
+                {{> Button type='confirmation' page='chatboard' label='Back to chatboard'}}
+            {{/if}}
+        {{else}}
+            {{> Button type='link' page='profile-details-edit' label='Change details'}}
+            {{> Button type='link' page='profile-password-edit' label='Change password'}}
+            {{> Button type='link' page='login' selector='danger' label='Quit'}}
+        {{/if}}
+    </div>
+</form>

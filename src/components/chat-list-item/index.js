@@ -1,3 +1,3 @@
-import './chat-list-item.scss';
+import './chat-list-item-component.scss';
 
-export {default as ChatListItem} from './chat-list-item.hbs?raw';
+export {default as ChatListItem} from './chat-list-item-component.hbs?raw';

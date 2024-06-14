@@ -1,6 +1,0 @@
-@import "../../assets/styles/mixins";
-
-.page-container-component {
-    @include full-width-height();
-    @include display-flex-center();
-}
