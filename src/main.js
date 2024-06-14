@@ -3,7 +3,6 @@ import * as Components from './components';
 import * as Pages from './pages';
 import { first } from "./utils/first.js";
 import { last } from "./utils/last.js";
-import { identity } from "./utils/identity.js";
 import { messages } from "./data-chat/messages.js";
 import { userData } from "./data-chat/user-data.js";
 
