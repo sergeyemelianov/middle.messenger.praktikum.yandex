@@ -1,0 +1,35 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.login-wrapper,
+.signup-wrapper {
+  @include display-flex-center();
+  flex-direction: column;
+  width: 350px;
+  height: 400px;
+  padding: 40px;
+  background: $white;
+  border-radius: $border-radius-container;
+  box-shadow: 0 0 10px 0 rgba($black-1, 0.2);
+
+  &__title-text {
+    margin-bottom: 40px;
+  }
+
+  &__inputs,
+  &__buttons {
+    @include display-flex-center();
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__buttons {
+    margin-top: 30px;
+    gap: 15px;
+  }
+}
+
+.signup-wrapper {
+  height: 715px !important;
+}

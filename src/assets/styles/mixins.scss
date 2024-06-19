@@ -1,0 +1,54 @@
+@mixin display-flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+@mixin display-flex-start() {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+@mixin text-40() {
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 500;
+}
+
+@mixin text-20() {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+@mixin text-13() {
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+}
+
+@mixin text-12() {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 500;
+}
+
+@mixin text-11() {
+  font-size: 11px;
+  line-height: 11px;
+  font-weight: 500;
+}
+
+@mixin text-9() {
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 500;
+}
+
+@mixin full-width-height() {
+    width: 100vw;
+    height: 100vh;
+}

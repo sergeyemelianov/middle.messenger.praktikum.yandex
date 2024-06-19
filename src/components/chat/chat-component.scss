@@ -1,0 +1,134 @@
+@import "../../assets/styles/mixins";
+@import "../../assets/styles/variables";
+
+.chat {
+  @include display-flex-center();
+  width: 100%;
+  height: 100%;
+
+  &__content {
+    @include display-flex-center();
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px 20px;
+  }
+
+  &__container {
+    @include display-flex-start();
+    flex-direction: column;
+    overflow: auto;
+    flex: 1;
+    width: 100%;
+    gap: 20px;
+    padding: 10px;
+  }
+
+  &__message-input {
+    width: 100%;
+    height: 100%;
+
+    .input-component__message {
+      height: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  }
+
+  &__footer,
+  &__header {
+    height: 40px;
+    width: 100% ;
+  }
+
+  &__header {
+    @include display-flex-center();
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid $light-grey-3;
+  }
+
+  &__settings:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+
+  &__author-info {
+    @include display-flex-start();
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__author-name {
+    @include text-13();
+    font-weight: 600;
+    color: $black-2;
+  }
+
+  &__footer {
+    @include display-flex-center();
+    gap: 6px;
+
+    .button__icon {
+      margin: 0;
+    }
+  }
+
+  &__send-button {
+    @include display-flex-center();
+    height: 40px;
+    min-width: 40px;
+
+    .button__confirmation {
+      border-radius: 50%;
+      background: $light-blue-1;
+      color: $white;
+      padding: 0;
+    }
+  }
+
+  &__attach-file {
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+
+  &__item {
+    @include display-flex-center();
+    @include text-12();
+    padding: 10px;
+    border: 1px solid $light-grey-3;
+    border-radius: 12px;
+    color: $black-2;
+    flex-direction: column;
+
+    &_author {
+      margin-left: auto;
+      background: $light-blue-2;
+
+    }
+
+    &_not-author {
+      margin-right: auto;
+      background: $light-grey-2;
+    }
+
+    &_checked {
+      margin-left: auto;
+    }
+  }
+
+  &__item-info {
+    @include display-flex-center();
+    @include text-9();
+    color: $light-blue-1;
+    margin: 6px 0 0 auto;
+    gap: 2px;
+  }
+
+  &__item-attached-pict {
+    border-radius: 8px;
+    max-width: 300px;
+  }
+}
