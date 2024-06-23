@@ -1,5 +1,5 @@
-@import "../../assets/styles/variables";
-@import "../../assets/styles/mixins";
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
 
 .input-component {
   @include display-flex-center();
@@ -23,7 +23,9 @@
     border-radius: 5px;
     padding: 0 8px;
 
-    &:visited, &:focus-visible, &:active {
+    &:visited,
+    &:focus-visible,
+    &:active {
       &::placeholder {
         color: $transp;
       }
@@ -47,17 +49,18 @@
 }
 
 .input {
-  @include text-13();;
+  @include text-13();
   border: unset;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   position: relative;
 
-  &:visited, &:focus-visible, &:active {
+  &:visited,
+  &:focus-visible,
+  &:active {
     outline: none;
   }
-
 
   &:invalid {
     outline: 2px solid $red-1;
