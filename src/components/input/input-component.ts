@@ -1,25 +1,23 @@
 import './input-component.scss';
-import Block from '../../core/Block';
-
+import Block, { Props } from '../../core/Block';
 import InputTemplate from './input-component.hbs?raw';
+import { ValidateSourceType } from '../../utils/validation.util';
 
-type InputProps = {
+type InputProps = Props & {
+  name: ValidateSourceType;
   showLabel?: boolean;
-  name?: string;
   label?: string;
   selector: string;
   type?: string;
   value?: string;
-  pattern?: string;
   placeholder?: string;
   readonly?: boolean;
   autofocus?: boolean;
   required?: boolean;
-  minL?: string;
-  max?: string;
   showDivider?: boolean;
   page?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
+  onBlur?: (value: string) => void;
 };
 
 export default class Input extends Block {
@@ -27,17 +25,15 @@ export default class Input extends Block {
     super({
       ...props,
       events: {
-        change: (e) => props.onChange(e.target.value),
-        blur: (e) => this.validate(e.target.value),
+        change: (e: InputEvent) =>
+          props.onChange ? props.onChange((e.target as HTMLInputElement)?.value) : undefined,
+        blur: (e: FocusEvent) =>
+          props.onBlur ? props.onBlur((e.target as HTMLInputElement)?.value) : undefined,
       },
     });
   }
 
   render(): string {
     return InputTemplate;
-  }
-
-  validate(value: string): void {
-    console.log('validate', value);
   }
 }

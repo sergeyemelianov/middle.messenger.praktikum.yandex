@@ -1,6 +1,6 @@
 <main class="page-container-component">
-    {{> Navigation }}
-    <div class="page-container-component__wrapper {{#if className}} page-container-component__{{className}} {{/if}}">
-        {{> @partial-block}}
-    </div>
+  {{{ navigation }}}
+  <div class="page-container-component__wrapper {{#if className}} page-container-component__{{className}} {{/if}}">
+    {{{ component }}}
+  </div>
 </main>

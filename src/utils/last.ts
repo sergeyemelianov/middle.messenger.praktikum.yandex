@@ -7,5 +7,5 @@ export function last(list: Record<string, string>[]): Record<string, string> | u
     return undefined;
   }
 
-  return  list[list.length - 1];
+  return list[list.length - 1];
 }
