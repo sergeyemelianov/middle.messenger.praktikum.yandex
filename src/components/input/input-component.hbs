@@ -3,7 +3,7 @@
         <label class="input-component__label" for="{{name}}">{{label}}</label>
     {{/if}}
 
-    <input id="{{name}}"
+    <input {{#if name}}id="{{name}}"{{/if}}
            class="input input-component__{{selector}}"
         {{#if type}} type="{{type}}" {{/if}}
         {{#if name}} name="{{name}}" {{/if}}
