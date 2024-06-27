@@ -1,6 +1,6 @@
 import './page-container-component.scss';
 import Block, { Props } from '../../core/Block';
-import Navigation from '../navigation';
+import Navigation from '../navigation/navigation-component';
 import PageContainerTemplate from './page-container-component.hbs?raw';
 
 export enum PageContainerClassNameEnum {

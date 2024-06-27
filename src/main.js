@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
 import * as Components from './components/index';
 import * as Pages from './pages/index';
-import { first } from './utils/first';
-import { last } from './utils/last';
+import { firstUtil } from './shared/utils/first.util.js';
+import { lastUtil } from './shared/utils/last.util.js';
 import { messages } from './data-chat/messages';
 import { userData } from './data-chat/user-data';
 
@@ -40,9 +40,9 @@ document.addEventListener('click', (e) => {
   }
 });
 
-Handlebars.registerHelper('lastUtil', (array) => last(array));
+Handlebars.registerHelper('lastUtil', (array) => lastUtil(array));
 
-Handlebars.registerHelper('firstUtil', (array) => first(array));
+Handlebars.registerHelper('firstUtil', (array) => firstUtil(array));
 
 Handlebars.registerHelper('formatTime', (timestamp) => timestamp.slice(11, 16));
 

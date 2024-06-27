@@ -1,6 +1,13 @@
-export type ValidateSourceType = 'login' | 'password' | 'name' | 'email' | 'phone' | 'message';
+export type ValidateSourceType =
+  | 'login'
+  | 'password'
+  | 'first_name'
+  | 'second_name'
+  | 'email'
+  | 'phone'
+  | 'message';
 
-export const validate = (type: ValidateSourceType, event = ''): boolean | undefined => {
+export const validate = (type: ValidateSourceType, event = ''): boolean => {
   const loginReg = new RegExp('^(?!\\d+$)[A-Za-z0-9_-]{3,20}$');
   const passwordReg = new RegExp('^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$');
   const nameReg = new RegExp('^[A-ZА-ЯЁ][a-zа-яё-]*$');
@@ -15,7 +22,8 @@ export const validate = (type: ValidateSourceType, event = ''): boolean | undefi
     case 'password':
       console.log('validate ---> password', passwordReg.test(event));
       return passwordReg.test(event);
-    case 'name':
+    case 'first_name':
+    case 'second_name':
       console.log('validate ---> name', nameReg.test(event));
       return nameReg.test(event);
     case 'email':
@@ -28,6 +36,6 @@ export const validate = (type: ValidateSourceType, event = ''): boolean | undefi
       console.log('validate ---> message', messageReg.test(event));
       return messageReg.test(event);
     default:
-      return undefined;
+      return false;
   }
 };

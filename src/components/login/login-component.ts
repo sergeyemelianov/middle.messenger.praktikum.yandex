@@ -1,58 +1,36 @@
 import './login-component.scss';
 import Block, { Props } from '../../core/Block';
 import Input from '../input/input-component';
-import Button from '../../components/button';
-import LoginComponentTemplate from './login-component.hbs?raw';
-import { validate } from '../../utils/validation.util';
+import Button from '../button/button-component';
+import LoginTemplate from './login-component.hbs?raw';
+import { navigate, pagesList } from '../../index';
 
-type LoginComponentProps = Props & {
+type LoginProps = Props & {
   type?: string;
 };
 
-export default class LoginComponent extends Block {
-  constructor(props: LoginComponentProps) {
+export class Login extends Block {
+  constructor(props: LoginProps) {
     super({
       ...props,
-      inputLogin: new Input({
-        type: 'text',
-        selector: 'edit',
-        label: 'Username',
-        name: 'login',
-        showLabel: true,
-        showDivider: true,
-        onChange: (e?: string): void => {
-          if (!e) {
-            return;
-          }
-          validate('login', e);
-        },
-        onBlur: (e?: string): void => {
-          if (!e) {
-            return;
-          }
-          validate('login', e);
-        },
-      }),
-      inputPassword: new Input({
-        type: 'password',
-        selector: 'edit',
-        label: 'Password',
-        name: 'password',
-        showLabel: true,
-        showDivider: true,
-        onChange: (e?: string): void => {
-          if (!e) {
-            return;
-          }
-          validate('password', e);
-        },
-        onBlur: (e?: string): void => {
-          if (!e) {
-            return;
-          }
-          validate('password', e);
-        },
-      }),
+      inputList: [
+        new Input({
+          type: 'text',
+          selector: 'edit',
+          label: 'Username',
+          name: 'login',
+          showLabel: true,
+          showDivider: true,
+        }),
+        new Input({
+          type: 'password',
+          selector: 'edit',
+          label: 'Password',
+          name: 'password',
+          showLabel: true,
+          showDivider: true,
+        }),
+      ],
       buttonConfirm: new Button({
         type: 'confirmation',
         page: 'chatboard',
@@ -62,11 +40,16 @@ export default class LoginComponent extends Block {
         type: 'link',
         page: 'signup',
         label: 'Create account',
+        events: {
+          click: () => {
+            navigate(pagesList.signup);
+          },
+        },
       }),
     });
   }
 
   render(): string {
-    return LoginComponentTemplate;
+    return LoginTemplate;
   }
 }

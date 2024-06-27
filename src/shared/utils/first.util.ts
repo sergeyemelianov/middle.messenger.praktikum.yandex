@@ -1,4 +1,4 @@
-export function first(list: Record<string, string>[]): Record<string, string> | undefined {
+export function firstUtil(list: Record<string, string>[]): Record<string, string> | undefined {
   if (!Array.isArray(list)) {
     return undefined;
   }

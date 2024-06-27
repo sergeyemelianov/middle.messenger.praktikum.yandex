@@ -1,6 +1,6 @@
-//@ts-nocheck
-import EventBus from './EventBus';
+// @ts-nocheck
 import Handlebars from 'handlebars';
+import EventBus from './EventBus';
 
 export type Props = Partial<Record<string, unknown>>;
 
@@ -13,6 +13,7 @@ export default class Block {
   };
 
   _element = null;
+
   _id = Math.floor(100000 + Math.random() * 900000);
 
   constructor(propsWithChildren = {}) {
@@ -122,7 +123,7 @@ export default class Block {
     const fragment = this._createDocumentElement('template');
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
 
-    //comment if you want to see
+    // comment if you want to see
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
       stub.replaceWith(child.getContent());
@@ -180,13 +181,5 @@ export default class Block {
 
   _createDocumentElement(tagName) {
     return document.createElement(tagName);
-  }
-
-  show() {
-    this.getContent().style.display = 'block';
-  }
-
-  hide() {
-    this.getContent().style.display = 'none';
   }
 }
