@@ -7,7 +7,7 @@ type InputProps = Props & {
   name: ValidateSourceType;
   showLabel?: boolean;
   label?: string;
-  selector: string;
+  selector?: string;
   type?: string;
   value?: string;
   placeholder?: string;

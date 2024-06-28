@@ -9,17 +9,13 @@
     {{{ component }}}
 
     <div class="profile__buttons">
-        {{#if type}}
-            {{#if (isEdit type)}}
                 {{{ buttonSave }}}
                 {{{ buttonCancel }}}
-            {{else}}
                 {{{ buttonBack }}}
-            {{/if}}
-        {{else}}
+
             {{{ buttonProfileDetailsEdit }}}
             {{{ buttonProfilePasswordEdit }}}
             {{{ buttonQuit }}}
-        {{/if}}
+
     </div>
 </form>

@@ -1,4 +1,3 @@
-export * from '../pages/auth/auth-page';
 export * from './button/button-component';
 export * from './input/input-component';
 export * from './chat-list/chat-list-component';
@@ -8,4 +7,7 @@ export * from './error/error-component';
 export * from './avatar/avatar-component';
 export * from './navigation/navigation-component';
 export * from './page-container/page-container-component';
-export * from './profile-dialog/profile-dialog-component';
+export * from './profile-details/profile-details';
+export * from './profile-details-edit/index';
+export * from './profile-details/profile-details';
+export * from './profile-password-edit/index';

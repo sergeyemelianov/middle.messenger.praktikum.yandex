@@ -1,25 +1,31 @@
-import './profile-dialog-component.scss';
+import './profile-page.scss';
 import Block, { Props } from '../../core/Block';
-import ProfileDialogTemplate from './profile-dialog-component.hbs?raw';
-import Button from '../button/button-component';
-import Avatar from '../avatar/avatar-component';
-import { UserInterface } from '../../shared/interfaces/user-interface';
+import ProfileDialogTemplate from './profile-page.hbs?raw';
+import Button from '../../components/button/button-component';
+import Avatar from '../../components/avatar/avatar-component';
+import { ProfileDetails } from '../../components/profile-details/profile-details';
+import { userData } from '../../data-chat/user-data';
 
-type ProfileDialogProps = Props & {
-  userdata?: UserInterface;
-  name?: string;
-  type?: string;
+enum ProfileOptions {
+  read = 'read',
+  editDetails = 'editDetails',
+  editPassword = 'editPassword',
+}
+
+type ProfileProps = Props & {
+  type?: ProfileOptions;
 };
 
-export default class ProfileDialog extends Block {
-  constructor(props: ProfileDialogProps) {
+export default class Profile extends Block {
+  constructor(props: ProfileProps) {
     super({
       ...props,
       avatar: new Avatar({
-        avatar: props.userdata ? props.userdata.avatar : '',
+        avatar: userData.avatar ?? '',
         size: 'big',
         name: 'avatar',
       }),
+      name: userData.name,
       buttonSave: new Button({
         type: 'confirmation',
         label: 'Save',
@@ -52,8 +58,11 @@ export default class ProfileDialog extends Block {
       }),
     });
   }
-
   render(): string {
     return ProfileDialogTemplate;
   }
 }
+
+export const ProfileDetailsPage = new Profile({
+  component: new ProfileDetails({ userdata: userData }),
+});

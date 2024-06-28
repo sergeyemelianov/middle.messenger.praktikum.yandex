@@ -17,7 +17,7 @@ type AuthPageProps = Props & {
 
 export class AuthPage extends Block {
   constructor(props: AuthPageProps) {
-    super({ ...props, component: props.component });
+    super({ ...props, type: props.type });
   }
 
   render(): string {

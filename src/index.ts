@@ -1,12 +1,13 @@
 import PageContainer, {
   PageContainerClassNameEnum,
 } from './components/page-container/page-container-component';
-import { LoginPage, SignupPage } from './pages';
+import { LoginPage, ProfileDetailsPage, SignupPage } from './pages';
 import Block from './core/Block';
 
 export const pagesList: Record<string, Block> = {
   login: LoginPage,
   signup: SignupPage,
+  profileDetails: ProfileDetailsPage,
 };
 
 export const navigate = (page: Block): void => {

@@ -46,6 +46,11 @@ export default class Navigation extends Block {
           page: 'profile',
           selector: 'nav-item',
           label: 'Profile',
+          events: {
+            click: () => {
+              navigate(pagesList.profileDetails);
+            },
+          },
         }),
         new Button({
           type: 'link',
