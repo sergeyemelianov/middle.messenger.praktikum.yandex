@@ -5,6 +5,7 @@ import Avatar from '../../components/avatar/avatar-component';
 import { userData } from '../../data-chat/user-data';
 import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
 import Button from '../../components/button/button-component';
+import { navigate, pagesList } from '../../index';
 
 type ProfileProps = Props & {};
 
@@ -22,6 +23,11 @@ export default class Profile extends Block {
         type: 'link',
         page: 'chatboard',
         label: '<- Back to chat',
+        events: {
+          click: () => {
+            navigate(pagesList.chatboard);
+          },
+        },
       }),
     });
   }

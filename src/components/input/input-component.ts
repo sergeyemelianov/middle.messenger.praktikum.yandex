@@ -4,7 +4,7 @@ import InputTemplate from './input-component.hbs?raw';
 import { ValidateSourceType } from '../../shared/utils/validation.util';
 
 type InputProps = Props & {
-  name: ValidateSourceType;
+  name?: ValidateSourceType;
   showLabel?: boolean;
   label?: string;
   selector?: string;

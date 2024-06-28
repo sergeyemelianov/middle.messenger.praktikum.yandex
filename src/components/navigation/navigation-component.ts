@@ -40,6 +40,11 @@ export default class Navigation extends Block {
           page: 'chatboard',
           selector: 'nav-item',
           label: 'Chatboard',
+          events: {
+            click: () => {
+              navigate(pagesList.chatboard);
+            },
+          },
         }),
         new Button({
           type: 'link',

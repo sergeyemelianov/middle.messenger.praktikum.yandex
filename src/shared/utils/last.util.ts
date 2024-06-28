@@ -1,4 +1,4 @@
-export function lastUtil(list: Record<string, string>[]): Record<string, string> | undefined {
+export function lastUtil(list: Record<string, any>[]): Record<string, any> | undefined {
   if (!Array.isArray(list)) {
     return undefined;
   }

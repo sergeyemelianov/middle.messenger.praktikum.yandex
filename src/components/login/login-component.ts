@@ -38,6 +38,11 @@ export class Login extends Block {
         type: 'confirmation',
         page: 'chatboard',
         label: 'Confirm',
+        events: {
+          click: () => {
+            navigate(pagesList.chatboard);
+          },
+        },
       }),
       buttonSignUp: new Button({
         type: 'link',

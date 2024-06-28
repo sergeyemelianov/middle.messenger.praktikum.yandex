@@ -53,4 +53,13 @@
     background: $light-blue-1;
     color: $white;
   }
+
+  &::after {
+    content: '';
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 2px;
+    background-color: $light-grey-4;
+  }
 }

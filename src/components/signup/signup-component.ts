@@ -90,7 +90,10 @@ export class Signup extends Block {
         page: 'chatboard',
         label: 'Confirm',
         events: {
-          submit: (event: Event) => this.submitForm(event),
+          click: (event: Event) => {
+            this.submitForm(event);
+            navigate(pagesList.chatboard);
+          },
         },
       }),
       buttonLogin: new Button({

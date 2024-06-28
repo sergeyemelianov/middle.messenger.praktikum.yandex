@@ -2,6 +2,7 @@ import PageContainer, {
   PageContainerClassNameEnum,
 } from './components/page-container/page-container-component';
 import {
+  ChatboardPage,
   LoginPage,
   ProfileDetailsEditPage,
   ProfileDetailsPage,
@@ -19,6 +20,7 @@ export const pagesList: Record<string, Block> = {
   profilePasswordEdit: ProfilePasswordEditPage,
   error5xx: Error5xx,
   error4xx: Error4xx,
+  chatboard: ChatboardPage,
 };
 
 export const navigate = (page: Block): void => {
