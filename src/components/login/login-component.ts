@@ -9,26 +9,29 @@ type LoginProps = Props & {
   type?: string;
 };
 
+const inputState = {
+  showLabel: true,
+  showDivider: true,
+};
+
 export class Login extends Block {
   constructor(props: LoginProps) {
     super({
       ...props,
       inputList: [
         new Input({
+          ...inputState,
           type: 'text',
           selector: 'edit',
           label: 'Username',
           name: 'login',
-          showLabel: true,
-          showDivider: true,
         }),
         new Input({
+          ...inputState,
           type: 'password',
           selector: 'edit',
           label: 'Password',
           name: 'password',
-          showLabel: true,
-          showDivider: true,
         }),
       ],
       buttonConfirm: new Button({

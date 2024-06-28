@@ -1,12 +1,12 @@
-import './profile-details.scss';
+import './profile-details-edit.scss';
 import Block, { Props } from '../../core/Block';
 import Input from '../input/input-component';
-import ProfileTemplate from './profile-details.hbs?raw';
-import { UserInterface } from '../../shared/interfaces/user-interface';
 import Button from '../button/button-component';
+import ProfileDetailsEditTemplate from './profile-details-edit.hbs?raw';
+import { UserInterface } from '../../shared/interfaces/user-interface';
 import { navigate, pagesList } from '../../index';
 
-type ProfileDetailsProps = Props & {
+type ProfileDetailsEditProps = Props & {
   userData?: UserInterface;
 };
 
@@ -14,75 +14,66 @@ const inputState = {
   type: 'text',
   showLabel: true,
   showDivider: true,
-  readonly: true,
 };
 
-export class ProfileDetails extends Block {
-  constructor(props: ProfileDetailsProps) {
+export class ProfileDetailsEdit extends Block {
+  constructor(props: ProfileDetailsEditProps) {
     super({
       ...props,
       inputList: [
         new Input({
           ...inputState,
-          type: 'text',
+          selector: 'edit',
           label: 'Email',
           name: 'email',
           placeholder: props.userData?.email,
+          autofocus: true,
         }),
         new Input({
           ...inputState,
+          selector: 'edit',
           label: 'Login',
           name: 'login',
           placeholder: props.userData?.login,
         }),
         new Input({
           ...inputState,
-          type: 'text',
+          selector: 'edit',
           label: 'Name',
           name: 'first_name',
           placeholder: props.userData?.first_name,
         }),
         new Input({
           ...inputState,
+          selector: 'edit',
           label: 'Second name',
           name: 'second_name',
           placeholder: props.userData?.second_name,
         }),
         new Input({
           ...inputState,
+          selector: 'edit',
           label: 'Phone number',
           name: 'phone',
           placeholder: props.userData?.phone,
         }),
       ],
-      buttonProfileDetailsEdit: new Button({
-        type: 'link',
-        page: 'profile_details_edit',
-        label: 'Change details',
+      buttonSave: new Button({
+        type: 'confirmation',
+        label: 'Save',
         events: {
           click: () => {
-            navigate(pagesList.profileDetailsEdit);
+            navigate(pagesList.profileDetails);
           },
         },
       }),
-      buttonProfilePasswordEdit: new Button({
-        type: 'link',
-        page: 'profile_password_edit',
-        label: 'Change password',
+      buttonCancel: new Button({
+        page: 'profile',
+        type: 'confirmation',
+        label: 'Cancel',
         events: {
           click: () => {
-            navigate(pagesList.profilePasswordEdit);
-          },
-        },
-      }),
-      buttonQuit: new Button({
-        type: 'link',
-        page: 'login',
-        selector: 'danger',
-        label: 'Quit',
-        events: {
-          click: () => {
-            navigate(pagesList.login);
+            navigate(pagesList.profileDetails);
           },
         },
       }),
@@ -90,6 +81,6 @@ export class ProfileDetails extends Block {
   }
 
   render(): string {
-    return ProfileTemplate;
+    return ProfileDetailsEditTemplate;
   }
 }

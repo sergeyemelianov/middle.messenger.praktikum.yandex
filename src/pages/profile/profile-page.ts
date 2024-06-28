@@ -1,20 +1,12 @@
 import './profile-page.scss';
 import Block, { Props } from '../../core/Block';
 import ProfileDialogTemplate from './profile-page.hbs?raw';
-import Button from '../../components/button/button-component';
 import Avatar from '../../components/avatar/avatar-component';
-import { ProfileDetails } from '../../components/profile-details/profile-details';
 import { userData } from '../../data-chat/user-data';
+import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
+import Button from '../../components/button/button-component';
 
-enum ProfileOptions {
-  read = 'read',
-  editDetails = 'editDetails',
-  editPassword = 'editPassword',
-}
-
-type ProfileProps = Props & {
-  type?: ProfileOptions;
-};
+type ProfileProps = Props & {};
 
 export default class Profile extends Block {
   constructor(props: ProfileProps) {
@@ -26,35 +18,10 @@ export default class Profile extends Block {
         name: 'avatar',
       }),
       name: userData.name,
-      buttonSave: new Button({
-        type: 'confirmation',
-        label: 'Save',
-      }),
-      buttonCancel: new Button({
-        page: 'profile',
-        type: 'confirmation',
-        label: 'Cancel',
-      }),
       buttonBack: new Button({
-        type: 'confirmation',
+        type: 'link',
         page: 'chatboard',
-        label: 'Back to chatboard',
-      }),
-      buttonProfileDetailsEdit: new Button({
-        type: 'link',
-        page: 'profile_details_edit',
-        label: 'Change details',
-      }),
-      buttonProfilePasswordEdit: new Button({
-        type: 'link',
-        page: 'profile_password_edit',
-        label: 'Change password',
-      }),
-      buttonQuit: new Button({
-        type: 'link',
-        page: 'login',
-        selector: 'danger',
-        label: 'Quit',
+        label: '<- Back to chat',
       }),
     });
   }
@@ -64,5 +31,13 @@ export default class Profile extends Block {
 }
 
 export const ProfileDetailsPage = new Profile({
-  component: new ProfileDetails({ userdata: userData }),
+  component: new ProfileDetails({ userData: userData }),
+});
+
+export const ProfileDetailsEditPage = new Profile({
+  component: new ProfileDetailsEdit({ userData: userData }),
+});
+
+export const ProfilePasswordEditPage = new Profile({
+  component: new ProfilePasswordEdit({ userData: userData }),
 });

@@ -57,24 +57,44 @@ export default class Navigation extends Block {
           page: 'profile_details_edit',
           selector: 'nav-item',
           label: 'Edit user',
+          events: {
+            click: () => {
+              navigate(pagesList.profileDetailsEdit);
+            },
+          },
         }),
         new Button({
           type: 'link',
           page: 'profile_password_edit',
           selector: 'nav-item',
           label: 'Edit password',
+          events: {
+            click: () => {
+              navigate(pagesList.profilePasswordEdit);
+            },
+          },
         }),
         new Button({
           type: 'link',
           page: 'error4xx',
           selector: 'nav-item',
           label: '4xx',
+          events: {
+            click: () => {
+              navigate(pagesList.error4xx);
+            },
+          },
         }),
         new Button({
           type: 'link',
           page: 'error5xx',
           selector: 'nav-item',
           label: '5xx',
+          events: {
+            click: () => {
+              navigate(pagesList.error5xx);
+            },
+          },
         }),
       ],
     });

@@ -1,11 +1,7 @@
-{{#> PageContainer}}
-    {{#> ProfileDialog type='edit'}}
-        <div class="profile__details">
-            {{> Input type='text' selector='edit' label='Email' name='email' showLabel='true' showDivider='true' value=userData.email autofocus=true required=true}}
-            {{> Input type='text' selector='edit' label='Login' name='login' showLabel='true' showDivider='true' value=userData.login required=true}}
-            {{> Input type='text' selector='edit' label='Name' name='first_name' showLabel='true' showDivider='true' value=userData.first_name required=true}}
-            {{> Input type='text' selector='edit' label='Second name' name='second_name' showLabel='true' showDivider='true' value=userData.second_name required=true}}
-            {{> Input type='tel' selector='edit' label='Phone number' name='phone' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" showLabel='true' showDivider='true' value=userData.phone required=true placeholder='123-456-7890'}}
-        </div>
-    {{/ ProfileDialog}}
-{{/ PageContainer}}
+<form class="profile__details">
+  {{{ inputList }}}
+  <div class="profile__buttons">
+    {{{ buttonSave }}}
+    {{{ buttonCancel }}}
+  </div>
+</form>
