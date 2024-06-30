@@ -6,6 +6,7 @@ import { userData } from '../../data-chat/user-data';
 import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
 import Button from '../../components/button/button-component';
 import { navigate, pagesList } from '../../index';
+import { Form } from '../../components/form/form-component';
 
 type ProfileProps = Props & {};
 
@@ -20,7 +21,7 @@ export default class Profile extends Block {
       }),
       name: userData.name,
       buttonBack: new Button({
-        type: 'link',
+        view: 'link',
         page: 'chatboard',
         label: '<- Back to chat',
         events: {
@@ -37,13 +38,13 @@ export default class Profile extends Block {
 }
 
 export const ProfileDetailsPage = new Profile({
-  component: new ProfileDetails({ userData: userData }),
+  component: new Form({ form: new ProfileDetails({ userData: userData }) }),
 });
 
 export const ProfileDetailsEditPage = new Profile({
-  component: new ProfileDetailsEdit({ userData: userData }),
+  component: new Form({ form: new ProfileDetailsEdit({ userData: userData }) }),
 });
 
 export const ProfilePasswordEditPage = new Profile({
-  component: new ProfilePasswordEdit({ userData: userData }),
+  component: new Form({ form: new ProfilePasswordEdit({ userData: userData }) }),
 });

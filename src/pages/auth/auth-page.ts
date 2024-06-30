@@ -3,6 +3,7 @@ import Block, { Props } from '../../core/Block';
 import AuthComponentTemplate from './auth-page.hbs?raw';
 import { Login } from '../../components/login/login-component';
 import { Signup } from '../../components/signup/signup-component';
+import { Form } from '../../components/form/form-component';
 
 export type AuthOptions = AuthEnum;
 
@@ -27,10 +28,14 @@ export class AuthPage extends Block {
 
 export const LoginPage = new AuthPage({
   type: AuthEnum.login,
-  component: new Login({ type: AuthEnum.login }),
+  component: new Form({
+    form: new Login({ type: AuthEnum.login }),
+  }),
 });
 
 export const SignupPage = new AuthPage({
   type: AuthEnum.signup,
-  component: new Signup({ type: AuthEnum.signup }),
+  component: new Form({
+    form: new Signup({ type: AuthEnum.signup }),
+  }),
 });

@@ -22,7 +22,7 @@ export class Chat extends Block {
       emptyStateText: 'Choose chat to send a message',
       userName: props.message.participant.name,
       buttonAttachFile: new Button({
-        type: 'no-text',
+        view: 'no-text',
         iconName: 'attach-file',
       }),
       messages: props.message.conversation.map((el: Record<string, any>) => {
@@ -39,7 +39,7 @@ export class Chat extends Block {
         placeholder: 'Type a message',
       }),
       buttonSend: new Button({
-        type: 'confirmation',
+        view: 'confirmation',
         iconName: 'arrow-confirm',
       }),
     });

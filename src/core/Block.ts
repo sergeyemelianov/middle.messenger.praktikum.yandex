@@ -12,7 +12,15 @@ export default class Block {
     FLOW_RENDER: 'flow:render',
   };
 
-  _element = null;
+  public children: Record<string, Block>;
+
+  public lists: Record<string, Block[]>;
+
+  private _element: HTMLElement = null;
+
+  private eventBus: () => EventBus;
+
+  props: P;
 
   _id = Math.floor(100000 + Math.random() * 900000);
 

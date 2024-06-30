@@ -7,6 +7,8 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  margin-bottom: 20px;
+  position: relative;
 
   &__label {
     @include text-11();
@@ -46,6 +48,14 @@
     box-sizing: border-box;
     margin-top: 0;
   }
+
+  &__error {
+    position: absolute;
+    top: 46px;
+    left: 2px;
+    @include text-9();
+    color: $red-1;
+  }
 }
 
 .input {
@@ -60,9 +70,5 @@
   &:focus-visible,
   &:active {
     outline: none;
-  }
-
-  &:invalid {
-    outline: 2px solid $red-1;
   }
 }

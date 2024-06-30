@@ -1,0 +1,6 @@
+@import '../../assets/styles/mixins';
+
+.form {
+  @include display-flex-center();
+  width: 100%;
+}

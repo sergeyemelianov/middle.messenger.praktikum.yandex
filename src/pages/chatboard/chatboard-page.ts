@@ -16,7 +16,7 @@ export class Chatboard extends Block {
     super({
       ...props,
       buttonProfile: new Button({
-        type: 'secondary',
+        view: 'secondary',
         label: 'Profile',
         page: 'profile',
         iconName: 'arrow-right',

@@ -3,9 +3,8 @@ import Block, { Props } from '../../core/Block';
 import InputTemplate from './input-component.hbs?raw';
 import { ValidateSourceType } from '../../shared/utils/validation.util';
 
-type InputProps = Props & {
+export type InputProps = Props & {
   name?: ValidateSourceType;
-  showLabel?: boolean;
   label?: string;
   selector?: string;
   type?: string;
@@ -16,8 +15,7 @@ type InputProps = Props & {
   required?: boolean;
   showDivider?: boolean;
   page?: string;
-  onChange?: (value: string) => void;
-  onBlur?: (value: string) => void;
+  error?: string;
 };
 
 export default class Input extends Block {

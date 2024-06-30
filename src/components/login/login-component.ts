@@ -10,7 +10,6 @@ type LoginProps = Props & {
 };
 
 const inputState = {
-  showLabel: true,
   showDivider: true,
 };
 
@@ -35,17 +34,13 @@ export class Login extends Block {
         }),
       ],
       buttonConfirm: new Button({
-        type: 'confirmation',
+        type: 'submit',
+        view: 'confirmation',
         page: 'chatboard',
         label: 'Confirm',
-        events: {
-          click: () => {
-            navigate(pagesList.chatboard);
-          },
-        },
       }),
       buttonSignUp: new Button({
-        type: 'link',
+        view: 'link',
         page: 'signup',
         label: 'Create account',
         events: {

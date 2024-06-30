@@ -12,7 +12,6 @@ type ProfileDetailsProps = Props & {
 
 const inputState = {
   type: 'text',
-  showLabel: true,
   showDivider: true,
   readonly: true,
 };
@@ -56,7 +55,7 @@ export class ProfileDetails extends Block {
         }),
       ],
       buttonProfileDetailsEdit: new Button({
-        type: 'link',
+        view: 'link',
         page: 'profile_details_edit',
         label: 'Change details',
         events: {
@@ -66,7 +65,7 @@ export class ProfileDetails extends Block {
         },
       }),
       buttonProfilePasswordEdit: new Button({
-        type: 'link',
+        view: 'link',
         page: 'profile_password_edit',
         label: 'Change password',
         events: {
@@ -76,7 +75,7 @@ export class ProfileDetails extends Block {
         },
       }),
       buttonQuit: new Button({
-        type: 'link',
+        view: 'link',
         page: 'login',
         selector: 'danger',
         label: 'Quit',

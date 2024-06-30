@@ -12,7 +12,7 @@ export default class Error extends Block {
     super({
       ...props,
       buttonBack: new Button({
-        type: 'link',
+        view: 'link',
         page: 'chatboard',
         label: '<- Back to chat',
         events: {

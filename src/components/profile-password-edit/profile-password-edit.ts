@@ -12,7 +12,6 @@ type ProfilePasswordEditProps = Props & {
 
 const inputState = {
   type: 'password',
-  showLabel: true,
   showDivider: true,
 };
 
@@ -33,26 +32,15 @@ export class ProfilePasswordEdit extends Block {
           label: 'New password',
           name: 'password',
         }),
-        new Input({
-          ...inputState,
-          selector: 'edit',
-          label: 'Repeat new password',
-          name: 'password',
-        }),
       ],
       buttonSave: new Button({
-        type: 'confirmation',
+        type: 'submit',
+        view: 'confirmation',
         label: 'Save',
-        events: {
-          click: () => {
-            navigate(pagesList.profileDetails);
-          },
-        },
       }),
       buttonCancel: new Button({
-        page: 'profile',
-        type: 'confirmation',
-        label: 'Cancel',
+        view: 'confirmation',
+        label: 'Save',
         events: {
           click: () => {
             navigate(pagesList.profileDetails);

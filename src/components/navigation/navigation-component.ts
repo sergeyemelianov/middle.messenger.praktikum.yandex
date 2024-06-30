@@ -14,7 +14,7 @@ export default class Navigation extends Block {
       ...props,
       navs: [
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'login',
           selector: 'nav-item',
           label: 'Login',
@@ -25,7 +25,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'signup',
           selector: 'nav-item',
           label: 'Signup',
@@ -36,7 +36,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'chatboard',
           selector: 'nav-item',
           label: 'Chatboard',
@@ -47,7 +47,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'profile',
           selector: 'nav-item',
           label: 'Profile',
@@ -58,7 +58,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'profile_details_edit',
           selector: 'nav-item',
           label: 'Edit user',
@@ -69,7 +69,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'profile_password_edit',
           selector: 'nav-item',
           label: 'Edit password',
@@ -80,7 +80,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'error4xx',
           selector: 'nav-item',
           label: '4xx',
@@ -91,7 +91,7 @@ export default class Navigation extends Block {
           },
         }),
         new Button({
-          type: 'link',
+          view: 'link',
           page: 'error5xx',
           selector: 'nav-item',
           label: '5xx',

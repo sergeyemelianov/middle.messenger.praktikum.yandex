@@ -12,7 +12,6 @@ type ProfileDetailsEditProps = Props & {
 
 const inputState = {
   type: 'text',
-  showLabel: true,
   showDivider: true,
 };
 
@@ -59,17 +58,12 @@ export class ProfileDetailsEdit extends Block {
         }),
       ],
       buttonSave: new Button({
-        type: 'confirmation',
+        type: 'submit',
+        view: 'confirmation',
         label: 'Save',
-        events: {
-          click: () => {
-            navigate(pagesList.profileDetails);
-          },
-        },
       }),
       buttonCancel: new Button({
-        page: 'profile',
-        type: 'confirmation',
+        view: 'confirmation',
         label: 'Cancel',
         events: {
           click: () => {
