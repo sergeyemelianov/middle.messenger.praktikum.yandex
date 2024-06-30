@@ -31,6 +31,7 @@
     "scss": "^0.2.4",
     "stylelint": "^16.6.1",
     "stylelint-scss": "^6.3.2",
+    "typescript": "^5.5.2",
     "vite": "^5.2.0",
     "vite-plugin-checker": "^0.6.4",
     "vite-plugin-static-copy": "^1.0.5"
