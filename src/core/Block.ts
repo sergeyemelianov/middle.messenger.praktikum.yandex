@@ -179,7 +179,7 @@ export default class Block<P extends Record<string, any> = any> {
   _makePropsProxy(props: any) {
     const self = this;
 
-    return new Proxy(props, {
+    const proxy = new Proxy(props, {
       get(target, prop: any) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
@@ -194,6 +194,8 @@ export default class Block<P extends Record<string, any> = any> {
         throw new Error('No access');
       },
     });
+
+    return proxy;
   }
 
   _createDocumentElement(tagName: string) {
