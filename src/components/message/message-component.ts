@@ -2,9 +2,10 @@ import './message-component.scss';
 import Block, { Props } from '../../core/Block';
 import MessageTemplate from './message-component.hbs?raw';
 import { userData } from '../../data-chat/user-data';
+import { MessageType } from '../chat-list-item/chat-list-item-component';
 
 type MessageProps = Props & {
-  message: Record<string, any>;
+  message: MessageType;
   timestamp: string;
   userId: number;
 };

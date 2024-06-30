@@ -1,34 +1,22 @@
 {
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "env": {
+    "es6": true,
     "browser": true,
     "node": true
   },
-  "extends": ["eslint:recommended"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier", "import"],
   "rules": {
     "max-len": [2, 100],
-    "@typescript-eslint/no-unused-vars": 2,
-    "import/prefer-default-export": "off",
-    "import/extensions": [
-      "error",
-      "always",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "no-console": "off"
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {},
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["src/", "node_modules"]
-      }
-    }
+    "@typescript-eslint/no-unused-vars": 2
   }
 }

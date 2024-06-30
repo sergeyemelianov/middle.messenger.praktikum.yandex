@@ -14,7 +14,7 @@ export class Form extends Block {
       events: {
         submit: (event: SubmitEvent) => {
           event?.preventDefault();
-          this.children.form.lists.inputList.forEach((list: Record<string, any>) => {
+          this.children.form.lists.inputList.forEach((list: Block) => {
             const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
               ?.value;
             const validation = validate(list.props?.name, val);

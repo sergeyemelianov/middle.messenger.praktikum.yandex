@@ -1,4 +1,6 @@
-export function lastUtil(list: Record<string, any>[]): Record<string, any> | undefined {
+import { Conversation } from '../../components';
+
+export function lastUtil(list: Conversation[]): Conversation | undefined {
   if (!Array.isArray(list)) {
     return undefined;
   }

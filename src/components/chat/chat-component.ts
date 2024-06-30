@@ -5,9 +5,10 @@ import Avatar from '../avatar/avatar-component';
 import Button from '../button/button-component';
 import Input from '../input/input-component';
 import { Message } from '../message/message-component';
+import { ChatType, Conversation } from '../chat-list-item/chat-list-item-component';
 
 type ChatProps = Props & {
-  message: Record<string, any>;
+  message: ChatType;
 };
 
 export class Chat extends Block {
@@ -26,7 +27,7 @@ export class Chat extends Block {
         iconName: 'attach-file',
       }),
       messages: props.message.conversation.map(
-        (el: Record<string, any>) =>
+        (el: Conversation) =>
           new Message({
             userId: el.userId,
             message: el.message,

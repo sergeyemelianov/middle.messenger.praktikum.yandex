@@ -188,26 +188,23 @@ export default class Block<P extends Record<string, any> = any> {
     return this.element;
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: Props) {
     const self = this;
+    return new Proxy(props, {
+      set(target: any, prop: string, newValue) {
+        if (prop.indexOf('_') === 0) {
+          throw new Error('No access');
+        }
 
-    const proxy = new Proxy(props, {
-      get(target, prop: any) {
-        const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
-      },
-      set(target, prop: any, value) {
-        const oldTarget = { ...target };
-        target[prop] = value;
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        target[prop] = newValue;
+        self.eventBus().emit(Block.EVENTS.INIT);
+
         return true;
       },
       deleteProperty() {
         throw new Error('No access');
       },
     });
-
-    return proxy;
   }
 
   _createDocumentElement(tagName: string) {

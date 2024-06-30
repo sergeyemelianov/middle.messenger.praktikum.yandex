@@ -33,7 +33,7 @@ export const navigate = (page: Block): void => {
         : '',
   });
 
-  const container: HTMLElement = document.getElementById('app')!;
+  const container: HTMLElement = document.getElementById('app') as HTMLElement;
   container.innerHTML = '';
   container.append(pageContainer.getContent()!);
 };

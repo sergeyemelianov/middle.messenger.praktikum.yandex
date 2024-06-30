@@ -7,23 +7,21 @@ enum METHODS {
 
 type HTTPOptions = {
   method: METHODS;
-  data?: any;
+  data?: [string, string][];
   headers?: Record<string, string>;
   timeout?: number;
 };
 
 type HTTPMethodType = (url: string, options: HTTPOptions) => Promise<XMLHttpRequest>;
 
-function queryStringify(data: { [key: string | number]: string }) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
+function queryStringify(data: [string, string][]) {
+  let result = '?';
+
+  for (const [key, value] of Object.entries(data)) {
+    result += `${key}=${value.toString()}&`;
   }
 
-  const keys = Object.keys(data);
-  return keys.reduce(
-    (result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`,
-    '?',
-  );
+  return result.slice(0, result.length - 1);
 }
 
 export default class HTTPTransport {
@@ -70,7 +68,7 @@ export default class HTTPTransport {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
   };

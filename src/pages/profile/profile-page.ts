@@ -8,7 +8,7 @@ import Button from '../../components/button/button-component';
 import { navigate, pagesList } from '../../index';
 import { Form } from '../../components/form/form-component';
 
-type ProfileProps = Props & {};
+type ProfileProps = Props;
 
 export default class Profile extends Block {
   constructor(props: ProfileProps) {

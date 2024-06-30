@@ -1,4 +1,6 @@
-export function firstUtil(list: Record<string, any>[]): Record<string, any> | undefined {
+import { ChatType } from '../../components';
+
+export function firstUtil(list: ChatType[]): ChatType | undefined {
   if (!Array.isArray(list)) {
     return undefined;
   }
