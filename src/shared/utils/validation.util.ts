@@ -11,7 +11,7 @@ const errors = {
   first_name:
     'Латиница или кириллица, первая заглавная, без пробелов, цифр, спецсимволов (можно "-")',
   login:
-    '3-20 символов, латиница, цифры, но не состоять из них, без пробелов, спецсимволов (можно "-" и "_")',
+    '3-20 символов, латиница, цифры, без пробелов, спецсимволов (можно "-" и "_")',
   email: 'Латиница, можно цифры, можно "-" и "_", содержит @',
   password: 'от 8 до 40 символов, одна заглавная буква и цифра',
   phone: '10-15 символов, только цифры, может начинается с плюса',
@@ -22,7 +22,7 @@ export const validate = (type: ValidateSourceType, event = ''): string => {
   const loginReg = new RegExp('^(?!\\d+$)[A-Za-z0-9_-]{3,20}$');
   const passwordReg = new RegExp('^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$');
   const nameReg = new RegExp('^[A-ZА-ЯЁ][a-zа-яё-]*$');
-  const emailReg = new RegExp('^[A-Za-z0-9_-]+@[A-Za-z]+(\\.[A-Za-z]+)+$\n');
+  const emailReg = new RegExp('.+@.+\\..+');
   const phoneReg = new RegExp('^\\+?\\d{10,15}$');
   const messageReg = new RegExp('^.+$');
 
