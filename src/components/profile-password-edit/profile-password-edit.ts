@@ -40,7 +40,7 @@ export class ProfilePasswordEdit extends Block {
       }),
       buttonCancel: new Button({
         view: 'confirmation',
-        label: 'Save',
+        label: 'Cancel',
         events: {
           click: () => {
             navigate(pagesList.profileDetails);
