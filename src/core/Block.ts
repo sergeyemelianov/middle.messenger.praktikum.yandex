@@ -59,7 +59,9 @@ export default class Block<P extends Record<string, any> = any> {
     });
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+
+  }
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
