@@ -32,19 +32,20 @@ export default class Profile extends Block {
       }),
     });
   }
+
   render(): string {
     return ProfileDialogTemplate;
   }
 }
 
 export const ProfileDetailsPage = new Profile({
-  component: new Form({ form: new ProfileDetails({ userData: userData }) }),
+  component: new Form({ form: new ProfileDetails({ userData }) }),
 });
 
 export const ProfileDetailsEditPage = new Profile({
-  component: new Form({ form: new ProfileDetailsEdit({ userData: userData }) }),
+  component: new Form({ form: new ProfileDetailsEdit({ userData }) }),
 });
 
 export const ProfilePasswordEditPage = new Profile({
-  component: new Form({ form: new ProfilePasswordEdit({ userData: userData }) }),
+  component: new Form({ form: new ProfilePasswordEdit({ userData }) }),
 });

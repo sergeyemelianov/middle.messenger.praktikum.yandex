@@ -8,9 +8,10 @@ import {
   ProfileDetailsPage,
   ProfilePasswordEditPage,
   SignupPage,
+  Error4xx,
+  Error5xx,
 } from './pages';
 import Block from './core/Block';
-import { Error4xx, Error5xx } from './pages';
 
 export const pagesList: Record<string, Block> = {
   login: LoginPage,

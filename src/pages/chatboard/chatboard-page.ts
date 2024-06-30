@@ -8,6 +8,7 @@ import { messages } from '../../data-chat/messages';
 import { firstUtil } from '../../shared/utils/first.util';
 import { lastUtil } from '../../shared/utils/last.util';
 import { navigate, pagesList } from '../../index';
+import { Form } from '../../components/form/form-component';
 
 type ChatboardProps = Props & {};
 
@@ -32,19 +33,17 @@ export class Chatboard extends Block {
         selector: 'search',
         placeholder: 'Search',
       }),
-      chat: new Chat({
-        message: firstUtil(messages) ?? {},
-      }),
       chatList: new ChatList({
-        messages: messages.map((el) => {
-          return new ChatListItem({
-            id: el.chatId,
-            conversation: lastUtil(el.conversation) ?? {},
-            unreadMessages: el.conversation.filter(
-              (elem: Record<string, any>) => !elem.message.isRead,
-            ).length,
-          });
-        }),
+        messages: messages.map(
+          (el) =>
+            new ChatListItem({
+              id: el.chatId,
+              conversation: lastUtil(el.conversation) ?? {},
+              unreadMessages: el.conversation.filter(
+                (elem: Record<string, any>) => !elem.message.isRead,
+              ).length,
+            }),
+        ),
       }),
     });
   }
@@ -54,4 +53,6 @@ export class Chatboard extends Block {
   }
 }
 
-export const ChatboardPage = new Chatboard({});
+export const ChatboardPage = new Chatboard({
+  chat: new Form({ form: new Chat({ message: firstUtil(messages) ?? {} }) }),
+});

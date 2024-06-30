@@ -28,40 +28,34 @@ export const validate = (type: ValidateSourceType, event = ''): string => {
 
   switch (type) {
     case 'login':
-      console.log('validate ---> login', loginReg.test(event));
       if (!loginReg.test(event)) {
         return errors.login;
       }
       return '';
     case 'password':
-      console.log('validate ---> password', passwordReg.test(event));
       if (!passwordReg.test(event)) {
         return errors.password;
       }
       return '';
     case 'first_name':
     case 'second_name':
-      console.log('validate ---> name', nameReg.test(event));
       if (!nameReg.test(event)) {
         return errors.first_name;
       }
       return '';
     case 'email':
-      console.log('validate ---> email', emailReg.test(event));
       if (!emailReg.test(event)) {
         return errors.email;
       }
       return '';
     case 'phone':
-      console.log('validate ---> phone', phoneReg.test(event));
       if (!phoneReg.test(event)) {
         return errors.phone;
       }
       return '';
     case 'message':
-      console.log('validate ---> message', messageReg.test(event));
       if (!messageReg.test(event)) {
-        return errors.phone;
+        return errors.message;
       }
       return '';
     default:

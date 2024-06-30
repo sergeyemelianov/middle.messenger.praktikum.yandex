@@ -1,12 +1,20 @@
-// @ts-nocheck
-const METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE',
+enum METHODS {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
+type HTTPOptions = {
+  method: METHODS;
+  data?: any;
+  headers?: Record<string, string>;
+  timeout?: number;
 };
 
-function queryStringify(data) {
+type HTTPMethodType = (url: string, options: HTTPOptions) => Promise<XMLHttpRequest>;
+
+function queryStringify(data: { [key: string | number]: string }) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
@@ -19,19 +27,19 @@ function queryStringify(data) {
 }
 
 export default class HTTPTransport {
-  get = (url, options = {}) =>
+  get: HTTPMethodType = (url, options) =>
     this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  post = (url, options = {}) =>
+  post: HTTPMethodType = (url: string, options) =>
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  put = (url, options = {}) =>
+  put: HTTPMethodType = (url: string, options) =>
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  delete = (url, options = {}) =>
+  delete: HTTPMethodType = (url: string, options) =>
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  request = (url, options = {}, timeout = 5000) => {
+  request = (url: string, options: HTTPOptions, timeout = 5000): Promise<XMLHttpRequest> => {
     const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {

@@ -25,20 +25,24 @@ export class Chat extends Block {
         view: 'no-text',
         iconName: 'attach-file',
       }),
-      messages: props.message.conversation.map((el: Record<string, any>) => {
-        return new Message({
-          userId: el.userId,
-          message: el.message,
-          timestamp: el.timestamp.slice(11, 16),
-        });
-      }),
-      messageInput: new Input({
-        name: 'message',
-        type: 'text',
-        selector: 'message',
-        placeholder: 'Type a message',
-      }),
+      messages: props.message.conversation.map(
+        (el: Record<string, any>) =>
+          new Message({
+            userId: el.userId,
+            message: el.message,
+            timestamp: el.timestamp.slice(11, 16),
+          }),
+      ),
+      inputList: [
+        new Input({
+          name: 'message',
+          type: 'text',
+          selector: 'message',
+          placeholder: 'Type a message',
+        }),
+      ],
       buttonSend: new Button({
+        type: 'submit',
         view: 'confirmation',
         iconName: 'arrow-confirm',
       }),
