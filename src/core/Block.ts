@@ -31,7 +31,7 @@ export default class Block<P extends Record<string, any> = any> {
     this.lists = lists;
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT, this.props);
+    eventBus.emit(Block.EVENTS.INIT);
   }
 
   _addEvents() {
@@ -44,7 +44,6 @@ export default class Block<P extends Record<string, any> = any> {
   _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    // @ts-expect-errorx
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
@@ -156,6 +155,7 @@ export default class Block<P extends Record<string, any> = any> {
       const stub = fragment.content.querySelector(`[data-id="__l_${_tmpId}"]`);
       stub?.replaceWith(listCont.content);
     });
+    this._removeEvents();
 
     const newElement = fragment.content.firstElementChild;
     if (newElement instanceof Element) {
@@ -170,6 +170,18 @@ export default class Block<P extends Record<string, any> = any> {
 
   render(): string {
     return '';
+  }
+
+  _removeEvents() {
+    const { events } = this.props as any;
+
+    if (!events || !this._element) {
+      return;
+    }
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]);
+    });
   }
 
   getContent() {

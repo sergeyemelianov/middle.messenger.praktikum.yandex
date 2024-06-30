@@ -1,11 +1,11 @@
 export default class EventBus {
-  private readonly listeners: Record<string, Array<() => void>>;
+  private readonly listeners: Record<string, Function[]>;
 
   constructor() {
     this.listeners = {};
   }
 
-  on(event: string | number, callback: () => void) {
+  on(event: string | number, callback: Function) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -13,7 +13,7 @@ export default class EventBus {
     this.listeners[event].push(callback);
   }
 
-  off(event: string | number, callback: () => void) {
+  off(event: string | number, callback: Function) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
@@ -21,13 +21,12 @@ export default class EventBus {
     this.listeners[event] = this.listeners[event].filter((listener) => listener !== callback);
   }
 
-  emit(event: string | number, ...args: unknown[]) {
+  emit(event: string | number, ...args: number[]) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
 
     this.listeners[event].forEach((listener) => {
-      // @ts-expect-error
       listener(...args);
     });
   }
