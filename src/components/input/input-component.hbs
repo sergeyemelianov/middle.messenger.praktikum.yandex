@@ -3,14 +3,7 @@
         <label class="input-component__label" for="{{name}}">{{label}}</label>
     {{/if}}
 
-    <input class="input input-component__{{selector}}"
-        {{#if type}} type="{{type}}" {{/if}}
-        {{#if name}} name="{{name}}" id="{{name}}" {{/if}}
-        {{#if value}} value="{{value}}" {{/if}}
-        {{#if placeholder}} placeholder="{{placeholder}}" {{/if}}
-        {{#if readonly}} readonly {{/if}}
-        {{#if autofocus}} autofocus {{/if}}
-    />
+    {{{ inputField }}}
 
     {{#if showDivider}}
         <hr class="input-component__divider">
@@ -19,6 +12,6 @@
     {{#if error}}
       <div class="input-component__error">
         {{ error }}
-      <div>
+      </div>
     {{/if}}
 </div>

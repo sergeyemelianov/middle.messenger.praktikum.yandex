@@ -1,4 +1,4 @@
-import Block from "../../core/Block";
+import Block from '../../core/Block';
 
 export type ValidateSourceType =
   | 'login'
@@ -19,7 +19,11 @@ const errors = {
   message: 'Пустой текст',
 };
 
-export const validate = (type: ValidateSourceType, event = ''): string => {
+export const validate = (type: ValidateSourceType | undefined, event = ''): string => {
+  if (!type) {
+    return '';
+  }
+
   const loginReg = new RegExp('^(?!\\d+$)[A-Za-z0-9_-]{3,20}$');
   const passwordReg = new RegExp('^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,40}$');
   const nameReg = new RegExp('^[A-ZА-ЯЁ][a-zа-яё-]*$');
@@ -65,6 +69,5 @@ export const validate = (type: ValidateSourceType, event = ''): string => {
 };
 
 export const formIsValid = (form: Block[]): boolean => {
-  return form.every(
-    (element: Block) => !element.props.error);
-}
+  return form.every((element: Block) => !element.props.error);
+};

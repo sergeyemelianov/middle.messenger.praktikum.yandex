@@ -155,7 +155,7 @@ export default class Block<P extends Record<string, any> = any> {
       const stub = fragment.content.querySelector(`[data-id="__l_${_tmpId}"]`);
       stub?.replaceWith(listCont.content);
     });
-    this._removeEvents();
+    // this._removeEvents();
 
     const newElement = fragment.content.firstElementChild;
     if (newElement instanceof Element) {
