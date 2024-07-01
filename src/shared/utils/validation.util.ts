@@ -1,3 +1,5 @@
+import Block from "../../core/Block";
+
 export type ValidateSourceType =
   | 'login'
   | 'password'
@@ -61,3 +63,8 @@ export const validate = (type: ValidateSourceType, event = ''): string => {
       return '';
   }
 };
+
+export const formIsValid = (form: Block[]): boolean => {
+  return form.every(
+    (element: Block) => !element.props.error);
+}

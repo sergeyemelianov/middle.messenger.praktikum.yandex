@@ -59,9 +59,7 @@ export default class Block<P extends Record<string, any> = any> {
     });
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -192,15 +190,16 @@ export default class Block<P extends Record<string, any> = any> {
 
   _makePropsProxy(props: Props) {
     const self = this;
+
     return new Proxy(props, {
-      set(target: any, prop: string, newValue) {
-        if (prop.indexOf('_') === 0) {
-          throw new Error('No access');
-        }
-
-        target[prop] = newValue;
-        self.eventBus().emit(Block.EVENTS.INIT);
-
+      get(target: any, prop: string) {
+        const value = target[prop];
+        return typeof value === 'function' ? value.bind(target) : value;
+      },
+      set(target: any, prop: string, value) {
+        const oldTarget = { ...target };
+        target[prop] = value;
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
       deleteProperty() {
