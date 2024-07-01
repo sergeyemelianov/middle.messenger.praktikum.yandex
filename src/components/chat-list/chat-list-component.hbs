@@ -1,8 +1,3 @@
 <ul class="chat-list">
-    {{#each messages}}
-        {{#with this}}
-            <hr class="chat-list__divider">
-            {{> ChatListItem id=chatId conversation=conversation}}
-        {{/with}}
-    {{/each}}
+      {{{ messages }}}
 </ul>

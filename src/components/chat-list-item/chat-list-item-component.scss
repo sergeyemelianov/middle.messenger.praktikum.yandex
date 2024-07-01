@@ -1,5 +1,5 @@
-@import "../../assets/styles/variables";
-@import "../../assets/styles/mixins";
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
 
 .chat-list-item {
   @include display-flex-start();
@@ -49,8 +49,17 @@
     border-radius: 50%;
     position: absolute;
     right: 2px;
-    top:22px;
+    top: 22px;
     background: $light-blue-1;
     color: $white;
+  }
+
+  &::after {
+    content: '';
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 2px;
+    background-color: $light-grey-4;
   }
 }

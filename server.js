@@ -7,6 +7,6 @@ const server = http.createServer(app);
 
 app.use(express.static('./dist'));
 
-server.listen(port, function () {
+server.listen(port, () => {
     console.log(`Server on port ${port}!`);
 });

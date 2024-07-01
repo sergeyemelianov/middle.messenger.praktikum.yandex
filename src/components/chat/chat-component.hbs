@@ -1,59 +1,38 @@
 <div class="chat">
-    {{#if isActive}}
-        <div class="chat__default-message">
-            Choose chat to send a message
+  {{#if notActive}}
+    <div class="chat__default-message">
+      {{ emptyStateText }}
+    </div>
+  {{else}}
+    <div class="chat__content">
+      <div class="chat__header">
+        <div class="chat__author-info">
+          {{{ userAvatar }}}
+          <div class="chat__author-name">
+            {{ userName }}
+          </div>
         </div>
-    {{else}}
-        <div class="chat__content">
-            <div class="chat__header">
-                <div class="chat__author-info">
-                    {{#with messages.participant as | pUser |}}
-                        {{> Avatar avatar=pUser.avatar size='small'}}
-                        <div class="chat__author-name">
-                            {{ pUser.name }}
-                        </div>
-                    {{/with}}
-                </div>
 
-                <div class="chat__settings">
-                    <img src="../../assets/icons/conversation-settings.svg" alt="settings">
-                </div>
-            </div>
-
-            <div class="chat__container">
-                {{#each messages.conversation}}
-                    <div class="chat__item chat__item_{{isAuthor ../userData.userId userId}}">
-                        {{#if message.text}}
-                            {{message.text}}
-                        {{/if}}
-                        {{#if message.image}}
-                            <img class='chat__item-attached-pict' src="{{message.image}}" alt="image">
-                        {{/if}}
-                        <div class="chat__item-info">
-                            <div class="chat__item-time">
-                                {{formatTime timestamp}}
-                            </div>
-                            {{#if message.isRead}}
-                                <div class="chat__item_checked">
-                                    <img src="../../assets/icons/checked-status.svg" alt="message checked">
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-
-            <div class="chat__footer">
-                <div class="chat__attach-file">
-                    {{> Button type='no-text' icon-name='attach-file'}}
-                </div>
-                <div class="chat__message-input">
-                    {{> Input name='message' type='text' selector='message' placeholder='Type a message'}}
-                </div>
-                <div class="chat__send-button">
-                    {{> Button type='confirmation' icon-name='arrow-confirm'}}
-                </div>
-            </div>
+        <div class="chat__settings">
+          <img src="../../assets/icons/conversation-settings.svg" alt="settings">
         </div>
-    {{/if}}
+      </div>
+
+      <div class="chat__container">
+        {{{ messages }}}
+      </div>
+
+      <div class="chat__footer">
+        <div class="chat__attach-file">
+          {{{ buttonAttachFile }}}
+        </div>
+        <div class="chat__message-input">
+          {{{ inputList }}}
+        </div>
+        <div class="chat__send-button">
+          {{{ buttonSend }}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

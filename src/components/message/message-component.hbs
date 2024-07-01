@@ -1,0 +1,18 @@
+<div class="chat__item chat__item_{{isAuthor}}">
+  {{#if messageText}}
+    {{{messageText}}}
+  {{/if}}
+  {{#if messageImage}}
+    <img class='chat__item-attached-pict' src="{{messageImage}}" alt="image">
+  {{/if}}
+  <div class="chat__item-info">
+    <div class="chat__item-time">
+      {{timestamp}}
+    </div>
+    {{#if messageIsRead}}
+      <div class="chat__item_checked">
+        <img src="../../assets/icons/checked-status.svg" alt="message checked">
+      </div>
+    {{/if}}
+  </div>
+</div>
