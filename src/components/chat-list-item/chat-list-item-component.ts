@@ -46,7 +46,7 @@ export class ChatListItem extends Block {
       }),
       id: props.id,
       name: props.conversation?.name,
-      messageText: props.messageText,
+      messageText: props.conversation?.message.text,
       timestamp: props.conversation?.timestamp.slice(11, 16),
       unreadMessages: props.unreadMessages,
     });
