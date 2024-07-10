@@ -1,0 +1,28 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.chat {
+  &__item {
+    @include display-flex-center();
+    @include text-12();
+    padding: 10px;
+    border: 1px solid $light-grey-3;
+    border-radius: 12px;
+    color: $black-2;
+    flex-direction: column;
+
+    &_author {
+      margin-left: auto;
+      background: $light-blue-2;
+    }
+
+    &_not-author {
+      margin-right: auto;
+      background: $light-grey-2;
+    }
+
+    &_checked {
+      margin-left: auto;
+    }
+  }
+}

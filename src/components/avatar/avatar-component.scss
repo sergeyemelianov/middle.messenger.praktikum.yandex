@@ -1,8 +1,7 @@
-@import "../../assets/styles/variables";
-@import "../../assets/styles/mixins";
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
 
 .avatar {
-
   &__size {
     &_small {
       width: 34px;
@@ -20,5 +19,3 @@
     }
   }
 }
-
-
