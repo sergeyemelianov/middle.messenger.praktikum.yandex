@@ -1,10 +1,10 @@
 import './profile-details.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Input from '../input/input-component';
 import ProfileTemplate from './profile-details.hbs?raw';
 import { UserInterface } from '../../shared/interfaces/user-interface';
 import Button from '../button/button-component';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 
 type ProfileDetailsProps = Props & {
   userData?: UserInterface;
@@ -60,7 +60,7 @@ export class ProfileDetails extends Block {
         label: 'Change details',
         events: {
           click: () => {
-            navigate(pagesList.profileDetailsEdit);
+            router.go(pagesListNav.profileDetailsEdit);
           },
         },
       }),
@@ -70,7 +70,7 @@ export class ProfileDetails extends Block {
         label: 'Change password',
         events: {
           click: () => {
-            navigate(pagesList.profilePasswordEdit);
+            router.go(pagesListNav.profilePasswordEdit);
           },
         },
       }),
@@ -81,7 +81,7 @@ export class ProfileDetails extends Block {
         label: 'Quit',
         events: {
           click: () => {
-            navigate(pagesList.login);
+            router.go(pagesListNav.login);
           },
         },
       }),

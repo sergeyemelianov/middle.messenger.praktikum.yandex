@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
-export type Props = Partial<Record<string, unknown>>;
+export type Props = Partial<Record<string, any>>;
 
-export default class Block<P extends Record<string, any> = any> {
+export class Block<P extends Record<string, any> = any> {
   static EVENTS: Record<string, string> = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -15,7 +15,7 @@ export default class Block<P extends Record<string, any> = any> {
 
   public lists: Record<string, Block[]>;
 
-  private _element?: HTMLElement;
+  private _element: HTMLElement;
 
   private eventBus: () => EventBus;
 
@@ -184,7 +184,7 @@ export default class Block<P extends Record<string, any> = any> {
     });
   }
 
-  getContent() {
+  getContent(): HTMLElement {
     return this.element;
   }
 
@@ -210,5 +210,13 @@ export default class Block<P extends Record<string, any> = any> {
 
   _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
+  }
+
+  show() {
+    this.getContent().style.display = 'block';
+  }
+
+  hide() {
+    this.getContent().style.display = 'none';
   }
 }

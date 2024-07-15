@@ -1,9 +1,9 @@
 import './error-page.scss';
 import ErrorTemplate from './error-page.hbs?raw';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Button from '../../components/button/button-component';
 import { ErrorItem } from '../../components';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 
 type ErrorProps = Props;
 
@@ -17,7 +17,7 @@ export default class Error extends Block {
         label: '<- Back to chat',
         events: {
           click: () => {
-            navigate(pagesList.chatboard);
+            router.go(pagesListNav.chatboard);
           },
         },
       }),

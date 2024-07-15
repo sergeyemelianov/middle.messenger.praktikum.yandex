@@ -1,5 +1,5 @@
 import './input-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import InputTemplate from './input-component.hbs?raw';
 import { validate, ValidateSourceType } from '../../shared/utils/validation.util';
 import { InputField } from '../input-field/input-field-component';
@@ -18,6 +18,7 @@ export type InputProps = Props & {
   page?: string;
   error?: string;
   onBlur?: (e: FocusEvent) => void;
+  onChange?: (e: InputEvent) => void;
 };
 
 export default class Input extends Block {

@@ -1,11 +1,11 @@
 import './profile-page.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import ProfileDialogTemplate from './profile-page.hbs?raw';
 import Avatar from '../../components/avatar/avatar-component';
 import { userData } from '../../data-chat/user-data';
 import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
 import Button from '../../components/button/button-component';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 import { Form } from '../../components/form/form-component';
 
 type ProfileProps = Props;
@@ -26,7 +26,7 @@ export default class Profile extends Block {
         label: '<- Back to chat',
         events: {
           click: () => {
-            navigate(pagesList.chatboard);
+            router.go(pagesListNav.chatboard);
           },
         },
       }),

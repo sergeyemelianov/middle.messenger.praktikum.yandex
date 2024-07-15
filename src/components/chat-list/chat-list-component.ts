@@ -1,5 +1,5 @@
 import './chat-list-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import ChatLisTemplate from './chat-list-component.hbs?raw';
 
 type ChatListProps = Props;

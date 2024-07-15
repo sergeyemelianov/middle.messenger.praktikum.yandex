@@ -1,5 +1,5 @@
 import './chatboard-page.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Button from '../../components/button/button-component';
 import ChatboardTemplate from './chatboard-page.hbs?raw';
 import Input from '../../components/input/input-component';
@@ -7,7 +7,7 @@ import { Chat, ChatList, ChatListItem, Conversation } from '../../components';
 import { messages } from '../../data-chat/messages';
 import { firstUtil } from '../../shared/utils/first.util';
 import { lastUtil } from '../../shared/utils/last.util';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 import { Form } from '../../components/form/form-component';
 
 type ChatboardProps = Props;
@@ -24,7 +24,7 @@ export class Chatboard extends Block {
         iconSize: 'small',
         events: {
           click: () => {
-            navigate(pagesList.profileDetails);
+            router.go(pagesListNav.profileDetails);
           },
         },
       }),

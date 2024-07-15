@@ -1,41 +1,47 @@
-import PageContainer, {
-  PageContainerClassNameEnum,
-} from './components/page-container/page-container-component';
 import {
   ChatboardPage,
+  Error4xx,
+  Error5xx,
   LoginPage,
   ProfileDetailsEditPage,
   ProfileDetailsPage,
   ProfilePasswordEditPage,
   SignupPage,
-  Error4xx,
-  Error5xx,
 } from './pages';
-import Block from './core/Block';
+import { Router } from './core';
+import PageContainer, {
+  PageContainerClassNameEnum,
+} from './components/page-container/page-container-component';
+import { connect } from './core';
 
-export const pagesList: Record<string, Block> = {
-  login: LoginPage,
-  signup: SignupPage,
-  profileDetails: ProfileDetailsPage,
-  profileDetailsEdit: ProfileDetailsEditPage,
-  profilePasswordEdit: ProfilePasswordEditPage,
-  error5xx: Error5xx,
-  error4xx: Error4xx,
-  chatboard: ChatboardPage,
+export const pagesListNav: Record<string, string> = {
+  login: '/',
+  signup: '/signup',
+  profileDetails: '/profile-details',
+  profileDetailsEdit: '/profile-details-edit',
+  profilePasswordEdit: '/profile-password-edit',
+  error5xx: '/error500',
+  error4xx: '/error400',
+  chatboard: '/chatboard',
 };
 
-export const navigate = (page: Block): void => {
-  const pageContainer: Block = new PageContainer({
-    component: page,
-    className:
-      page === pagesList.login || page === pagesList.signup
-        ? PageContainerClassNameEnum.centered
-        : '',
-  });
+export const router = new Router('app');
 
-  const container: HTMLElement = document.getElementById('app') as HTMLElement;
-  container.innerHTML = '';
-  container.append(pageContainer.getContent()!);
-};
-
-window.addEventListener('DOMContentLoaded', () => navigate(pagesList.login));
+window.addEventListener('DOMContentLoaded', () =>
+  router
+    .use(pagesListNav.login, connect(PageContainer), {
+      component: LoginPage,
+      className: PageContainerClassNameEnum.centered,
+    })
+    .use(pagesListNav.signup, PageContainer, {
+      component: SignupPage,
+      className: PageContainerClassNameEnum.centered,
+    })
+    .use(pagesListNav.chatboard, PageContainer, { component: ChatboardPage })
+    .use(pagesListNav.profileDetails, PageContainer, { component: ProfileDetailsPage })
+    .use(pagesListNav.profileDetailsEdit, PageContainer, { component: ProfileDetailsEditPage })
+    .use(pagesListNav.profilePasswordEdit, PageContainer, { component: ProfilePasswordEditPage })
+    .use(pagesListNav.error5xx, PageContainer, { component: Error5xx })
+    .use(pagesListNav.error4xx, PageContainer, { component: Error4xx })
+    .start(),
+);

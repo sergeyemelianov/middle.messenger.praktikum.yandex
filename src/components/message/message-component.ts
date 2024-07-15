@@ -1,5 +1,5 @@
 import './message-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import MessageTemplate from './message-component.hbs?raw';
 import { userData } from '../../data-chat/user-data';
 import { MessageType } from '../chat-list-item/chat-list-item-component';

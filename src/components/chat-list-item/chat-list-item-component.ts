@@ -1,5 +1,5 @@
 import './chat-list-item-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import ChatListItemTemplate from './chat-list-item-component.hbs?raw';
 import Avatar from '../avatar/avatar-component';
 

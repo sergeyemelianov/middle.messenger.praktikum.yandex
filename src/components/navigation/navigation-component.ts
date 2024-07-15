@@ -1,8 +1,8 @@
 import './navigation-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Button from '../button/button-component';
 import NavigationTemplate from './navigation-component.hbs?raw';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 
 type NavigationProps = Props & {
   className?: string;
@@ -20,7 +20,7 @@ export default class Navigation extends Block {
           label: 'Login',
           events: {
             click: () => {
-              navigate(pagesList.login);
+              router.go(pagesListNav.login);
             },
           },
         }),
@@ -31,7 +31,7 @@ export default class Navigation extends Block {
           label: 'Signup',
           events: {
             click: () => {
-              navigate(pagesList.signup);
+              router.go(pagesListNav.signup);
             },
           },
         }),
@@ -42,7 +42,7 @@ export default class Navigation extends Block {
           label: 'Chatboard',
           events: {
             click: () => {
-              navigate(pagesList.chatboard);
+              router.go(pagesListNav.chatboard);
             },
           },
         }),
@@ -53,7 +53,7 @@ export default class Navigation extends Block {
           label: 'Profile',
           events: {
             click: () => {
-              navigate(pagesList.profileDetails);
+              router.go(pagesListNav.profileDetails);
             },
           },
         }),
@@ -64,7 +64,7 @@ export default class Navigation extends Block {
           label: 'Edit user',
           events: {
             click: () => {
-              navigate(pagesList.profileDetailsEdit);
+              router.go(pagesListNav.profileDetailsEdit);
             },
           },
         }),
@@ -75,7 +75,7 @@ export default class Navigation extends Block {
           label: 'Edit password',
           events: {
             click: () => {
-              navigate(pagesList.profilePasswordEdit);
+              router.go(pagesListNav.profilePasswordEdit);
             },
           },
         }),
@@ -86,7 +86,7 @@ export default class Navigation extends Block {
           label: '4xx',
           events: {
             click: () => {
-              navigate(pagesList.error4xx);
+              router.go(pagesListNav.error4xx);
             },
           },
         }),
@@ -97,7 +97,7 @@ export default class Navigation extends Block {
           label: '5xx',
           events: {
             click: () => {
-              navigate(pagesList.error5xx);
+              router.go(pagesListNav.error5xx);
             },
           },
         }),

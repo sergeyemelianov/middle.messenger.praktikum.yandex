@@ -1,5 +1,5 @@
 import './error-item-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import ErrorItemTemplate from './error-item-component.hbs?raw';
 
 type ErrorItemProps = Props & {

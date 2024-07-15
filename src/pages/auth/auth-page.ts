@@ -1,5 +1,5 @@
 import './auth-page.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import AuthComponentTemplate from './auth-page.hbs?raw';
 import { Login } from '../../components/login/login-component';
 import { Signup } from '../../components/signup/signup-component';

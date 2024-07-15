@@ -1,10 +1,10 @@
 import './profile-details-edit.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import ProfileDetailsEditTemplate from './profile-details-edit.hbs?raw';
 import { UserInterface } from '../../shared/interfaces/user-interface';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 
 type ProfileDetailsEditProps = Props & {
   userData?: UserInterface;
@@ -67,7 +67,7 @@ export class ProfileDetailsEdit extends Block {
         label: 'Cancel',
         events: {
           click: () => {
-            navigate(pagesList.profileDetails);
+            router.go(pagesListNav.profileDetails);
           },
         },
       }),

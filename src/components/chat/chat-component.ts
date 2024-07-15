@@ -1,5 +1,5 @@
 import './chat-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import ChatTemplate from './chat-component.hbs?raw';
 import Avatar from '../avatar/avatar-component';
 import Button from '../button/button-component';
@@ -43,7 +43,6 @@ export class Chat extends Block {
         }),
       ],
       buttonSend: new Button({
-        type: 'submit',
         view: 'confirmation',
         iconName: 'arrow-confirm',
       }),

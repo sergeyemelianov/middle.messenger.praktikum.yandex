@@ -1,8 +1,8 @@
 import './form-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import FormTemplate from './form-component.hbs?raw';
 import { formIsValid, validate } from '../../shared/utils/validation.util';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 
 type FormProps = Props & {
   form?: Block;
@@ -27,7 +27,7 @@ export class Form extends Block {
 
           if (formIsValid(formInputList)) {
             console.log('formData ===>', formData);
-            navigate(pagesList.chatboard);
+            router.go(pagesListNav.chatboard);
           }
         },
       },
