@@ -50,7 +50,7 @@ export class Form extends Block {
                   })
                   .then((response) => {
                     console.log('RESPONSE', response);
-                    return response
+                    return response;
                   })
                   .then((data) => {
                     console.log('SIGNUP DATA', data);
@@ -63,7 +63,7 @@ export class Form extends Block {
                       .then((data) => {
                         console.log('USER INFO ===>', data);
                         if (data.id) {
-                          router.go(pagesListNav.chatboard)
+                          router.go(pagesListNav.chatboard);
                         }
                         return data;
                       });
@@ -81,7 +81,7 @@ export class Form extends Block {
                   .then((data) => {
                     console.log('USER INFO ===>', data);
                     if (data.id) {
-                      router.go(pagesListNav.chatboard)
+                      router.go(pagesListNav.chatboard);
                     }
                     return data;
                   });

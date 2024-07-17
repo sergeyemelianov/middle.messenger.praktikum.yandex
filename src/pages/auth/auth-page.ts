@@ -38,6 +38,6 @@ export const SignupPage = new AuthPage({
   type: AuthEnum.signup,
   component: new Form({
     form: new Signup({ type: AuthEnum.signup }),
-    type: AuthEnum.signup
+    type: AuthEnum.signup,
   }),
 });

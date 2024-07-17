@@ -40,7 +40,6 @@ export default class HTTPTransport {
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (url: string, options: HTTPOptions, timeout = 5000): Promise<XMLHttpRequest> => {
-
     const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -67,7 +66,7 @@ export default class HTTPTransport {
 
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
-      xhr.withCredentials = true
+      xhr.withCredentials = true;
       if (isGet || !data) {
         xhr.send();
       } else {
