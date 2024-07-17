@@ -41,7 +41,7 @@ export class Signup extends Block {
           ...inputState,
           selector: 'edit',
           label: 'Second name',
-          name: 'first_name',
+          name: 'second_name',
         }),
         new Input({
           ...inputState,

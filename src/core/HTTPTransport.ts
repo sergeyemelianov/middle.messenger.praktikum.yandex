@@ -6,15 +6,17 @@ enum METHODS {
 }
 
 type HTTPOptions = {
-  method: METHODS;
-  data?: [string, string][];
+  method?: METHODS;
+  credentials?: string;
+  mode?: string;
+  data?: Record<string, string>;
   headers?: Record<string, string>;
   timeout?: number;
 };
 
 type HTTPMethodType = (url: string, options: HTTPOptions) => Promise<XMLHttpRequest>;
 
-function queryStringify(data: [string, string][]) {
+function queryStringify(data: Record<string, string>) {
   let result = '?';
 
   for (const [key, value] of Object.entries(data)) {
@@ -38,6 +40,7 @@ export default class HTTPTransport {
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (url: string, options: HTTPOptions, timeout = 5000): Promise<XMLHttpRequest> => {
+
     const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -64,7 +67,7 @@ export default class HTTPTransport {
 
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
-
+      xhr.withCredentials = true
       if (isGet || !data) {
         xhr.send();
       } else {
