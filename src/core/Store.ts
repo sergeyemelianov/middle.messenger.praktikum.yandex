@@ -1,6 +1,10 @@
+import { UserResponse } from '../shared/interfaces/UserResponse';
+
 type Action = Record<string, any>;
 
-type State = Record<string, any>;
+export type State = {
+  user?: UserResponse;
+};
 
 type Reducer = (state: State, action: Action) => State;
 
@@ -27,18 +31,19 @@ const deepCopy = <T>(object: T): T => JSON.parse(JSON.stringify(object));
 
 const reducer: Reducer = (state, action) => {
   const newState = deepCopy(state);
-  if (action.type === 'SET_TEXT') {
-    console.log('state--->', state);
-    console.log('action---->', action);
-    newState.message = action.message;
-    return newState;
-  } else {
-    return state;
+  console.log('state--->', state);
+  console.log('action---->', action);
+  switch (action.type) {
+    case 'USER_INFO':
+      newState.user = action.user;
+      return newState;
+    default:
+      return state;
   }
 };
 
 const state: State = {
-  message: '',
+  user: undefined,
 };
 
 // const setTextAction: Action = {

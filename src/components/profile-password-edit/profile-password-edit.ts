@@ -1,13 +1,13 @@
 import './profile-password-edit.scss';
 import { Block, Props } from '../../core';
-import { UserInterface } from '../../shared/interfaces/user-interface';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import ProfilePasswordEditTemplate from './profile-password-edit.hbs?raw';
 import { pagesListNav, router } from '../../index';
+import { UserResponse } from '../../shared/interfaces/UserResponse';
 
 type ProfilePasswordEditProps = Props & {
-  userData?: UserInterface;
+  user?: UserResponse;
 };
 
 const inputState = {
@@ -24,13 +24,13 @@ export class ProfilePasswordEdit extends Block {
           ...inputState,
           selector: 'edit',
           label: 'Old password',
-          name: 'password',
+          name: 'oldPassword',
         }),
         new Input({
           ...inputState,
           selector: 'edit',
           label: 'New password',
-          name: 'password',
+          name: 'newPassword',
         }),
       ],
       buttonSave: new Button({

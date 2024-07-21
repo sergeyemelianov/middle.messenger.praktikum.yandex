@@ -1,8 +1,9 @@
 import './input-component.scss';
 import { Block, Props } from '../../core';
 import InputTemplate from './input-component.hbs?raw';
-import { validate, ValidateSourceType } from '../../shared/utils/validation.util';
+import { validate } from '../../shared/utils/validation.util';
 import { InputField } from '../input-field/input-field-component';
+import { ValidateSourceType } from '../../shared/types/ValidateSourceType';
 
 export type InputProps = Props & {
   name?: ValidateSourceType;

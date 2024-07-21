@@ -1,13 +1,13 @@
 import store from './Store';
-import { Props } from './Block';
+import { Block, Props } from './Block';
 
-export function connect(Component: new (props: Props) => any) {
-  return class extends Component {
+export function connect(Component: typeof Block) {
+  return class connect extends Component {
     constructor(props: Props) {
       super(props);
 
       store.subscribe(() => {
-        console.log('We are in store subscription');
+        console.log('We are in store subscription', { ...store.getState() });
         this.setProps({ ...store.getState() });
       });
 

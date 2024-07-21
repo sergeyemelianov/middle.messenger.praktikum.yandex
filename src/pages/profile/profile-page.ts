@@ -1,25 +1,25 @@
 import './profile-page.scss';
-import { Block, Props } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import ProfileDialogTemplate from './profile-page.hbs?raw';
 import Avatar from '../../components/avatar/avatar-component';
-import { userData } from '../../data-chat/user-data';
 import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
 import Button from '../../components/button/button-component';
 import { pagesListNav, router } from '../../index';
 import { Form } from '../../components/form/form-component';
+import { PagesEnum } from '../../shared/enums/Pages';
 
 type ProfileProps = Props;
 
-export default class Profile extends Block {
+export class Profile extends Block {
   constructor(props: ProfileProps) {
     super({
       ...props,
       avatar: new Avatar({
-        avatar: userData.avatar ?? '',
+        avatar: props.user?.avatar ?? '',
         size: 'big',
         name: 'avatar',
       }),
-      name: userData.name,
+      name: props.user?.first_name,
       buttonBack: new Button({
         view: 'link',
         page: 'chatboard',
@@ -36,16 +36,36 @@ export default class Profile extends Block {
   render(): string {
     return ProfileDialogTemplate;
   }
+
+  override componentDidUpdate(oldProps: State, newProps: State): boolean {
+    if (oldProps.user !== newProps.user) {
+      this.props = {
+        ...this.props,
+        avatar: new Avatar({
+          avatar: newProps.user?.avatar ?? '',
+          size: 'big',
+          name: 'avatar',
+        }),
+        name: newProps.user?.first_name,
+      };
+    }
+    return true;
+  }
 }
 
-export const ProfileDetailsPage = new Profile({
-  component: new Form({ form: new ProfileDetails({ userData }) }),
+const profile = connect(Profile);
+const profileDetails = connect(ProfileDetails);
+const profileDetailsEdit = connect(ProfileDetailsEdit);
+const profilePasswordEdit = connect(ProfilePasswordEdit);
+const form = connect(Form);
+export const ProfileDetailsPage = new profile({
+  component: new form({ form: new profileDetails({}) }),
 });
 
-export const ProfileDetailsEditPage = new Profile({
-  component: new Form({ form: new ProfileDetailsEdit({ userData }) }),
+export const ProfileDetailsEditPage = new profile({
+  component: new form({ form: new profileDetailsEdit({}), type: PagesEnum.profileDetailsEdit }),
 });
 
-export const ProfilePasswordEditPage = new Profile({
-  component: new Form({ form: new ProfilePasswordEdit({ userData }) }),
+export const ProfilePasswordEditPage = new profile({
+  component: new form({ form: new profilePasswordEdit({}), type: PagesEnum.profilePasswordEdit }),
 });

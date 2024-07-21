@@ -1,13 +1,14 @@
 import './profile-details.scss';
-import { Block, Props } from '../../core';
+import { Block, Props, State } from '../../core';
 import Input from '../input/input-component';
 import ProfileTemplate from './profile-details.hbs?raw';
-import { UserInterface } from '../../shared/interfaces/user-interface';
 import Button from '../button/button-component';
 import { pagesListNav, router } from '../../index';
+import { logoutService } from '../../api-services/logout-service';
+import { UserResponse } from '../../shared/interfaces/UserResponse';
 
 type ProfileDetailsProps = Props & {
-  userData?: UserInterface;
+  user?: UserResponse;
 };
 
 const inputState = {
@@ -18,42 +19,9 @@ const inputState = {
 
 export class ProfileDetails extends Block {
   constructor(props: ProfileDetailsProps) {
+    console.log('PROPS IN ProfileDetails', props);
     super({
       ...props,
-      inputList: [
-        new Input({
-          ...inputState,
-          type: 'text',
-          label: 'Email',
-          name: 'email',
-          placeholder: props.userData?.email,
-        }),
-        new Input({
-          ...inputState,
-          label: 'Login',
-          name: 'login',
-          placeholder: props.userData?.login,
-        }),
-        new Input({
-          ...inputState,
-          type: 'text',
-          label: 'Name',
-          name: 'first_name',
-          placeholder: props.userData?.first_name,
-        }),
-        new Input({
-          ...inputState,
-          label: 'Second name',
-          name: 'second_name',
-          placeholder: props.userData?.second_name,
-        }),
-        new Input({
-          ...inputState,
-          label: 'Phone number',
-          name: 'phone',
-          placeholder: props.userData?.phone,
-        }),
-      ],
       buttonProfileDetailsEdit: new Button({
         view: 'link',
         page: 'profile_details_edit',
@@ -81,7 +49,7 @@ export class ProfileDetails extends Block {
         label: 'Quit',
         events: {
           click: () => {
-            router.go(pagesListNav.login);
+            logoutService();
           },
         },
       }),
@@ -90,5 +58,47 @@ export class ProfileDetails extends Block {
 
   render(): string {
     return ProfileTemplate;
+  }
+
+  override componentDidUpdate(oldProps: State, newProps: State): boolean {
+    if (oldProps.user !== newProps.user) {
+      this.lists = {
+        inputList: [
+          new Input({
+            ...inputState,
+            type: 'text',
+            label: 'Email',
+            name: 'email',
+            placeholder: newProps.user?.email,
+          }),
+          new Input({
+            ...inputState,
+            label: 'Login',
+            name: 'login',
+            placeholder: newProps.user?.login,
+          }),
+          new Input({
+            ...inputState,
+            type: 'text',
+            label: 'Name',
+            name: 'first_name',
+            placeholder: newProps.user?.first_name,
+          }),
+          new Input({
+            ...inputState,
+            label: 'Second name',
+            name: 'second_name',
+            placeholder: newProps.user?.second_name,
+          }),
+          new Input({
+            ...inputState,
+            label: 'Phone number',
+            name: 'phone',
+            placeholder: newProps.user?.phone,
+          }),
+        ],
+      };
+    }
+    return true;
   }
 }

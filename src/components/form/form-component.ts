@@ -1,118 +1,63 @@
 import './form-component.scss';
-import { Block, Props } from '../../core';
+import { Block, Props, State } from '../../core';
 import FormTemplate from './form-component.hbs?raw';
 import { formIsValid, validate } from '../../shared/utils/validation.util';
-import { pagesListNav, router } from '../../index';
-import { AuthEnum } from '../../pages';
-import HTTPTransport from '../../core/HTTPTransport';
-import { config } from '../../config';
+import { signupService } from '../../api-services/signup-service';
+import { signinService } from '../../api-services/signin-service';
+import { PagesEnum } from '../../shared/enums/Pages';
+import { changePasswordService, changeUserProfileService } from '../../api-services/user-service';
 
 type FormProps = Props & {
   form?: Block;
-  type?: AuthEnum;
+  type?: PagesEnum;
 };
 
 export class Form extends Block {
+  formInputList: Block[];
   constructor(props: FormProps) {
-    super(props);
-    const formInputList = this.children.form.lists.inputList;
-    const formData: Record<string, string> = {};
-
-    this.setProps({
+    super({
+      ...props,
       events: {
         submit: (event: SubmitEvent) => {
           event?.preventDefault();
-          formInputList.forEach((list: Block) => {
+          console.log('----->', this.formInputList);
+          this.formInputList.forEach((list: Block) => {
             const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
               ?.value;
             formData[list.props?.name as string] = val;
             this.setValidationError(list, val);
           });
 
-          if (formIsValid(formInputList)) {
+          if (formIsValid(this.formInputList)) {
             console.log('formData ===>', formData);
 
-            const http = new HTTPTransport();
             const params = {
               credentials: 'include',
-              mode: 'cors', // Работаем с CORS
+              mode: 'cors',
             };
 
-            if (this.props.type === AuthEnum.signup) {
-              try {
-                http
-                  .post(`${config.baseUrl}/auth/signup`, {
-                    ...params,
-                    data: formData,
-                    headers: {
-                      'content-type': 'application/json', // Данные отправляем в формате JSON
-                    },
-                  })
-                  .then((response) => {
-                    console.log('RESPONSE', response);
-                    return response;
-                  })
-                  .then((data) => {
-                    console.log('SIGNUP DATA', data);
-                    return data;
-                  })
-                  .then(() => {
-                    http
-                      .get(`${config.baseUrl}/auth/user`, params)
-                      .then((response) => JSON.parse(response.response))
-                      .then((data) => {
-                        console.log('USER INFO ===>', data);
-                        if (data.id) {
-                          router.go(pagesListNav.chatboard);
-                        }
-                        return data;
-                      });
-                  });
-              } catch (error) {
-                this.errorHandler(error);
-              }
+            if (props.type === PagesEnum.signup) {
+              signupService(params, formData);
             }
 
-            if (this.props.type === AuthEnum.login) {
-              try {
-                http
-                  .get(`${config.baseUrl}/auth/user`, params)
-                  .then((response) => JSON.parse(response.response))
-                  .then((data) => {
-                    console.log('USER INFO ===>', data);
-                    if (data.id) {
-                      router.go(pagesListNav.chatboard);
-                    }
-                    return data;
-                  });
-              } catch (error) {
-                this.errorHandler(error);
-              }
+            if (props.type === PagesEnum.login) {
+              signinService(params, formData);
             }
-            // ;
+
+            if (props.type === PagesEnum.profileDetailsEdit) {
+              changeUserProfileService(params, formData);
+            }
+
+            if (props.type === PagesEnum.profilePasswordEdit) {
+              changePasswordService(params, formData);
+            }
           }
         },
       },
     });
-  }
 
-  errorHandler(error: number): void {
-    switch (error) {
-      case 200:
-        router.go(pagesListNav.chatboard);
-        break;
-      case 400:
-        console.log('ERROR', error);
-        break;
-      case 401:
-        console.log('ERROR', error);
-        break;
-      case 500:
-        router.go(pagesListNav.error5xx);
-        break;
-      default:
-        break;
-    }
+    this.formInputList = this.children.form.lists.inputList;
+    const formData: Record<string, string> = {};
   }
 
   setValidationError(list: Block, val: string): void {
@@ -125,5 +70,12 @@ export class Form extends Block {
 
   render(): string {
     return FormTemplate;
+  }
+
+  override componentDidUpdate(oldProps: State, newProps: State): boolean {
+    if (oldProps.user !== newProps.user) {
+      this.formInputList = this.children.form.lists.inputList;
+    }
+    return true;
   }
 }

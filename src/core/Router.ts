@@ -8,7 +8,14 @@ function render(query: string, block: Block | null) {
   if (!block) {
     return;
   }
+
   const root = document.getElementById(query);
+
+  if (!root) {
+    throw new Error('Error: no root found');
+  }
+
+  root.innerHTML = '';
   root?.append(block.getContent());
   return root;
 }
@@ -34,7 +41,7 @@ export class Route {
 
   leave() {
     if (this._block) {
-      this._block.hide();
+      this._block = null;
     }
   }
 

@@ -1,13 +1,13 @@
 import './profile-details-edit.scss';
-import { Block, Props } from '../../core';
+import { Block, Props, State } from '../../core';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import ProfileDetailsEditTemplate from './profile-details-edit.hbs?raw';
-import { UserInterface } from '../../shared/interfaces/user-interface';
 import { pagesListNav, router } from '../../index';
+import { UserResponse } from '../../shared/interfaces/UserResponse';
 
 type ProfileDetailsEditProps = Props & {
-  userData?: UserInterface;
+  user?: UserResponse;
 };
 
 const inputState = {
@@ -19,44 +19,6 @@ export class ProfileDetailsEdit extends Block {
   constructor(props: ProfileDetailsEditProps) {
     super({
       ...props,
-      inputList: [
-        new Input({
-          ...inputState,
-          selector: 'edit',
-          label: 'Email',
-          name: 'email',
-          placeholder: props.userData?.email,
-          autofocus: true,
-        }),
-        new Input({
-          ...inputState,
-          selector: 'edit',
-          label: 'Login',
-          name: 'login',
-          placeholder: props.userData?.login,
-        }),
-        new Input({
-          ...inputState,
-          selector: 'edit',
-          label: 'Name',
-          name: 'first_name',
-          placeholder: props.userData?.first_name,
-        }),
-        new Input({
-          ...inputState,
-          selector: 'edit',
-          label: 'Second name',
-          name: 'second_name',
-          placeholder: props.userData?.second_name,
-        }),
-        new Input({
-          ...inputState,
-          selector: 'edit',
-          label: 'Phone number',
-          name: 'phone',
-          placeholder: props.userData?.phone,
-        }),
-      ],
       buttonSave: new Button({
         type: 'submit',
         view: 'confirmation',
@@ -76,5 +38,51 @@ export class ProfileDetailsEdit extends Block {
 
   render(): string {
     return ProfileDetailsEditTemplate;
+  }
+
+  override componentDidUpdate(oldProps: State, newProps: State): boolean {
+    if (oldProps.user !== newProps.user) {
+      this.lists = {
+        inputList: [
+          new Input({
+            ...inputState,
+            selector: 'edit',
+            label: 'Email',
+            name: 'email',
+            value: newProps.user?.email,
+            autofocus: true,
+          }),
+          new Input({
+            ...inputState,
+            selector: 'edit',
+            label: 'Login',
+            name: 'login',
+            value: newProps.user?.login,
+          }),
+          new Input({
+            ...inputState,
+            selector: 'edit',
+            label: 'Name',
+            name: 'first_name',
+            value: newProps.user?.first_name,
+          }),
+          new Input({
+            ...inputState,
+            selector: 'edit',
+            label: 'Second name',
+            name: 'second_name',
+            value: newProps.user?.second_name,
+          }),
+          new Input({
+            ...inputState,
+            selector: 'edit',
+            label: 'Phone number',
+            name: 'phone',
+            value: newProps.user?.phone,
+          }),
+        ],
+      };
+    }
+    return true;
   }
 }

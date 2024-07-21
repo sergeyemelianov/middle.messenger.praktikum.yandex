@@ -9,18 +9,24 @@ type HTTPOptions = {
   method?: METHODS;
   credentials?: string;
   mode?: string;
-  data?: Record<string, string>;
+  data?: unknown;
   headers?: Record<string, string>;
   timeout?: number;
 };
 
 type HTTPMethodType = (url: string, options: HTTPOptions) => Promise<XMLHttpRequest>;
 
-function queryStringify(data: Record<string, string>) {
+type PlainObject<T = unknown> = {
+  [k in string]: T;
+};
+
+function queryStringify(data: PlainObject) {
   let result = '?';
 
   for (const [key, value] of Object.entries(data)) {
-    result += `${key}=${value.toString()}&`;
+    if (typeof value === 'object') {
+      result += `${key}=${value?.toString()}&`;
+    }
   }
 
   return result.slice(0, result.length - 1);
@@ -51,7 +57,7 @@ export default class HTTPTransport {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data as PlainObject)}` : url);
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);

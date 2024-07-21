@@ -8,12 +8,12 @@ export enum PageContainerClassNameEnum {
 
 type PageContainerProps = Props & {
   className?: string;
-  component: Block | null;
+  component?: Block | null;
 };
 
 export default class PageContainer extends Block {
   constructor(props: PageContainerProps) {
-    super({ ...props });
+    super({ ...props, user: props.user });
   }
 
   render(): string {

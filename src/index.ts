@@ -12,9 +12,10 @@ import { Router } from './core';
 import PageContainer, {
   PageContainerClassNameEnum,
 } from './components/page-container/page-container-component';
-import { connect } from './core';
+import { PageListNav } from './shared/types/PageListNav';
+import { getUserService } from './api-services/user-service';
 
-export const pagesListNav: Record<string, string> = {
+export const pagesListNav: PageListNav = {
   login: '/',
   signup: '/signup',
   profileDetails: '/profile-details',
@@ -27,9 +28,9 @@ export const pagesListNav: Record<string, string> = {
 
 export const router = new Router('app');
 
-window.addEventListener('DOMContentLoaded', () =>
+window.addEventListener('DOMContentLoaded', () => {
   router
-    .use(pagesListNav.login, connect(PageContainer), {
+    .use(pagesListNav.login, PageContainer, {
       component: LoginPage,
       className: PageContainerClassNameEnum.centered,
     })
@@ -43,5 +44,7 @@ window.addEventListener('DOMContentLoaded', () =>
     .use(pagesListNav.profilePasswordEdit, PageContainer, { component: ProfilePasswordEditPage })
     .use(pagesListNav.error5xx, PageContainer, { component: Error5xx })
     .use(pagesListNav.error4xx, PageContainer, { component: Error4xx })
-    .start(),
-);
+    .start();
+
+  getUserService();
+});
