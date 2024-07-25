@@ -1,25 +1,22 @@
 import './profile-page.scss';
-import { Block, connect, Props } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import ProfileDialogTemplate from './profile-page.hbs?raw';
 import Avatar from '../../components/avatar/avatar-component';
-import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
+import { profileDetails, profileDetailsEdit, profilePasswordEdit } from '../../components';
 import Button from '../../components/button/button-component';
 import { pagesListNav, router } from '../../index';
 import { Form } from '../../components/form/form-component';
 import { PagesEnum } from '../../shared/enums/Pages';
+import { UserResponse } from '../../shared/interfaces/UserResponse';
 
-type ProfileProps = Props;
+type ProfileProps = Props & {
+  user?: UserResponse;
+};
 
 export class Profile extends Block {
   constructor(props: ProfileProps) {
     super({
       ...props,
-      avatar: new Avatar({
-        avatar: props.user?.avatar ?? '',
-        size: 'big',
-        name: 'avatar',
-      }),
-      name: props.user?.first_name,
       buttonBack: new Button({
         view: 'link',
         page: 'chatboard',
@@ -38,13 +35,19 @@ export class Profile extends Block {
   }
 }
 
-const profile = connect(Profile);
-const profileDetails = connect(ProfileDetails);
-const profileDetailsEdit = connect(ProfileDetailsEdit);
-const profilePasswordEdit = connect(ProfilePasswordEdit);
+const profile = connect(Profile, (state: State) => ({
+  avatar: new Avatar({
+    avatar: state.user?.avatar ?? '',
+    size: 'big',
+    name: 'avatar',
+  }),
+  name: state.user?.first_name,
+}));
+
 const form = connect(Form);
+
 export const ProfileDetailsPage = new profile({
-  component: new form({ form: new profileDetails({})}),
+  component: new form({ form: new profileDetails({}) }),
 });
 
 export const ProfileDetailsEditPage = new profile({

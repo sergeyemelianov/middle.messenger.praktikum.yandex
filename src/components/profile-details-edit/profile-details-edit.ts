@@ -1,14 +1,12 @@
 import './profile-details-edit.scss';
-import { Block, Props, State } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import ProfileDetailsEditTemplate from './profile-details-edit.hbs?raw';
 import { pagesListNav, router } from '../../index';
-import { UserResponse } from '../../shared/interfaces/UserResponse';
+import Avatar from '../avatar/avatar-component';
 
-type ProfileDetailsEditProps = Props & {
-  user?: UserResponse;
-};
+type ProfileDetailsEditProps = Props;
 
 const inputState = {
   type: 'text',
@@ -39,50 +37,53 @@ export class ProfileDetailsEdit extends Block {
   render(): string {
     return ProfileDetailsEditTemplate;
   }
-
-  override componentDidUpdate(oldProps: State, newProps: State): boolean {
-    if (oldProps.user !== newProps.user) {
-      this.lists = {
-        inputList: [
-          new Input({
-            ...inputState,
-            selector: 'edit',
-            label: 'Email',
-            name: 'email',
-            value: newProps.user?.email,
-            autofocus: true,
-          }),
-          new Input({
-            ...inputState,
-            selector: 'edit',
-            label: 'Login',
-            name: 'login',
-            value: newProps.user?.login,
-          }),
-          new Input({
-            ...inputState,
-            selector: 'edit',
-            label: 'Name',
-            name: 'first_name',
-            value: newProps.user?.first_name,
-          }),
-          new Input({
-            ...inputState,
-            selector: 'edit',
-            label: 'Second name',
-            name: 'second_name',
-            value: newProps.user?.second_name,
-          }),
-          new Input({
-            ...inputState,
-            selector: 'edit',
-            label: 'Phone number',
-            name: 'phone',
-            value: newProps.user?.phone,
-          }),
-        ],
-      };
-    }
-    return true;
-  }
 }
+
+export const profileDetailsEdit = connect(ProfileDetailsEdit, (state: State) => {
+  return {
+    inputList: [
+      new Input({
+        ...inputState,
+        selector: 'edit',
+        label: 'Email',
+        name: 'email',
+        value: state.user?.email,
+        autofocus: true,
+      }),
+      new Input({
+        ...inputState,
+        selector: 'edit',
+        label: 'Login',
+        name: 'login',
+        value: state.user?.login,
+      }),
+      new Input({
+        ...inputState,
+        selector: 'edit',
+        label: 'Name',
+        name: 'first_name',
+        value: state.user?.first_name,
+      }),
+      new Input({
+        ...inputState,
+        selector: 'edit',
+        label: 'Second name',
+        name: 'second_name',
+        value: state.user?.second_name,
+      }),
+      new Input({
+        ...inputState,
+        selector: 'edit',
+        label: 'Phone number',
+        name: 'phone',
+        value: state.user?.phone,
+      }),
+    ],
+    avatar: new Avatar({
+      avatar: state.user?.avatar ?? '',
+      size: 'big',
+      name: 'avatar',
+    }),
+    name: state.user?.first_name,
+  };
+});

@@ -1,10 +1,11 @@
 import './profile-password-edit.scss';
-import { Block, Props } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import ProfilePasswordEditTemplate from './profile-password-edit.hbs?raw';
 import { pagesListNav, router } from '../../index';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
+import Avatar from '../avatar/avatar-component';
 
 type ProfilePasswordEditProps = Props & {
   user?: UserResponse;
@@ -54,3 +55,15 @@ export class ProfilePasswordEdit extends Block {
     return ProfilePasswordEditTemplate;
   }
 }
+
+export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) => {
+  return {
+    avatar: new Avatar({
+      avatar: state.user?.avatar ?? '',
+      size: 'big',
+      name: 'avatar',
+    }),
+    name: state.user?.first_name,
+  };
+});
+

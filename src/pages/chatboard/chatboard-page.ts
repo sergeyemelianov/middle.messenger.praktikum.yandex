@@ -1,23 +1,24 @@
 import './chatboard-page.scss';
-import { Block, connect, Props, State } from '../../core';
+import { Block, Props } from '../../core';
 import Button from '../../components/button/button-component';
 import ChatboardTemplate from './chatboard-page.hbs?raw';
 import Input from '../../components/input/input-component';
-import { Chat, ChatList, ChatListItem, Modal } from '../../components';
+import { Chat, Modal } from '../../components';
 import { pagesListNav, router } from '../../index';
 import { Form } from '../../components/form/form-component';
 import { PagesEnum } from '../../shared/enums/Pages';
 import { getChatsService } from '../../api-services/chat-service';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
-import Avatar from '../../components/avatar/avatar-component';
-import store from '../../core/Store';
-
-type ChatboardProps = Props;
+import { chatlist } from '../../components';
+type ChatboardProps = Props & {
+  messages?: ChatsResponse[];
+};
 
 export class Chatboard extends Block {
   constructor(props: ChatboardProps) {
     super({
       ...props,
+      list: new chatlist({}),
       buttonAddChat: new Button({
         view: 'secondary',
         page: 'profile',
@@ -88,43 +89,9 @@ export class Chatboard extends Block {
     });
   }
 
-  setActiveChat(chatId: number): void {
-    store.dispatch({
-      type: 'ACTIVE_CHAT',
-      id: chatId,
-    })
-  }
-
   render(): string {
     return ChatboardTemplate;
   }
-
-  override componentDidUpdate(oldProps: State, newProps: State): boolean {
-    if (oldProps.chats !== newProps.chats) {
-      this.children.list = new ChatList({
-          messages: newProps.chats?.map((message: ChatsResponse) => {
-           return new ChatListItem({
-             userAvatar: new Avatar({
-               avatar: message.avatar,
-               size: 'medium',
-             }),
-             name: `${message.last_message?.user?.first_name} ${message.last_message?.user?.second_name}`,
-             messageText: message.last_message?.content,
-             timestamp: message.last_message?.time?.slice(11, 16),
-             unreadMessages: message.unread_count,
-             events: {
-               click: (e: MouseEvent) => {
-                 e.preventDefault();
-                 this.setActiveChat(message.id);
-               }
-             }
-            });
-          }),
-        })
-    }
-    return true;
-  }
 }
 
-const chatborad = connect(Chatboard);
-export const ChatboardPage = new chatborad({});
+export const ChatboardPage = new Chatboard({});
