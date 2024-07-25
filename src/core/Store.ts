@@ -1,9 +1,13 @@
 import { UserResponse } from '../shared/interfaces/UserResponse';
+import { ChatsResponse } from '../shared/interfaces/ChatsResponse';
 
 type Action = Record<string, any>;
 
 export type State = {
   user?: UserResponse;
+  chats?: ChatsResponse[];
+  activeChatId?: number;
+  messages?: ChatsResponse[];
 };
 
 type Reducer = (state: State, action: Action) => State;
@@ -37,6 +41,15 @@ const reducer: Reducer = (state, action) => {
     case 'USER_INFO':
       newState.user = action.user;
       return newState;
+    case 'CHATS':
+      newState.chats = action.chats;
+      return newState;
+    case 'ACTIVE_CHAT':
+      newState.activeChatId = action.id;
+      return newState;
+    case 'CURRENT_CHAT':
+      newState.messages = action.messages;
+      return newState;
     default:
       return state;
   }
@@ -44,6 +57,9 @@ const reducer: Reducer = (state, action) => {
 
 const state: State = {
   user: undefined,
+  chats: undefined,
+  activeChatId: undefined,
+  messages: undefined,
 };
 
 // const setTextAction: Action = {

@@ -24,6 +24,12 @@
   font-weight: 500;
 }
 
+@mixin text-15() {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
 @mixin text-13() {
   font-size: 13px;
   line-height: 13px;

@@ -2,9 +2,14 @@ import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
 import { errorHandler } from './error-handler';
 import { UsersRequest } from '../shared/interfaces/UsersRequest';
-import { CreateChatRequest } from '../shared/interfaces/CreateChatRequest';
+import store from '../core/Store';
 
-export const getChatsService = (params: Record<string, string>): void => {
+const params = {
+  credentials: 'include',
+  mode: 'cors',
+};
+
+export const getChatsService = (): void => {
   const http = new HTTPTransport();
 
   try {
@@ -13,10 +18,16 @@ export const getChatsService = (params: Record<string, string>): void => {
         ...params,
       })
       .then((response) => {
-        return response;
+        return JSON.parse(response.response);
       })
       .then((data) => {
         console.log('CHATS RESPONSE ===>', data);
+        if (data) {
+          store.dispatch({
+            type: 'CHATS',
+            chats: data
+          })
+        }
         return data;
       });
   } catch (error) {
@@ -25,8 +36,7 @@ export const getChatsService = (params: Record<string, string>): void => {
 };
 
 export const createChatsService = (
-  params: Record<string, string>,
-  formData: CreateChatRequest,
+  formData: Record<string, string>,
 ): void => {
   const http = new HTTPTransport();
 
@@ -52,7 +62,6 @@ export const createChatsService = (
 };
 
 export const addUserToChatService = (
-  params: Record<string, string>,
   formData: UsersRequest,
 ): void => {
   const http = new HTTPTransport();
@@ -79,7 +88,6 @@ export const addUserToChatService = (
 };
 
 export const deleteUserFromChatService = (
-  params: Record<string, string>,
   formData: UsersRequest,
 ): void => {
   const http = new HTTPTransport();
@@ -98,6 +106,32 @@ export const deleteUserFromChatService = (
       })
       .then((data) => {
         console.log('USER DELETED FROM CHAT ===>', data);
+        return data;
+      });
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+export const getCommonChatService = (id: number): void => {
+  const http = new HTTPTransport();
+
+  try {
+    http
+      .get(`${config.baseUrl}/chats/${id}/common`, {
+        ...params,
+      })
+      .then((response) => {
+        return JSON.parse(response.response);
+      })
+      .then((data) => {
+        console.log('COMMON CHAT RECEIVED ===>', data);
+        if (data) {
+          store.dispatch({
+            type: 'CURRENT_CHAT',
+            messages: data
+          })
+        }
         return data;
       });
   } catch (error) {

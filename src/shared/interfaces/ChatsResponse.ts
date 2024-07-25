@@ -4,6 +4,6 @@ export interface ChatsResponse {
   id: number;
   title: string;
   avatar: string;
-  unreadCount: number;
+  unread_count: number;
   last_message: ChatsResponseLastMessage;
 }

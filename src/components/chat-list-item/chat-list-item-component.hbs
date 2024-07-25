@@ -1,16 +1,25 @@
-<li class="chat-list-item" {{#if id}}id={{id}}{{/if}}>
+<li class="chat-list-item">
+{{#if userAvatar}}
   <div class="chat-list-item__avatar">
     {{{ userAvatar }}}
   </div>
-
+{{/if}}
   <div class="chat-list-item__message">
+{{#if name}}
     <div class="chat-list-item__message-author">{{name}}</div>
+{{/if}}
+
+{{#if messageText}}
     <div class="chat-list-item__message-text">{{messageText}}</div>
+{{/if}}
   </div>
 
   <div class="chat-list-item__message-info">
+{{#if timestamp}}
     <div class="chat-list-item__message-time">{{timestamp}}</div>
+{{/if}}
   </div>
-
+{{#if unreadMessages}}
   <div class="chat-list-item__message-unread">{{unreadMessages}}</div>
+{{/if}}
 </li>

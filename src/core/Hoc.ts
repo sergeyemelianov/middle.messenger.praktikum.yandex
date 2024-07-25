@@ -11,7 +11,7 @@ export function connect(Component: typeof Block) {
         this.setProps({ ...store.getState() });
       });
 
-      console.log(this);
+      console.log('THIS IN HOC', this);
     }
   };
 }

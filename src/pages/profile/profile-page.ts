@@ -1,5 +1,5 @@
 import './profile-page.scss';
-import { Block, connect, Props, State } from '../../core';
+import { Block, connect, Props } from '../../core';
 import ProfileDialogTemplate from './profile-page.hbs?raw';
 import Avatar from '../../components/avatar/avatar-component';
 import { ProfileDetails, ProfileDetailsEdit, ProfilePasswordEdit } from '../../components';
@@ -36,21 +36,6 @@ export class Profile extends Block {
   render(): string {
     return ProfileDialogTemplate;
   }
-
-  override componentDidUpdate(oldProps: State, newProps: State): boolean {
-    if (oldProps.user !== newProps.user) {
-      this.props = {
-        ...this.props,
-        avatar: new Avatar({
-          avatar: newProps.user?.avatar ?? '',
-          size: 'big',
-          name: 'avatar',
-        }),
-        name: newProps.user?.first_name,
-      };
-    }
-    return true;
-  }
 }
 
 const profile = connect(Profile);
@@ -59,7 +44,7 @@ const profileDetailsEdit = connect(ProfileDetailsEdit);
 const profilePasswordEdit = connect(ProfilePasswordEdit);
 const form = connect(Form);
 export const ProfileDetailsPage = new profile({
-  component: new form({ form: new profileDetails({}) }),
+  component: new form({ form: new profileDetails({})}),
 });
 
 export const ProfileDetailsEditPage = new profile({

@@ -1,24 +1,20 @@
 import './message-component.scss';
 import { Block, Props } from '../../core';
 import MessageTemplate from './message-component.hbs?raw';
-import { userData } from '../../data-chat/user-data';
-import { MessageType } from '../chat-list-item/chat-list-item-component';
 
 type MessageProps = Props & {
-  message: MessageType;
-  timestamp: string;
-  userId: number;
+  message?: string;
+  timestamp?: string;
+  isAuthor?: boolean;
 };
 
 export class Message extends Block {
   constructor(props: MessageProps) {
     super({
       ...props,
-      isAuthor: props.userId === userData.userId ? 'author' : 'not-author',
-      messageText: props.message.text,
-      messageImage: props.message.image,
+      isAuthor: props.isAuthor ? 'author' : 'not-author',
+      messageText: props.message,
       timestamp: props.timestamp,
-      messageIsRead: props.message.isRead,
     });
   }
 

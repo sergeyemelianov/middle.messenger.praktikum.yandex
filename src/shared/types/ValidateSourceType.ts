@@ -7,4 +7,5 @@ export type ValidateSourceType =
   | 'second_name'
   | 'email'
   | 'phone'
-  | 'message';
+  | 'message'
+  | 'title';

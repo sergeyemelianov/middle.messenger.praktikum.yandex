@@ -1,19 +1,36 @@
 <div class="chatboard">
         <div class="chatboard__list">
+          <div class="chatboard__header">
+            <div class="chatboard__profile">
+              {{{ buttonAddChat }}}
+            </div>
+
             <div class="chatboard__profile">
                 {{{ buttonProfile }}}
             </div>
-
+          </div>
             <div class="chatboard__search">
                 {{{ searchbar }}}
             </div>
 
             <div class="chatboard__list-items">
-                {{{ chatList }}}
+                {{{ list }}}
             </div>
         </div>
 
         <div class="chatboard__chat">
             {{{ chat }}}
         </div>
+
+        {{#if showModal}}
+          <div class="chatboard__modal" id="modal">
+            <div class="chatboard__modal-content">
+              <span class="chatboard__modal-close">
+                {{{ buttonModalClose }}}
+              </span>
+              <h2 class="chatboard__modal-title" id="modalTitle">Add new chat</h2>
+                {{{ form }}}
+            </div>
+          </div>
+        {{/if}}
 </div>

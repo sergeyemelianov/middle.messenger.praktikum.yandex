@@ -7,4 +7,7 @@ export enum PagesEnum {
   error5xx = 'error5xx',
   error4xx = 'error4xx',
   chatboard = 'chatboard',
+  modalAddChat = 'modalAddChat',
+  modalAddUser = 'modalAddUser',
+  modalDeleteUser = 'modalDeleteUser',
 }

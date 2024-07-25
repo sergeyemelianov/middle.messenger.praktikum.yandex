@@ -7,6 +7,14 @@
   width: 100%;
   height: 100%;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   &__list {
     @include display-flex-start();
     padding: 20px 10px 0;
@@ -22,7 +30,6 @@
   &__profile {
     @include text-12();
     @include display-flex-center();
-    margin: 0 0 20px auto;
   }
 
   &__list-items {
@@ -46,6 +53,70 @@
     input::placeholder {
       @include text-12();
       text-align: center;
+    }
+  }
+
+  &__modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 20%;
+  }
+
+  &__modal-content {
+    background-color: $white;
+    margin: 5% auto;
+    padding: 20px;
+    box-shadow: 0 0 6px 0 rgba($black-1, 0.14);
+    border-radius: 12px;
+    width: 340px;
+    height: 257px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .input-component {
+      height: 35px !important;
+      .input {
+        border: 1px solid black;
+        border-radius: 6px;
+        padding: 7px !important;
+      }
+    }
+
+    .button__confirmation {
+      height: 40px !important;
+    }
+  }
+
+  &__modal-title {
+    margin-top: 20px;
+    @include text-15();
+  }
+
+  &__modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: $black-2;
+    font-size: 40px;
+
+    button {
+      font-size: 24px !important;
+    }
+
+    &:hover,
+    &:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
     }
   }
 }

@@ -3,8 +3,12 @@ import HTTPTransport from '../core/HTTPTransport';
 import { errorHandler } from './error-handler';
 import { getUserService } from './user-service';
 
+const params = {
+  credentials: 'include',
+  mode: 'cors',
+};
+
 export const signinService = (
-  params: Record<string, string>,
   formData: Record<string, string>,
 ): void => {
   const http = new HTTPTransport();
@@ -27,7 +31,7 @@ export const signinService = (
         return data;
       })
       .then(() => {
-        getUserService(params);
+        getUserService();
       });
   } catch (error) {
     errorHandler(error);

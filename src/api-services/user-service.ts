@@ -4,6 +4,11 @@ import { pagesListNav, router } from '../index';
 import { errorHandler } from './error-handler';
 import store from '../core/Store';
 
+const params = {
+  credentials: 'include',
+  mode: 'cors',
+};
+
 export const getUserService = (): void => {
   const http = new HTTPTransport();
 
@@ -34,7 +39,6 @@ export const getUserService = (): void => {
 };
 
 export const changeUserProfileService = (
-  params: Record<string, string>,
   formData: Record<string, string>,
 ): void => {
   const http = new HTTPTransport();
@@ -66,7 +70,6 @@ export const changeUserProfileService = (
 };
 
 export const changePasswordService = (
-  params: Record<string, string>,
   formData: Record<string, string>,
 ): void => {
   const http = new HTTPTransport();
@@ -91,8 +94,7 @@ export const changePasswordService = (
   }
 };
 
-export const userSearchService = (
-  params: Record<string, string>,
+export const changeUserAvatarService = (
   formData: Record<string, string>,
 ): void => {
   const http = new HTTPTransport();
@@ -108,7 +110,7 @@ export const userSearchService = (
       })
       .then((response) => JSON.parse(response.response))
       .then((data) => {
-        console.log('USER SEARCH RESULT ===>', data);
+        console.log('AVATAR CHANGE RESULT ===>', data);
         return data;
       });
   } catch (error) {
@@ -116,7 +118,7 @@ export const userSearchService = (
   }
 };
 
-export const getUserByIdService = (params: Record<string, string>, id: number): void => {
+export const getUserByIdService = (id: number): void => {
   const http = new HTTPTransport();
 
   try {
@@ -134,6 +136,51 @@ export const getUserByIdService = (params: Record<string, string>, id: number): 
         }
         return data;
       });
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+export const userSearchByLoginService = (
+  formData: Record<string, string>,
+  chatId: number,
+): void => {
+  const http = new HTTPTransport();
+
+  try {
+    http
+      .post(`${config.baseUrl}/user/search`, {
+        ...params,
+        data: formData,
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .then((response) => JSON.parse(response.response))
+      .then((data) => {
+        console.log('USER SEARCH RESULT ===>', data);
+
+        if (data.length) {
+          const chatData = {
+            users: [data[0].id],
+            chatId
+          }
+          http
+            .put(`${config.baseUrl}/chats/users`, {
+              ...params,
+              data: chatData,
+              headers: {
+                'content-type': 'application/json',
+              },
+            })
+            .then((response) => JSON.parse(response.response))
+            .then((data) => {
+              console.log('USER ADDED TO CHAT RESULT ===>', data);
+              return data;
+            })
+        }
+        return data;
+      })
   } catch (error) {
     errorHandler(error);
   }

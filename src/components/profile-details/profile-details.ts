@@ -1,11 +1,12 @@
 import './profile-details.scss';
-import { Block, Props, State } from '../../core';
+import { Block, Props } from '../../core';
 import Input from '../input/input-component';
 import ProfileTemplate from './profile-details.hbs?raw';
 import Button from '../button/button-component';
 import { pagesListNav, router } from '../../index';
 import { logoutService } from '../../api-services/logout-service';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
+import Avatar from '../avatar/avatar-component';
 
 type ProfileDetailsProps = Props & {
   user?: UserResponse;
@@ -19,9 +20,14 @@ const inputState = {
 
 export class ProfileDetails extends Block {
   constructor(props: ProfileDetailsProps) {
-    console.log('PROPS IN ProfileDetails', props);
     super({
       ...props,
+      avatar: new Avatar({
+        avatar: props.user?.avatar ?? '',
+        size: 'big',
+        name: 'avatar',
+      }),
+      name: props.user?.first_name,
       buttonProfileDetailsEdit: new Button({
         view: 'link',
         page: 'profile_details_edit',
@@ -53,52 +59,44 @@ export class ProfileDetails extends Block {
           },
         },
       }),
+      inputList: [
+        new Input({
+          ...inputState,
+          type: 'text',
+          label: 'Email',
+          name: 'email',
+          placeholder: props.user?.email,
+        }),
+        new Input({
+          ...inputState,
+          label: 'Login',
+          name: 'login',
+          placeholder: props.user?.login,
+        }),
+        new Input({
+          ...inputState,
+          type: 'text',
+          label: 'Name',
+          name: 'first_name',
+          placeholder: props.user?.first_name,
+        }),
+        new Input({
+          ...inputState,
+          label: 'Second name',
+          name: 'second_name',
+          placeholder: props.user?.second_name,
+        }),
+        new Input({
+          ...inputState,
+          label: 'Phone number',
+          name: 'phone',
+          placeholder: props.user?.phone,
+        }),
+      ],
     });
   }
 
   render(): string {
     return ProfileTemplate;
-  }
-
-  override componentDidUpdate(oldProps: State, newProps: State): boolean {
-    if (oldProps.user !== newProps.user) {
-      this.lists = {
-        inputList: [
-          new Input({
-            ...inputState,
-            type: 'text',
-            label: 'Email',
-            name: 'email',
-            placeholder: newProps.user?.email,
-          }),
-          new Input({
-            ...inputState,
-            label: 'Login',
-            name: 'login',
-            placeholder: newProps.user?.login,
-          }),
-          new Input({
-            ...inputState,
-            type: 'text',
-            label: 'Name',
-            name: 'first_name',
-            placeholder: newProps.user?.first_name,
-          }),
-          new Input({
-            ...inputState,
-            label: 'Second name',
-            name: 'second_name',
-            placeholder: newProps.user?.second_name,
-          }),
-          new Input({
-            ...inputState,
-            label: 'Phone number',
-            name: 'phone',
-            placeholder: newProps.user?.phone,
-          }),
-        ],
-      };
-    }
-    return true;
   }
 }
