@@ -13,8 +13,10 @@ import {
 } from '../../api-services/user-service';
 import { createChatsService } from '../../api-services/chat-service';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
+import { UserResponse } from '../../shared/interfaces/UserResponse';
 
 type FormProps = Props & {
+  user?: UserResponse;
   form?: Block;
   type?: PagesEnum;
 };
@@ -22,6 +24,7 @@ type FormProps = Props & {
 export class Form extends Block {
   formInputList: Block[];
   chats?: ChatsResponse[];
+  type?: PagesEnum;
 
   constructor(props: FormProps) {
     super({
@@ -29,60 +32,75 @@ export class Form extends Block {
       events: {
         submit: (event: SubmitEvent) => {
           event?.preventDefault();
-          this.formInputList.forEach((list: Block) => {
-            const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
-              ?.value;
 
-            formData[list.props?.name as string] = val;
-            this.setValidationError(list, val);
-          });
-
-          if (formIsValid(this.formInputList)) {
-            if (props.type === PagesEnum.signup) {
-              signupService(formData);
-            }
-
-            if (props.type === PagesEnum.login) {
-              signinService(formData);
-            }
-
-            if (props.type === PagesEnum.profileDetailsEdit) {
-              changeUserProfileService(formData);
-            }
-
-            if (props.type === PagesEnum.profilePasswordEdit) {
-              changePasswordService(formData);
-            }
-
-            if (props.type === PagesEnum.profilePasswordEdit) {
-              changePasswordService(formData);
-            }
-
-            if (props.type === PagesEnum.modalAddChat) {
-              createChatsService(formData);
-            }
-
-            if (props.type === PagesEnum.modalAddUser && this.chats) {
-              userSearchByLoginService(formData, this.chats[0].id);
-            }
-
-            if (props.type === PagesEnum.profileAvatarEdit) {
-              const avatarData = this.formInputList[0]
-                .getContent()
-                ?.querySelector('.input') as HTMLInputElement;
-              if (avatarData?.files?.length) {
-                const formDataPict = new FormData();
-                formDataPict.append(this.formInputList[0].props.name, avatarData?.files[0]);
-                changeUserAvatarService(formDataPict);
-              }
+          if (props.type === PagesEnum.profileAvatarEdit) {
+            const avatarData = this.formInputList[0]
+              .getContent()
+              ?.querySelector('.input') as HTMLInputElement;
+            if (avatarData?.files?.length) {
+              const formDataPict = new FormData();
+              formDataPict.append(this.formInputList[0].props.name, avatarData?.files[0]);
+              changeUserAvatarService(formDataPict);
             }
           }
+
+          const formData = this.getFormData();
+          console.log('1!!!!!!!', formData);
+          this.request(props.type, formData);
         },
       },
     });
+    this.type = props.type;
+  }
 
-    this.formInputList = this.children.form.lists.inputList;
+  getFormData(): Record<string, string> {
     let formData: Record<string, string> = {};
+    this.formInputList.forEach((list: Block) => {
+      const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
+        ?.value;
+
+      formData[list.props?.name as string] = val;
+      this.setValidationError(list, val);
+    });
+    return  formData;
+  }
+
+  request(type?: string, formData?: Record<string, string>): void {
+    if (!formData) {
+      return;
+    }
+
+    if (!formIsValid(this.formInputList)) {
+      return;
+    }
+
+    if (type === PagesEnum.signup) {
+      signupService(formData);
+    }
+
+    if (type === PagesEnum.login) {
+      signinService(formData);
+    }
+
+    if (type === PagesEnum.profileDetailsEdit) {
+      changeUserProfileService(formData);
+    }
+
+    if (type === PagesEnum.profilePasswordEdit) {
+      changePasswordService(formData);
+    }
+
+    if (type === PagesEnum.profilePasswordEdit) {
+      changePasswordService(formData);
+    }
+
+    if (type === PagesEnum.modalAddChat) {
+      createChatsService(formData);
+    }
+
+    if (type === PagesEnum.modalAddUser && this.chats) {
+      userSearchByLoginService(formData, this.chats[0].id);
+    }
   }
 
   setValidationError(list: Block, val: string): void {
@@ -105,7 +123,7 @@ export class Form extends Block {
     if (oldProps.chats !== newProps.chats) {
       this.chats = newProps.chats;
     }
+
     return true;
   }
 }
-

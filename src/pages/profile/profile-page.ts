@@ -1,5 +1,5 @@
 import './profile-page.scss';
-import { Block, connect, Props } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import ProfileDialogTemplate from './profile-page.hbs?raw';
 import { profileDetails, profileDetailsEdit, profilePasswordEdit } from '../../components';
 import Button from '../../components/button/button-component';
@@ -34,7 +34,7 @@ export class Profile extends Block {
   }
 }
 
-const form = connect(Form);
+const form = connect(Form, (state: State) => ({ user: state.user }));
 
 export const ProfileDetailsPage = new Profile({
   component: new form({ form: new profileDetails({}) }),

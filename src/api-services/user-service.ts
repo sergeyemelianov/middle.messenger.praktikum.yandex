@@ -64,7 +64,7 @@ export const changeUserProfileService = (formData: Record<string, string>): void
             user: {
               ...data,
               avatar: !!data.avatar
-                ? `https://ya-praktikum.tech/api/v2/resources$${data.avatar}`
+                ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}`
                 : data.avatar,
             },
           });

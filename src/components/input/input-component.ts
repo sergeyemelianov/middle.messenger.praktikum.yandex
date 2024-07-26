@@ -15,6 +15,8 @@ export type InputProps = Props & {
   readonly?: boolean;
   autofocus?: boolean;
   required?: boolean;
+  img?: string;
+  size?: 'small' | 'medium' | 'big';
   showDivider?: boolean;
   page?: string;
   error?: string;
@@ -32,6 +34,8 @@ export default class Input extends Block {
         name: props.name,
         value: props.value,
         placeholder: props.placeholder,
+        img: props.img,
+        size: props.size,
         readonly: props.readonly,
         autofocus: props.autofocus,
         accept: props.accept,

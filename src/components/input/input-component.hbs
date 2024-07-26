@@ -3,6 +3,10 @@
         <label class="input-component__label" for="{{name}}">{{label}}</label>
     {{/if}}
 
+    {{#if img}}
+         <label class="input-component__label" for="{{name}}"><img class="avatar {{#if size}} avatar__size_{{size}}" {{/if}} src="{{img}}" alt="user-avatar"></label>
+    {{/if}}
+
     {{{ inputField }}}
 
     {{#if showDivider}}
