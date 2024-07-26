@@ -25,7 +25,8 @@ export class Chatboard extends Block {
         iconName: 'add',
         iconSize: 'medium',
         events: {
-          click: () => {
+          click: (e: MouseEvent) => {
+            e.preventDefault();
             this.toggleShowModal();
           },
         },
@@ -34,7 +35,8 @@ export class Chatboard extends Block {
         view: 'secondary',
         label: 'x',
         events: {
-          click: () => {
+          click: (e: MouseEvent) => {
+            e.preventDefault();
             this.toggleCloseModal();
           },
         },
@@ -69,7 +71,10 @@ export class Chatboard extends Block {
         }),
       }),
       form: new Form({
-        form: new Modal({ name: 'title', placeholder: 'Enter the name of chat' }),
+        form: new Modal({ name: 'title', placeholder: 'Enter the name of chat', onClick: (e: MouseEvent) => {
+          e.preventDefault();
+          this.toggleCloseModal()
+          }}),
         type: PagesEnum.modalAddChat,
       }),
     });

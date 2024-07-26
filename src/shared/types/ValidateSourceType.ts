@@ -8,4 +8,5 @@ export type ValidateSourceType =
   | 'email'
   | 'phone'
   | 'message'
-  | 'title';
+  | 'title'
+  | 'avatar';

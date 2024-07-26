@@ -4,6 +4,7 @@ export enum PagesEnum {
   profileDetails = 'profileDetails',
   profileDetailsEdit = 'profileDetailsEdit',
   profilePasswordEdit = 'profilePasswordEdit',
+  profileAvatarEdit = 'profileAvatarEdit',
   error5xx = 'error5xx',
   error4xx = 'error4xx',
   chatboard = 'chatboard',

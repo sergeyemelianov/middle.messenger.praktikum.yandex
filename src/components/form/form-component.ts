@@ -6,7 +6,7 @@ import { signupService } from '../../api-services/signup-service';
 import { signinService } from '../../api-services/signin-service';
 import { PagesEnum } from '../../shared/enums/Pages';
 import {
-  changePasswordService,
+  changePasswordService, changeUserAvatarService,
   changeUserProfileService,
   userSearchByLoginService,
 } from '../../api-services/user-service';
@@ -27,9 +27,7 @@ export class Form extends Block {
       ...props,
       events: {
         submit: (event: SubmitEvent) => {
-          console.log('props', props);
           event?.preventDefault();
-          console.log('----->', this.formInputList);
           this.formInputList.forEach((list: Block) => {
             const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
               ?.value;
@@ -67,13 +65,17 @@ export class Form extends Block {
             if (props.type === PagesEnum.modalAddUser && this.chats) {
               userSearchByLoginService(formData, this.chats[0].id);
             }
+
+            if (props.type === PagesEnum.profileAvatarEdit) {
+              changeUserAvatarService(formData);
+            }
           }
         },
       },
     });
 
     this.formInputList = this.children.form.lists.inputList;
-    const formData: Record<string, string> = {};
+    let formData: Record<string, string> = {};
   }
 
   setValidationError(list: Block, val: string): void {

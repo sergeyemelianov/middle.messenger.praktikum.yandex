@@ -11,4 +11,5 @@ export * from './profile-details/profile-details';
 export * from './profile-details-edit/profile-details-edit';
 export * from './profile-details/profile-details';
 export * from './profile-password-edit/profile-password-edit';
+export * from './avatar-change/avatar-change-component';
 export * from './modal/modal';

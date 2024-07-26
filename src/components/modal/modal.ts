@@ -9,6 +9,7 @@ type ModalProps = Props & {
   type?: string;
   placeholder?: string;
   name?: ValidateSourceType;
+  onClick?: (e: MouseEvent) => void;
 };
 
 export class Modal extends Block {
@@ -27,6 +28,9 @@ export class Modal extends Block {
         view: 'confirmation',
         page: 'chatboard',
         label: 'Confirm',
+        events: {
+          click: (e: MouseEvent) => props.onClick && props.onClick(e)
+        }
       }),
     });
   }

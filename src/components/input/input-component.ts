@@ -34,6 +34,7 @@ export default class Input extends Block {
         placeholder: props.placeholder,
         readonly: props.readonly,
         autofocus: props.autofocus,
+        accept: props.accept,
         onBlur: (e) => {
           e.preventDefault();
           const val = (e.target as HTMLInputElement)?.value;

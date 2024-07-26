@@ -5,6 +5,9 @@ import Button from '../button/button-component';
 import ProfileDetailsEditTemplate from './profile-details-edit.hbs?raw';
 import { pagesListNav, router } from '../../index';
 import Avatar from '../avatar/avatar-component';
+import {Form} from "../form/form-component";
+import AvatarChange from "../avatar-change/avatar-change-component";
+import {PagesEnum} from "../../shared/enums/Pages";
 
 type ProfileDetailsEditProps = Props;
 
@@ -17,6 +20,23 @@ export class ProfileDetailsEdit extends Block {
   constructor(props: ProfileDetailsEditProps) {
     super({
       ...props,
+      changeAvatar: new Form({
+        form: new AvatarChange({
+          inputList: [
+            new Input({
+            type: 'file',
+            name: 'avatar',
+            accept: 'image/*'
+          })],
+          acceptButton: new Button({
+            type: 'submit',
+            view: 'confirmation',
+            label: 'Save',
+            }
+          )
+        }),
+        type: PagesEnum.profileAvatarEdit
+      }),
       buttonSave: new Button({
         type: 'submit',
         view: 'confirmation',
