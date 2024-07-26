@@ -1,6 +1,6 @@
 import './profile-details-edit.scss';
 import { Block, connect, Props, State } from '../../core';
-import Input from '../input/input-component';
+import Input, {InputProps} from '../input/input-component';
 import Button from '../button/button-component';
 import ProfileDetailsEditTemplate from './profile-details-edit.hbs?raw';
 import { pagesListNav, router } from '../../index';
@@ -37,10 +37,21 @@ export class ProfileDetailsEdit extends Block {
   render(): string {
     return ProfileDetailsEditTemplate;
   }
+
+  componentDidUpdate(oldProps: any, newProps: any): boolean {
+    if (oldProps.avatar !== newProps.avatar) {
+      this.children.avatar = newProps.avatar;
+    }
+
+    if (oldProps.inputList !== newProps.inputList) {
+      this.lists.inputList = newProps.inputList.map((item: InputProps) => { return item })
+    }
+
+    return true;
+  }
 }
 
-export const profileDetailsEdit = connect(ProfileDetailsEdit, (state: State) => {
-  return {
+export const profileDetailsEdit = connect(ProfileDetailsEdit, (state: State) => ({
     inputList: [
       new Input({
         ...inputState,
@@ -85,5 +96,4 @@ export const profileDetailsEdit = connect(ProfileDetailsEdit, (state: State) => 
       name: 'avatar',
     }),
     name: state.user?.first_name,
-  };
-});
+}));

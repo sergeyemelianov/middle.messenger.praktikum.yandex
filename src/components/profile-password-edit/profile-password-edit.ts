@@ -54,6 +54,14 @@ export class ProfilePasswordEdit extends Block {
   render(): string {
     return ProfilePasswordEditTemplate;
   }
+
+  componentDidUpdate(oldProps: any, newProps: any): boolean {
+    if (oldProps.avatar !== newProps.avatar) {
+      this.children.avatar = newProps.avatar;
+    }
+
+    return true;
+  }
 }
 
 export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) => {

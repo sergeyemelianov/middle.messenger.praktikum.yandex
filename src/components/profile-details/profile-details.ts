@@ -1,6 +1,6 @@
 import './profile-details.scss';
 import { Block, connect, Props, State } from '../../core';
-import Input from '../input/input-component';
+import Input, {InputProps} from '../input/input-component';
 import ProfileTemplate from './profile-details.hbs?raw';
 import Button from '../button/button-component';
 import { pagesListNav, router } from '../../index';
@@ -59,15 +59,27 @@ export class ProfileDetails extends Block {
   render(): string {
     return ProfileTemplate;
   }
+
+  componentDidUpdate(oldProps: any, newProps: any): boolean {
+    if (oldProps.avatar !== newProps.avatar) {
+      this.children.avatar = newProps.avatar;
+    }
+
+    if (oldProps.inputList !== newProps.inputList) {
+      this.lists.inputList = newProps.inputList.map((item: InputProps) => { return item })
+    }
+
+    return true;
+  }
 }
 
 export const profileDetails = connect(ProfileDetails, (state: State) => ({
+  name: state.user?.first_name,
   avatar: new Avatar({
     avatar: state.user?.avatar ?? '',
     size: 'big',
     name: 'avatar',
   }),
-  name: state.user?.first_name,
   inputList: [
     new Input({
       ...inputState,

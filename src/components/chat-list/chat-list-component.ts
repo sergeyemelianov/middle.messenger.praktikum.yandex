@@ -17,6 +17,13 @@ export class ChatList extends Block {
   render(): string {
     return ChatLisTemplate;
   }
+
+  componentDidUpdate(oldProps: any, newProps: any): boolean {
+    if (oldProps.messages !== newProps.messages) {
+      this.lists.messages = newProps.messages?.map((message: ChatsResponse) => { return message });
+    }
+    return true;
+  }
 }
 
 function setActiveChat(chatId: number): void {
@@ -26,10 +33,8 @@ function setActiveChat(chatId: number): void {
   });
 }
 
-export const chatlist = connect(ChatList, (state: State) => {
-  return {
+export const chatlist = connect(ChatList, (state: State) => ({
     messages: state.chats?.map((message: ChatsResponse) => {
-      console.log('MESSAGE', message);
       return new ChatListItem({
         ...message,
         events: {
@@ -40,5 +45,4 @@ export const chatlist = connect(ChatList, (state: State) => {
         },
       });
     }),
-  };
-});
+}));
