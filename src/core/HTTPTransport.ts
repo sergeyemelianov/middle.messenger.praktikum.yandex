@@ -73,7 +73,9 @@ export default class HTTPTransport {
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
       xhr.withCredentials = true;
-      if (isGet || !data) {
+      if (data instanceof FormData) {
+        xhr.send(data);
+      } else if (isGet || !data) {
         xhr.send();
       } else {
         xhr.send(JSON.stringify(data));

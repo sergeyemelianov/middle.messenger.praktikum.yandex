@@ -6,7 +6,8 @@ import { signupService } from '../../api-services/signup-service';
 import { signinService } from '../../api-services/signin-service';
 import { PagesEnum } from '../../shared/enums/Pages';
 import {
-  changePasswordService, changeUserAvatarService,
+  changePasswordService,
+  changeUserAvatarService,
   changeUserProfileService,
   userSearchByLoginService,
 } from '../../api-services/user-service';
@@ -31,13 +32,12 @@ export class Form extends Block {
           this.formInputList.forEach((list: Block) => {
             const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
               ?.value;
+
             formData[list.props?.name as string] = val;
             this.setValidationError(list, val);
           });
 
           if (formIsValid(this.formInputList)) {
-            console.log('formData ===>', formData);
-
             if (props.type === PagesEnum.signup) {
               signupService(formData);
             }
@@ -67,7 +67,14 @@ export class Form extends Block {
             }
 
             if (props.type === PagesEnum.profileAvatarEdit) {
-              changeUserAvatarService(formData);
+              const avatarData = this.formInputList[0]
+                .getContent()
+                ?.querySelector('.input') as HTMLInputElement;
+              if (avatarData?.files?.length) {
+                const formDataPict = new FormData();
+                formDataPict.append(this.formInputList[0].props.name, avatarData?.files[0]);
+                changeUserAvatarService(formDataPict);
+              }
             }
           }
         },
@@ -101,3 +108,4 @@ export class Form extends Block {
     return true;
   }
 }
+

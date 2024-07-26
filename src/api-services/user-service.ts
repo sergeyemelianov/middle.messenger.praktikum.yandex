@@ -21,7 +21,12 @@ export const getUserService = (): void => {
         if (data?.id) {
           store.dispatch({
             type: 'USER_INFO',
-            user: data,
+            user: {
+              ...data,
+              avatar: !!data.avatar
+                ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}`
+                : data.avatar,
+            },
           });
           router.go(pagesListNav.chatboard);
         } else {
@@ -38,9 +43,7 @@ export const getUserService = (): void => {
   }
 };
 
-export const changeUserProfileService = (
-  formData: Record<string, string>,
-): void => {
+export const changeUserProfileService = (formData: Record<string, string>): void => {
   const http = new HTTPTransport();
 
   try {
@@ -58,7 +61,12 @@ export const changeUserProfileService = (
         if (data?.id) {
           store.dispatch({
             type: 'USER_INFO',
-            user: data,
+            user: {
+              ...data,
+              avatar: !!data.avatar
+                ? `https://ya-praktikum.tech/api/v2/resources$${data.avatar}`
+                : data.avatar,
+            },
           });
           router.go(pagesListNav.profileDetails);
         }
@@ -69,9 +77,7 @@ export const changeUserProfileService = (
   }
 };
 
-export const changePasswordService = (
-  formData: Record<string, string>,
-): void => {
+export const changePasswordService = (formData: Record<string, string>): void => {
   const http = new HTTPTransport();
 
   try {
@@ -94,19 +100,14 @@ export const changePasswordService = (
   }
 };
 
-export const changeUserAvatarService = (
-  formData: Record<string, string>,
-): void => {
+export const changeUserAvatarService = (formData: FormData): void => {
   const http = new HTTPTransport();
-
+  console.log('FORM DATA ===>', formData);
   try {
     http
       .put(`${config.baseUrl}/user/profile/avatar`, {
         ...params,
         data: formData,
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
       })
       .then((response) => JSON.parse(response.response))
       .then((data) => {
@@ -163,8 +164,8 @@ export const userSearchByLoginService = (
         if (data.length) {
           const chatData = {
             users: [data[0].id],
-            chatId
-          }
+            chatId,
+          };
           http
             .put(`${config.baseUrl}/chats/users`, {
               ...params,
@@ -177,10 +178,10 @@ export const userSearchByLoginService = (
             .then((data) => {
               console.log('USER ADDED TO CHAT RESULT ===>', data);
               return data;
-            })
+            });
         }
         return data;
-      })
+      });
   } catch (error) {
     errorHandler(error);
   }
