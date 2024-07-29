@@ -1,7 +1,7 @@
-import store from './Store';
+import store, {State} from './Store';
 import { Block, Props } from './Block';
 
-export function connect(Component: typeof Block, selector?: Function) {
+export function connect(Component: typeof Block, selector?: (state: State) => void) {
   return class connect extends Component {
     constructor(props: Props) {
       super(props);

@@ -74,4 +74,3 @@ export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) =
     name: state.user?.first_name,
   };
 });
-

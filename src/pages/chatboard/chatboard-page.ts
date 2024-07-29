@@ -71,10 +71,14 @@ export class Chatboard extends Block {
         }),
       }),
       form: new Form({
-        form: new Modal({ name: 'title', placeholder: 'Enter the name of chat', onClick: (e: MouseEvent) => {
-          e.preventDefault();
-          this.toggleCloseModal()
-          }}),
+        form: new Modal({
+          name: 'title',
+          placeholder: 'Enter the name of chat',
+          onClick: (e: MouseEvent) => {
+            e.preventDefault();
+            this.toggleCloseModal();
+          },
+        }),
         type: PagesEnum.modalAddChat,
       }),
     });

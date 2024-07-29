@@ -8,7 +8,7 @@ export class ChatListItem extends Block {
   constructor(props: ChatListItemProps) {
     super({
       ...props,
-    })
+    });
   }
 
   render(): string {

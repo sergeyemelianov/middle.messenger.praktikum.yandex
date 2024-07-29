@@ -25,8 +25,8 @@ export const getChatsService = (): void => {
         if (data) {
           store.dispatch({
             type: 'CHATS',
-            chats: data
-          })
+            chats: data,
+          });
         }
         return data;
       });
@@ -35,9 +35,7 @@ export const getChatsService = (): void => {
   }
 };
 
-export const createChatsService = (
-  formData: Record<string, string>,
-): void => {
+export const createChatsService = (formData: Record<string, string>): void => {
   const http = new HTTPTransport();
 
   try {
@@ -61,9 +59,7 @@ export const createChatsService = (
   }
 };
 
-export const addUserToChatService = (
-  formData: UsersRequest,
-): void => {
+export const addUserToChatService = (formData: UsersRequest): void => {
   const http = new HTTPTransport();
 
   try {
@@ -87,9 +83,7 @@ export const addUserToChatService = (
   }
 };
 
-export const deleteUserFromChatService = (
-  formData: UsersRequest,
-): void => {
+export const deleteUserFromChatService = (formData: UsersRequest): void => {
   const http = new HTTPTransport();
 
   try {
@@ -129,8 +123,8 @@ export const getCommonChatService = (id: number): void => {
         if (data) {
           store.dispatch({
             type: 'CURRENT_CHAT',
-            messages: data
-          })
+            messages: data,
+          });
         }
         return data;
       });

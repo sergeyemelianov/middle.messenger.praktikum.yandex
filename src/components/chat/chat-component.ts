@@ -8,8 +8,7 @@ import { Message } from '../message/message-component';
 import { getCommonChatService } from '../../api-services/chat-service';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 
-type ChatProps = Props & {
-};
+type ChatProps = Props;
 
 export class Chat extends Block {
   emptyStateText?: string;
@@ -19,8 +18,6 @@ export class Chat extends Block {
     super({
       ...props,
     });
-
-    console.log('!!!!!!!!!!!!!!props', props);
   }
 
   override componentDidUpdate(oldProps: any, newProps: any): boolean {
@@ -29,7 +26,6 @@ export class Chat extends Block {
       getCommonChatService(newProps.activeChatId);
       return true;
     }
-
 
     if (oldProps.messages !== newProps.messages) {
       this.children = {
@@ -47,7 +43,7 @@ export class Chat extends Block {
             new Message({
               message: el.last_message.content,
               timestamp: el.last_message.time?.slice(11, 16),
-              isAuthor: el.last_message.user === this.props.user
+              isAuthor: el.last_message.user === this.props.user,
             }),
         ),
         buttonSend: new Button({
@@ -85,7 +81,7 @@ export class Chat extends Block {
             },
           },
         }),
-      }
+      };
       this.lists = {
         inputList: [
           new Input({
@@ -95,7 +91,7 @@ export class Chat extends Block {
             placeholder: 'Type a message',
           }),
         ],
-      }
+      };
     }
     return true;
   }

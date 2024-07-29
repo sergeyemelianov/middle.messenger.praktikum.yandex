@@ -29,8 +29,8 @@ export class Modal extends Block {
         page: 'chatboard',
         label: 'Confirm',
         events: {
-          click: (e: MouseEvent) => props.onClick && props.onClick(e)
-        }
+          click: (e: MouseEvent) => props.onClick && props.onClick(e),
+        },
       }),
     });
   }

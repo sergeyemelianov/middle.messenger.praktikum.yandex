@@ -8,9 +8,7 @@ const params = {
   mode: 'cors',
 };
 
-export const signinService = (
-  formData: Record<string, string>,
-): void => {
+export const signinService = (formData: Record<string, string>): void => {
   const http = new HTTPTransport();
 
   try {

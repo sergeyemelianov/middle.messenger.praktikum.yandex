@@ -9,7 +9,7 @@
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && vite build --emptyOutDir",
     "preview": "vite preview",
-    "lint": "npx eslint \"**/*.{js,ts}\"",
+    "lint": "npx eslint \"**/*.{js,ts}\" --fix",
     "prettier": "prettier -w src/.",
     "pre-commit": "npm run prettier && npm run lint",
     "stylelint": "npx stylelint \"**/*.scss\" --fix"

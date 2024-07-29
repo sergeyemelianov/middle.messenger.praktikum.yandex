@@ -1,6 +1,6 @@
 import './profile-details.scss';
 import { Block, connect, Props, State } from '../../core';
-import Input, {InputProps} from '../input/input-component';
+import Input, { InputProps } from '../input/input-component';
 import ProfileTemplate from './profile-details.hbs?raw';
 import Button from '../button/button-component';
 import { pagesListNav, router } from '../../index';
@@ -66,7 +66,9 @@ export class ProfileDetails extends Block {
     }
 
     if (oldProps.inputList !== newProps.inputList) {
-      this.lists.inputList = newProps.inputList.map((item: InputProps) => { return item })
+      this.lists.inputList = newProps.inputList.map((item: InputProps) => {
+        return item;
+      });
     }
 
     return true;

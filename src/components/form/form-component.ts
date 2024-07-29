@@ -44,8 +44,9 @@ export class Form extends Block {
             }
           }
 
+          this.formInputList = this.children.form.lists.inputList;
           const formData = this.getFormData();
-          console.log('1!!!!!!!', formData);
+
           this.request(props.type, formData);
         },
       },
@@ -54,7 +55,7 @@ export class Form extends Block {
   }
 
   getFormData(): Record<string, string> {
-    let formData: Record<string, string> = {};
+    const formData: Record<string, string> = {};
     this.formInputList.forEach((list: Block) => {
       const val = ((list as Block).getContent()?.querySelector('.input') as HTMLInputElement)
         ?.value;
@@ -62,7 +63,7 @@ export class Form extends Block {
       formData[list.props?.name as string] = val;
       this.setValidationError(list, val);
     });
-    return  formData;
+    return formData;
   }
 
   request(type?: string, formData?: Record<string, string>): void {

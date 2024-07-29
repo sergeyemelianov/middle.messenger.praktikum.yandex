@@ -23,7 +23,7 @@ export const getUserService = (): void => {
             type: 'USER_INFO',
             user: {
               ...data,
-              avatar: !!data.avatar
+              avatar: data.avatar
                 ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}`
                 : data.avatar,
             },
@@ -63,7 +63,7 @@ export const changeUserProfileService = (formData: Record<string, string>): void
             type: 'USER_INFO',
             user: {
               ...data,
-              avatar: !!data.avatar
+              avatar: data.avatar
                 ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}`
                 : data.avatar,
             },
