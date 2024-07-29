@@ -3,13 +3,14 @@
     <img src="{{avatar}}" alt="avatar">
   </div>
   <div class="chat-list-item__message">
-    <div class="chat-list-item__message-author">{{last_name}}</div>
+    <div class="chat-list-item__message-author"><span>{{last_message.user.first_name}} {{last_message.user.second_name}}</div>
     <div class="chat-list-item__message-text">{{last_message.content}}</div>
   </div>
 
   <div class="chat-list-item__message-info">
     <div class="chat-list-item__message-time">{{time}}</div>
   </div>
-
-  <div class="chat-list-item__message-unread">{{unread_count}}</div>
+  {{#if unread_count}}
+      <div class="chat-list-item__message-unread">{{unread_count}}</div>
+  {{/if}}
 </li>

@@ -1,88 +1,22 @@
 import './chat-component.scss';
-import { Block, Props } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import ChatTemplate from './chat-component.hbs?raw';
-import Avatar from '../avatar/avatar-component';
 import Button from '../button/button-component';
 import Input from '../input/input-component';
 import { Message } from '../message/message-component';
-import { getCommonChatService } from '../../api-services/chat-service';
-import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
+import { requestChatToken } from '../../api-services/ws-service';
+import { WsChatResponse } from '../../shared/interfaces/WsChatResponse';
 
-type ChatProps = Props;
+type ChatProps = Props & {
+  activeChatId?: number;
+  userId?: number;
+  messages?: WsChatResponse[];
+};
 
 export class Chat extends Block {
-  emptyStateText?: string;
-  isActive?: boolean;
-
   constructor(props: ChatProps) {
     super({
       ...props,
-    });
-  }
-
-  override componentDidUpdate(oldProps: any, newProps: any): boolean {
-    if (oldProps.activeChatId !== newProps.activeChatId) {
-      this.isActive = false;
-      getCommonChatService(newProps.activeChatId);
-      return true;
-    }
-
-    if (oldProps.messages !== newProps.messages) {
-      this.children = {
-        userAvatar: new Avatar({
-          avatar: newProps.messages[0].avatar as string | undefined,
-          size: 'small',
-        }),
-        userName: newProps.messages[0].last_message.user.first_name,
-        buttonAttachFile: new Button({
-          view: 'no-text',
-          iconName: 'attach-file',
-        }),
-        messages: newProps.messages.map(
-          (el: ChatsResponse) =>
-            new Message({
-              message: el.last_message.content,
-              timestamp: el.last_message.time?.slice(11, 16),
-              isAuthor: el.last_message.user === this.props.user,
-            }),
-        ),
-        buttonSend: new Button({
-          view: 'confirmation',
-          iconName: 'arrow-confirm',
-        }),
-        buttonAddUser: new Button({
-          view: 'secondary',
-          page: 'profile',
-          iconName: 'add',
-          iconSize: 'medium',
-          events: {
-            click: () => {
-              this.toggleShowAddModal();
-            },
-          },
-        }),
-        buttonDeleteUser: new Button({
-          view: 'secondary',
-          page: 'profile',
-          iconName: 'delete',
-          iconSize: 'medium',
-          events: {
-            click: () => {
-              this.toggleShowDeleteModal();
-            },
-          },
-        }),
-        buttonModalClose: new Button({
-          view: 'secondary',
-          label: 'x',
-          events: {
-            click: () => {
-              this.toggleCloseModal();
-            },
-          },
-        }),
-      };
-      this.lists = {
         inputList: [
           new Input({
             name: 'message',
@@ -91,6 +25,77 @@ export class Chat extends Block {
             placeholder: 'Type a message',
           }),
         ],
+      buttonSend: new Button({
+        view: 'confirmation',
+        iconName: 'arrow-confirm',
+      }),
+      buttonAddUser: new Button({
+        type: 'button',
+        view: 'secondary',
+        page: 'profile',
+        iconName: 'add',
+        iconSize: 'medium',
+        events: {
+          click: () => {
+            this.toggleShowAddModal();
+          },
+        },
+      }),
+      buttonDeleteUser: new Button({
+        type: 'button',
+        view: 'secondary',
+        page: 'profile',
+        iconName: 'delete',
+        iconSize: 'medium',
+        events: {
+          click: () => {
+            this.toggleShowDeleteModal();
+          },
+        },
+      }),
+      buttonModalClose: new Button({
+        view: 'secondary',
+        label: 'x',
+        events: {
+          click: () => {
+            this.toggleCloseModal();
+          },
+        },
+      }),
+      buttonAttachFile: new Button({
+        view: 'no-text',
+        iconName: 'attach-file',
+      }),
+    });
+  }
+
+  override componentDidUpdate(oldProps: any, newProps: any): boolean {
+    if (oldProps.activeChatId !== newProps.activeChatId) {
+      if (typeof newProps.activeChatId === 'number') {
+        requestChatToken(newProps.userId, newProps.activeChatId);
+        this.setProps({
+          isActive: true,
+        });
+      } else {
+        this.setProps({
+          isActive: false,
+        });
+      }
+
+      return true;
+    }
+
+    if (oldProps.messages !== newProps.messages) {
+      this.lists = {
+        messages: newProps.messages.map(
+          (el: WsChatResponse) =>
+            new Message({
+              message: el.content,
+              timestamp: el.time?.slice(11, 16),
+              isAuthor: el.user_id === newProps.userId,
+              isRead: el.is_read
+            }),
+        ),
       };
     }
     return true;
@@ -121,3 +126,9 @@ export class Chat extends Block {
     });
   }
 }
+
+export const chat = connect(Chat, (state: State) => ({
+  activeChatId: state?.activeChatId,
+  userId: state.user?.id,
+  messages: state?.messages
+}));

@@ -120,12 +120,6 @@ export const getCommonChatService = (id: number): void => {
       })
       .then((data) => {
         console.log('COMMON CHAT RECEIVED ===>', data);
-        if (data) {
-          store.dispatch({
-            type: 'CURRENT_CHAT',
-            messages: data,
-          });
-        }
         return data;
       });
   } catch (error) {

@@ -12,19 +12,19 @@ import {
   userSearchByLoginService,
 } from '../../api-services/user-service';
 import { createChatsService } from '../../api-services/chat-service';
-import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
 
 type FormProps = Props & {
   user?: UserResponse;
   form?: Block;
   type?: PagesEnum;
+  activeChatId?: number;
 };
 
 export class Form extends Block {
   formInputList: Block[];
-  chats?: ChatsResponse[];
   type?: PagesEnum;
+  activeChatId?: number;
 
   constructor(props: FormProps) {
     super({
@@ -45,8 +45,8 @@ export class Form extends Block {
           }
 
           this.formInputList = this.children.form.lists.inputList;
-          const formData = this.getFormData();
 
+          const formData = this.getFormData();
           this.request(props.type, formData);
         },
       },
@@ -99,8 +99,8 @@ export class Form extends Block {
       createChatsService(formData);
     }
 
-    if (type === PagesEnum.modalAddUser && this.chats) {
-      userSearchByLoginService(formData, this.chats[0].id);
+    if (type === PagesEnum.modalAddUser && this.activeChatId) {
+      userSearchByLoginService(formData, this.activeChatId);
     }
   }
 
@@ -121,8 +121,10 @@ export class Form extends Block {
       this.formInputList = this.children.form.lists.inputList;
     }
 
-    if (oldProps.chats !== newProps.chats) {
-      this.chats = newProps.chats;
+    if (oldProps.activeChatId !== newProps.activeChatId) {
+      this.activeChatId = newProps.activeChatId;
+      this.formInputList = this.children.form.lists.inputList;
+      console.log('this.activeChatId', this.activeChatId);
     }
 
     return true;

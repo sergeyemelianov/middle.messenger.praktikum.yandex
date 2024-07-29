@@ -5,10 +5,9 @@ import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 import { ChatListItem } from '../chat-list-item/chat-list-item-component';
 import store from '../../core/Store';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
-import { requestChatToken } from '../../api-services/ws-service';
 
 type ChatListProps = Props & {
-  messages?: ChatsResponse[];
+  chats?: ChatsResponse[];
   user?: UserResponse;
 };
 
@@ -22,39 +21,37 @@ export class ChatList extends Block {
   }
 
   componentDidUpdate(oldProps: any, newProps: any): boolean {
-    if (oldProps.messages !== newProps.messages) {
-      this.lists.messages = newProps.messages?.map((message: ChatsResponse) => {
-        return message;
+    if (oldProps.chats !== newProps.chats) {
+      this.lists.chats = newProps.chats?.map((chat: ChatsResponse) => {
+        return chat;
       });
     }
     return true;
   }
 }
 
-export const setActiveChat = (user: UserResponse, chatId: number): void => {
+export const setActiveChat = (chatId: number): void => {
   store.dispatch({
     type: 'ACTIVE_CHAT',
     id: chatId,
   });
-
-  requestChatToken(user.id, chatId);
 };
 
 export const chatlist = connect(ChatList, (state: State) => ({
-  messages: state.chats?.map((message: ChatsResponse) => {
+  chats: state.chats?.map((chats: ChatsResponse) => {
 
     return new ChatListItem({
-      ...message,
+      ...chats,
       events: {
         click: (e: MouseEvent) => {
           e.preventDefault();
           if (state.user) {
-            setActiveChat(state.user, message.id);
+            setActiveChat(chats.id);
           }
         },
       },
-      ...(message.last_message && {
-        avatar: `https://ya-praktikum.tech/api/v2/resources${message.last_message.user?.avatar}`,
+      ...(chats.last_message && {
+        avatar: `https://ya-praktikum.tech/api/v2/resources${chats.last_message.user?.avatar}`,
       })
     });
   }),

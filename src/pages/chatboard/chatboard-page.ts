@@ -3,7 +3,7 @@ import { Block, Props } from '../../core';
 import Button from '../../components/button/button-component';
 import ChatboardTemplate from './chatboard-page.hbs?raw';
 import Input from '../../components/input/input-component';
-import { Chat, Modal } from '../../components';
+import { chat, Modal } from '../../components';
 import { pagesListNav, router } from '../../index';
 import { Form } from '../../components/form/form-component';
 import { PagesEnum } from '../../shared/enums/Pages';
@@ -59,7 +59,7 @@ export class Chatboard extends Block {
         placeholder: 'Search',
       }),
       chat: new Form({
-        form: new Chat({
+        form: new chat({
           formAddUser: new Form({
             form: new Modal({ name: 'login', placeholder: 'Enter login name of user to add' }),
             type: PagesEnum.modalAddUser,
@@ -103,4 +103,5 @@ export class Chatboard extends Block {
   }
 }
 
-export const ChatboardPage = new Chatboard({});
+export const ChatboardPage = new Chatboard({
+});

@@ -15,6 +15,7 @@ export class Message extends Block {
       isAuthor: props.isAuthor ? 'author' : 'not-author',
       messageText: props.message,
       timestamp: props.timestamp,
+      messageIsRead: props.isRead,
     });
   }
 

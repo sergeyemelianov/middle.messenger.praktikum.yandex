@@ -1,6 +1,7 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
 import { errorHandler } from './error-handler';
+import store from '../core/Store';
 
 const params = {
   credentials: 'include',
@@ -23,7 +24,7 @@ export const requestChatToken = (userId: number, chatId: number): void => {
         console.log('REQUEST CHAT TOKEN RESPONSE ===>', data);
 
         if (data?.token) {
-          initWS(userId, chatId, data?.token);
+          wsService.initWS(userId, chatId, data?.token);
         }
         return data;
       });
@@ -32,35 +33,63 @@ export const requestChatToken = (userId: number, chatId: number): void => {
   }
 };
 
-export const initWS = (userId: number, chatId: number, token: string): void => {
-  const socket = new WebSocket(`${config.wsUrl}/${userId}/${chatId}/${token}`);
+class WsService {
+  userId?: number;
+  chatId?: number;
+  socket: WebSocket;
 
-  socket.addEventListener('open', () => {
-    console.log('Соединение установлено');
+  constructor() {
+  }
 
-    socket.send(
+  initWS(userId: number, chatId: number, token: string):void {
+    this.socket = new WebSocket(`${config.wsUrl}/${userId}/${chatId}/${token}`);
+
+    this.socket.addEventListener('open', () => {
+      console.log('Соединение установлено');
+
+      this.updateWsChat();
+    });
+
+    this.socket.addEventListener('close', (event) => {
+      if (event.wasClean) {
+        console.log('Соединение закрыто чисто');
+      } else {
+        console.log('Обрыв соединения');
+      }
+
+      console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+    });
+
+    this.socket.addEventListener('message', (event) => {
+      console.log('Получены данные', event.data);
+      if (event.data) {
+        store.dispatch({
+          type: 'CURRENT_CHAT',
+          messages: JSON.parse(event.data),
+        });
+      }
+    });
+
+    this.socket.addEventListener('error', (event) => {
+      console.log('Ошибка', event.message);
+    });
+  }
+
+  sendWsMessage (message: string): void {
+    this.socket.send(
       JSON.stringify({
-        content: 'Моё первое сообщение миру!',
+        content: message,
         type: 'message',
       }),
     );
-  });
+  }
 
-  socket.addEventListener('close', (event) => {
-    if (event.wasClean) {
-      console.log('Соединение закрыто чисто');
-    } else {
-      console.log('Обрыв соединения');
-    }
+  updateWsChat(): void{
+    this.socket.send(JSON.stringify({
+      content: '0',
+      type: 'get old',
+    }));
+  }
+}
 
-    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-  });
-
-  socket.addEventListener('message', (event) => {
-    console.log('Получены данные', event.data);
-  });
-
-  socket.addEventListener('error', (event) => {
-    console.log('Ошибка', event.message);
-  });
-};
+export const wsService = new WsService();
