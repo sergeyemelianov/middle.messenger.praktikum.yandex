@@ -37,6 +37,7 @@ class WsService {
   userId?: number;
   chatId?: number;
   socket: WebSocket;
+  private pingInterval: number = 0;
 
   constructor() {}
 
@@ -47,6 +48,7 @@ class WsService {
       console.log('Соединение установлено');
 
       this.updateWsChat();
+      this.setPing();
     });
 
     this.socket.addEventListener('close', (event) => {
@@ -60,13 +62,22 @@ class WsService {
     });
 
     this.socket.addEventListener('message', (event) => {
-      console.log('Получены данные', event.data);
-      if (event.data) {
+      console.log('Получены данные', JSON.parse(event.data));
+      const message = JSON.parse(event.data);
+
+      if (Array.isArray(message)) {
         store.dispatch({
           type: 'CURRENT_CHAT',
-          messages: JSON.parse(event.data),
+          messages: message,
         });
+        return;
       }
+
+      if (message.type === 'pong') {
+        return;
+      }
+
+      this.updateWsChat();
     });
 
     this.socket.addEventListener('error', (event) => {
@@ -74,13 +85,15 @@ class WsService {
     });
   }
 
-  sendWsMessage(message: string): void {
+  sendWsMessage(message: unknown): void {
     this.socket.send(
       JSON.stringify({
         content: message,
         type: 'message',
       }),
     );
+
+    this.updateWsChat();
   }
 
   updateWsChat(): void {
@@ -90,6 +103,20 @@ class WsService {
         type: 'get old',
       }),
     );
+  }
+
+  setPing(): void {
+    this.pingInterval = window.setInterval(() => {
+      this.socket.send(JSON.stringify({ type: 'ping' }));
+    }, 10000);
+  }
+
+  closeWs(): void {
+    this.socket?.close()
+    if (this.pingInterval) {
+      clearInterval(this.pingInterval);
+      this.pingInterval = 0;
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import { config } from '../config';
 import { errorHandler } from './error-handler';
 import store from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
+import { pagesListNav, router } from '../index';
 
 const params = {
   credentials: 'include',
@@ -28,6 +29,7 @@ export const getChatsService = (): void => {
             chats: data,
           });
         }
+        router.go(pagesListNav.chatboard);
         return data;
       });
   } catch (error) {

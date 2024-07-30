@@ -108,8 +108,6 @@ export class Chat extends Block {
           isActive: false,
         });
       }
-
-      return true;
     }
 
     if (oldProps.messages !== newProps.messages) {

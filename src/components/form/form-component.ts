@@ -17,6 +17,7 @@ import {
   deleteUserFromChatService,
 } from '../../api-services/chat-service';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
+import { wsService } from '../../api-services/ws-service';
 
 type FormProps = Props & {
   user?: UserResponse;
@@ -116,6 +117,10 @@ export class Form extends Block {
       userSearchByLoginService(formData).then((response) =>
         deleteUserFromChatService(response, this.activeChatId),
       );
+    }
+
+    if (type === PagesEnum.chatMessage) {
+      wsService.sendWsMessage(formData.message);
     }
   }
 

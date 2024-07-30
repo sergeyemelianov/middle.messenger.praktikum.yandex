@@ -4,6 +4,7 @@ import { pagesListNav, router } from '../index';
 import { errorHandler } from './error-handler';
 import store from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
+import { getChatsService } from './chat-service';
 
 const params = {
   credentials: 'include',
@@ -29,7 +30,8 @@ export const getUserService = (): void => {
                 : data.avatar,
             },
           });
-          router.go(pagesListNav.chatboard);
+          getChatsService();
+
         } else {
           store.dispatch({
             type: 'USER_INFO',
