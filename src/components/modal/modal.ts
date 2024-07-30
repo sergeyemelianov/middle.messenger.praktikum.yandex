@@ -9,7 +9,7 @@ type ModalProps = Props & {
   type?: string;
   placeholder?: string;
   name?: ValidateSourceType;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e?: MouseEvent) => void;
 };
 
 export class Modal extends Block {

@@ -3,6 +3,7 @@ import { config } from '../config';
 import { pagesListNav, router } from '../index';
 import { errorHandler } from './error-handler';
 import store from '../core/Store';
+import { UserResponse } from '../shared/interfaces/UserResponse';
 
 const params = {
   credentials: 'include',
@@ -142,14 +143,13 @@ export const getUserByIdService = (id: number): void => {
   }
 };
 
-export const userSearchByLoginService = (
+export const userSearchByLoginService = async (
   formData: Record<string, string>,
-  chatId: number,
-): void => {
+): Promise<UserResponse[] | undefined> => {
   const http = new HTTPTransport();
 
   try {
-    http
+    return http
       .post(`${config.baseUrl}/user/search`, {
         ...params,
         data: formData,
@@ -160,26 +160,6 @@ export const userSearchByLoginService = (
       .then((response) => JSON.parse(response.response))
       .then((data) => {
         console.log('USER SEARCH RESULT ===>', data);
-
-        if (data.length) {
-          const chatData = {
-            users: [data[0].id],
-            chatId,
-          };
-          http
-            .put(`${config.baseUrl}/chats/users`, {
-              ...params,
-              data: chatData,
-              headers: {
-                'content-type': 'application/json',
-              },
-            })
-            .then((response) => JSON.parse(response.response))
-            .then((data) => {
-              console.log('USER ADDED TO CHAT RESULT ===>', data);
-              return data;
-            });
-        }
         return data;
       });
   } catch (error) {

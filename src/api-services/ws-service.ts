@@ -38,10 +38,9 @@ class WsService {
   chatId?: number;
   socket: WebSocket;
 
-  constructor() {
-  }
+  constructor() {}
 
-  initWS(userId: number, chatId: number, token: string):void {
+  initWS(userId: number, chatId: number, token: string): void {
     this.socket = new WebSocket(`${config.wsUrl}/${userId}/${chatId}/${token}`);
 
     this.socket.addEventListener('open', () => {
@@ -75,7 +74,7 @@ class WsService {
     });
   }
 
-  sendWsMessage (message: string): void {
+  sendWsMessage(message: string): void {
     this.socket.send(
       JSON.stringify({
         content: message,
@@ -84,11 +83,13 @@ class WsService {
     );
   }
 
-  updateWsChat(): void{
-    this.socket.send(JSON.stringify({
-      content: '0',
-      type: 'get old',
-    }));
+  updateWsChat(): void {
+    this.socket.send(
+      JSON.stringify({
+        content: '0',
+        type: 'get old',
+      }),
+    );
   }
 }
 

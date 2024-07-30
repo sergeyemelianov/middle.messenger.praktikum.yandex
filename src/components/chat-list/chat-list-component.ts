@@ -39,7 +39,6 @@ export const setActiveChat = (chatId: number): void => {
 
 export const chatlist = connect(ChatList, (state: State) => ({
   chats: state.chats?.map((chats: ChatsResponse) => {
-
     return new ChatListItem({
       ...chats,
       events: {
@@ -52,7 +51,7 @@ export const chatlist = connect(ChatList, (state: State) => ({
       },
       ...(chats.last_message && {
         avatar: `https://ya-praktikum.tech/api/v2/resources${chats.last_message.user?.avatar}`,
-      })
+      }),
     });
   }),
 }));

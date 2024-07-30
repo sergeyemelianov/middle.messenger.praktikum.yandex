@@ -1,5 +1,5 @@
 import './form-component.scss';
-import { Block, Props, State } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import FormTemplate from './form-component.hbs?raw';
 import { formIsValid, validate } from '../../shared/utils/validation.util';
 import { signupService } from '../../api-services/signup-service';
@@ -11,7 +11,11 @@ import {
   changeUserProfileService,
   userSearchByLoginService,
 } from '../../api-services/user-service';
-import { createChatsService } from '../../api-services/chat-service';
+import {
+  addUserToChatService,
+  createChatsService,
+  deleteUserFromChatService,
+} from '../../api-services/chat-service';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
 
 type FormProps = Props & {
@@ -100,7 +104,18 @@ export class Form extends Block {
     }
 
     if (type === PagesEnum.modalAddUser && this.activeChatId) {
-      userSearchByLoginService(formData, this.activeChatId);
+      userSearchByLoginService(formData).then((response) => {
+        if (!response) {
+          return;
+        }
+        addUserToChatService(response, this.activeChatId);
+      });
+    }
+
+    if (type === PagesEnum.modalDeleteUser && this.activeChatId) {
+      userSearchByLoginService(formData).then((response) =>
+        deleteUserFromChatService(response, this.activeChatId),
+      );
     }
   }
 
@@ -120,13 +135,15 @@ export class Form extends Block {
     if (oldProps.user !== newProps.user) {
       this.formInputList = this.children.form.lists.inputList;
     }
-
     if (oldProps.activeChatId !== newProps.activeChatId) {
       this.activeChatId = newProps.activeChatId;
       this.formInputList = this.children.form.lists.inputList;
-      console.log('this.activeChatId', this.activeChatId);
     }
 
     return true;
   }
 }
+
+export const form = connect(Form, (state: State) => ({
+  activeChatId: state?.activeChatId,
+}));

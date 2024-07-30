@@ -6,6 +6,9 @@ import Input from '../input/input-component';
 import { Message } from '../message/message-component';
 import { requestChatToken } from '../../api-services/ws-service';
 import { WsChatResponse } from '../../shared/interfaces/WsChatResponse';
+import { form } from '../form/form-component';
+import { Modal } from '../modal/modal';
+import { PagesEnum } from '../../shared/enums/Pages';
 
 type ChatProps = Props & {
   activeChatId?: number;
@@ -17,14 +20,38 @@ export class Chat extends Block {
   constructor(props: ChatProps) {
     super({
       ...props,
-        inputList: [
-          new Input({
-            name: 'message',
-            type: 'text',
-            selector: 'message',
-            placeholder: 'Type a message',
-          }),
-        ],
+      inputList: [
+        new Input({
+          name: 'message',
+          type: 'text',
+          selector: 'message',
+          placeholder: 'Type a message',
+        }),
+      ],
+      formAddUser: new form({
+        form: new Modal({
+          name: 'login',
+          placeholder: 'Enter login name of user to add',
+          onClick: () => {
+            setTimeout(() => {
+              this.toggleCloseModal();
+            }, 0);
+          },
+        }),
+        type: PagesEnum.modalAddUser,
+      }),
+      formDeleteUser: new form({
+        form: new Modal({
+          name: 'login',
+          placeholder: 'Enter login name of user to delete',
+          onClick: () => {
+            setTimeout(() => {
+              this.toggleCloseModal();
+            }, 0);
+          },
+        }),
+        type: PagesEnum.modalDeleteUser,
+      }),
       buttonSend: new Button({
         view: 'confirmation',
         iconName: 'arrow-confirm',
@@ -93,9 +120,10 @@ export class Chat extends Block {
               message: el.content,
               timestamp: el.time?.slice(11, 16),
               isAuthor: el.user_id === newProps.userId,
-              isRead: el.is_read
+              isRead: el.is_read,
             }),
         ),
+        ...this.lists,
       };
     }
     return true;
@@ -130,5 +158,5 @@ export class Chat extends Block {
 export const chat = connect(Chat, (state: State) => ({
   activeChatId: state?.activeChatId,
   userId: state.user?.id,
-  messages: state?.messages
+  messages: state?.messages,
 }));

@@ -5,7 +5,7 @@ import ChatboardTemplate from './chatboard-page.hbs?raw';
 import Input from '../../components/input/input-component';
 import { chat, Modal } from '../../components';
 import { pagesListNav, router } from '../../index';
-import { Form } from '../../components/form/form-component';
+import { form, Form } from '../../components/form/form-component';
 import { PagesEnum } from '../../shared/enums/Pages';
 import { getChatsService } from '../../api-services/chat-service';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
@@ -58,17 +58,8 @@ export class Chatboard extends Block {
         selector: 'search',
         placeholder: 'Search',
       }),
-      chat: new Form({
-        form: new chat({
-          formAddUser: new Form({
-            form: new Modal({ name: 'login', placeholder: 'Enter login name of user to add' }),
-            type: PagesEnum.modalAddUser,
-          }),
-          formDeleteUser: new Form({
-            form: new Modal({ name: 'login', placeholder: 'Enter login name of user to delete' }),
-            type: PagesEnum.modalDeleteUser,
-          }),
-        }),
+      chat: new form({
+        form: new chat({}),
       }),
       form: new Form({
         form: new Modal({
@@ -103,5 +94,4 @@ export class Chatboard extends Block {
   }
 }
 
-export const ChatboardPage = new Chatboard({
-});
+export const ChatboardPage = new Chatboard({});

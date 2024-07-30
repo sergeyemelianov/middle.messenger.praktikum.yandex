@@ -1,4 +1,4 @@
-import store, {State} from './Store';
+import store, { State } from './Store';
 import { Block, Props } from './Block';
 
 export function connect(Component: typeof Block, selector?: (state: State) => void) {

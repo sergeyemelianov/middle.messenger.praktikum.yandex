@@ -1,8 +1,8 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
 import { errorHandler } from './error-handler';
-import { UsersRequest } from '../shared/interfaces/UsersRequest';
 import store from '../core/Store';
+import { UserResponse } from '../shared/interfaces/UserResponse';
 
 const params = {
   credentials: 'include',
@@ -59,49 +59,59 @@ export const createChatsService = (formData: Record<string, string>): void => {
   }
 };
 
-export const addUserToChatService = (formData: UsersRequest): void => {
+export const addUserToChatService = (userData?: UserResponse[], chatId?: number): void => {
   const http = new HTTPTransport();
 
   try {
-    http
-      .put(`${config.baseUrl}/chats/users`, {
-        ...params,
-        data: formData,
-        headers: {
-          'content-type': 'application/json',
-        },
-      })
-      .then((response) => {
-        return response;
-      })
-      .then((data) => {
-        console.log('USER ADDED TO CHAT ===>', data);
-        return data;
-      });
+    if (userData?.length) {
+      const chatData = {
+        users: [userData[0].id],
+        chatId,
+      };
+      http
+        .put(`${config.baseUrl}/chats/users`, {
+          ...params,
+          data: chatData,
+          headers: {
+            'content-type': 'application/json',
+          },
+        })
+        .then((response) => response)
+        .then((data) => {
+          console.log('USER ADDED TO CHAT RESULT ===>', data);
+          return data;
+        });
+    }
   } catch (error) {
     errorHandler(error);
   }
 };
 
-export const deleteUserFromChatService = (formData: UsersRequest): void => {
+export const deleteUserFromChatService = (userData?: UserResponse[], chatId?: number): void => {
   const http = new HTTPTransport();
 
   try {
-    http
-      .put(`${config.baseUrl}/chats/users`, {
-        ...params,
-        data: formData,
-        headers: {
-          'content-type': 'application/json',
-        },
-      })
-      .then((response) => {
-        return response;
-      })
-      .then((data) => {
-        console.log('USER DELETED FROM CHAT ===>', data);
-        return data;
-      });
+    if (userData?.length) {
+      const chatData = {
+        users: [userData[0].id],
+        chatId,
+      };
+      http
+        .delete(`${config.baseUrl}/chats/users`, {
+          ...params,
+          data: chatData,
+          headers: {
+            'content-type': 'application/json',
+          },
+        })
+        .then((response) => {
+          return response;
+        })
+        .then((data) => {
+          console.log('USER DELETED FROM CHAT ===>', data);
+          return data;
+        });
+    }
   } catch (error) {
     errorHandler(error);
   }
