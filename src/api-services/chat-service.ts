@@ -10,7 +10,7 @@ const params = {
   mode: 'cors',
 };
 
-export const getChatsService = async (): Promise<ChatsResponse[]> => {
+export const getChatsService = async (): Promise<ChatsResponse[] | undefined> => {
   const http = new HTTPTransport();
 
   try {

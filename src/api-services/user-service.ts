@@ -10,7 +10,7 @@ const params = {
   mode: 'cors',
 };
 
-export const getUserService = async (): Promise<UserResponse> => {
+export const getUserService = async (): Promise<UserResponse | undefined> => {
   const http = new HTTPTransport();
 
   try {

@@ -81,7 +81,7 @@ class WsService {
       this.updateWsChat();
     });
 
-    this.socket.addEventListener('error', (event) => {
+    this.socket.addEventListener('error', (event: ErrorEvent) => {
       console.log('Ошибка', event.message);
     });
   }
