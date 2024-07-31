@@ -3,18 +3,18 @@ import { config } from '../config';
 import { errorHandler } from './error-handler';
 import store from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
-import { pagesListNav, router } from '../index';
+import { ChatsResponse } from '../shared/interfaces/ChatsResponse';
 
 const params = {
   credentials: 'include',
   mode: 'cors',
 };
 
-export const getChatsService = (): void => {
+export const getChatsService = async (): Promise<ChatsResponse[]> => {
   const http = new HTTPTransport();
 
   try {
-    http
+    return http
       .get(`${config.baseUrl}/chats`, {
         ...params,
       })
@@ -29,7 +29,6 @@ export const getChatsService = (): void => {
             chats: data,
           });
         }
-        router.go(pagesListNav.chatboard);
         return data;
       });
   } catch (error) {

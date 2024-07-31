@@ -4,7 +4,7 @@ import ChatTemplate from './chat-component.hbs?raw';
 import Button from '../button/button-component';
 import Input from '../input/input-component';
 import { Message } from '../message/message-component';
-import { requestChatToken } from '../../api-services/ws-service';
+import { requestChatToken, wsService } from '../../api-services/ws-service';
 import { WsChatResponse } from '../../shared/interfaces/WsChatResponse';
 import { form } from '../form/form-component';
 import { Modal } from '../modal/modal';
@@ -20,14 +20,7 @@ export class Chat extends Block {
   constructor(props: ChatProps) {
     super({
       ...props,
-      inputList: [
-        new Input({
-          name: 'message',
-          type: 'text',
-          selector: 'message',
-          placeholder: 'Type a message',
-        }),
-      ],
+
       formAddUser: new form({
         form: new Modal({
           name: 'login',
@@ -62,6 +55,8 @@ export class Chat extends Block {
         page: 'profile',
         iconName: 'add',
         iconSize: 'medium',
+        selector: 'add-or-delete',
+        label: 'Add user',
         events: {
           click: () => {
             this.toggleShowAddModal();
@@ -74,6 +69,8 @@ export class Chat extends Block {
         page: 'profile',
         iconName: 'delete',
         iconSize: 'medium',
+        selector: 'add-or-delete',
+        label: 'Delete user',
         events: {
           click: () => {
             this.toggleShowDeleteModal();
@@ -107,22 +104,28 @@ export class Chat extends Block {
         this.setProps({
           isActive: false,
         });
+        wsService.closeWs();
       }
     }
 
     if (oldProps.messages !== newProps.messages) {
-      this.lists = {
-        messages: newProps.messages.map(
-          (el: WsChatResponse) =>
-            new Message({
-              message: el.content,
-              timestamp: el.time?.slice(11, 16),
-              isAuthor: el.user_id === newProps.userId,
-              isRead: el.is_read,
-            }),
-        ),
-        ...this.lists,
-      };
+      this.lists.messages = newProps.messages.map(
+        (el: WsChatResponse) =>
+          new Message({
+            message: el.content,
+            timestamp: el.time?.slice(11, 16),
+            isAuthor: el.user_id === newProps.userId,
+            isRead: el.is_read,
+          }),
+      );
+      this.lists.inputList = [
+        new Input({
+          name: 'message',
+          type: 'text',
+          selector: 'message',
+          placeholder: 'Type a message',
+        }),
+      ];
     }
     return true;
   }

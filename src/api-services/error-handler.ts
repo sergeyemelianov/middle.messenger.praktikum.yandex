@@ -6,9 +6,11 @@ export const errorHandler = (error: number): void => {
       router.go(pagesListNav.chatboard);
       break;
     case 400:
+      router.go(pagesListNav.error4xx);
       console.log('ERROR', error);
       break;
     case 401:
+      router.go(pagesListNav.error4xx);
       console.log('ERROR', error);
       break;
     case 500:

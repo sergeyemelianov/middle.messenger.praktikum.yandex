@@ -43,7 +43,7 @@
 
   &__header {
     @include display-flex-center();
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
     border-bottom: 1px solid $light-grey-3;
   }

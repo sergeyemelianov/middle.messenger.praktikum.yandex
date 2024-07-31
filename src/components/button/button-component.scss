@@ -29,6 +29,11 @@
     color: $light-grey-1;
   }
 
+  &__add-or-delete {
+    flex-direction: row-reverse;
+    gap: 8px;
+  }
+
   &__no-text {
     background: $white;
   }

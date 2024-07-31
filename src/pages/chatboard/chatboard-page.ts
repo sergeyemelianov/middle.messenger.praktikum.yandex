@@ -9,8 +9,10 @@ import { form, Form } from '../../components/form/form-component';
 import { PagesEnum } from '../../shared/enums/Pages';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 import { chatlist } from '../../components';
+import { getChatsService } from '../../api-services/chat-service';
+
 type ChatboardProps = Props & {
-  messages?: ChatsResponse[];
+  chats?: ChatsResponse[];
 };
 
 export class Chatboard extends Block {
@@ -18,9 +20,15 @@ export class Chatboard extends Block {
     super({
       ...props,
       list: new chatlist({}),
+      chat: new form({
+        form: new chat({}),
+        type: PagesEnum.chatMessage,
+      }),
       buttonAddChat: new Button({
         view: 'secondary',
         page: 'profile',
+        selector: 'add-or-delete',
+        label: 'Create chat',
         iconName: 'add',
         iconSize: 'medium',
         events: {
@@ -57,10 +65,6 @@ export class Chatboard extends Block {
         selector: 'search',
         placeholder: 'Search',
       }),
-      chat: new form({
-        form: new chat({}),
-        type: PagesEnum.chatMessage
-      }),
       form: new Form({
         form: new Modal({
           name: 'title',
@@ -89,6 +93,11 @@ export class Chatboard extends Block {
 
   render(): string {
     return ChatboardTemplate;
+  }
+
+  async init() {
+    super.init();
+    await getChatsService();
   }
 }
 

@@ -18,17 +18,17 @@ import { getUserService } from './api-services/user-service';
 export const pagesListNav: PageListNav = {
   login: '/',
   signup: '/signup',
-  profileDetails: '/profile-details',
-  profileDetailsEdit: '/profile-details-edit',
-  profilePasswordEdit: '/profile-password-edit',
+  profileDetails: '/settings',
+  profileDetailsEdit: '/settings-edit',
+  profilePasswordEdit: '/settings-password-edit',
   error5xx: '/error500',
   error4xx: '/error400',
-  chatboard: '/chatboard',
+  chatboard: '/messenger',
 };
 
 export const router = new Router('app');
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   router
     .use(pagesListNav.login, PageContainer, {
       component: LoginPage,
@@ -44,7 +44,20 @@ window.addEventListener('DOMContentLoaded', () => {
     .use(pagesListNav.profilePasswordEdit, PageContainer, { component: ProfilePasswordEditPage })
     .use(pagesListNav.error5xx, PageContainer, { component: Error5xx })
     .use(pagesListNav.error4xx, PageContainer, { component: Error4xx })
-    .start();
 
-  getUserService();
+  try {
+    const user  = await getUserService();
+    router.start();
+    if (user) {
+      switch (window.location.pathname) {
+        case pagesListNav.login:
+        case pagesListNav.signup:
+          router.go(pagesListNav.chatboard);
+          break;
+      }
+    }
+  } catch (e) {
+    router.start();
+    router.go(pagesListNav.login)
+  }
 });

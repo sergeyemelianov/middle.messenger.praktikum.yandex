@@ -1,7 +1,6 @@
 import { config } from '../config';
 import HTTPTransport from '../core/HTTPTransport';
 import { errorHandler } from './error-handler';
-import { getUserService } from './user-service';
 
 const params = {
   credentials: 'include',
@@ -28,9 +27,6 @@ export const signinService = (formData: Record<string, string>): void => {
         console.log('SIGNIN DATA', data);
         return data;
       })
-      .then(() => {
-        getUserService();
-      });
   } catch (error) {
     errorHandler(error);
   }

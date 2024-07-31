@@ -24,6 +24,7 @@ export const requestChatToken = (userId: number, chatId: number): void => {
         console.log('REQUEST CHAT TOKEN RESPONSE ===>', data);
 
         if (data?.token) {
+
           wsService.initWS(userId, chatId, data?.token);
         }
         return data;
@@ -37,7 +38,7 @@ class WsService {
   userId?: number;
   chatId?: number;
   socket: WebSocket;
-  private pingInterval: number = 0;
+  private pingInterval = 0;
 
   constructor() {}
 

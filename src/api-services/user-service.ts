@@ -4,23 +4,24 @@ import { pagesListNav, router } from '../index';
 import { errorHandler } from './error-handler';
 import store from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
-import { getChatsService } from './chat-service';
 
 const params = {
   credentials: 'include',
   mode: 'cors',
 };
 
-export const getUserService = (): void => {
+export const getUserService = async (): Promise<UserResponse> => {
   const http = new HTTPTransport();
 
   try {
-    http
+    return http
       .get(`${config.baseUrl}/auth/user`, {})
       .then((response) => JSON.parse(response.response))
       .then((data) => {
         console.log('USER SERVICE RESPONSE ===>', data);
         if (data?.id) {
+          // getChatsService();
+
           store.dispatch({
             type: 'USER_INFO',
             user: {
@@ -30,14 +31,6 @@ export const getUserService = (): void => {
                 : data.avatar,
             },
           });
-          getChatsService();
-
-        } else {
-          store.dispatch({
-            type: 'USER_INFO',
-            user: undefined,
-          });
-          router.go(pagesListNav.login);
         }
         return data;
       });
