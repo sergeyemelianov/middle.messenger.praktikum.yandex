@@ -7,11 +7,11 @@ export const errorHandler = (error: number): void => {
       break;
     case 400:
       router.go(pagesListNav.error4xx);
-      console.log('ERROR', error);
+      console.log('ERROR ===>', error);
       break;
     case 401:
       router.go(pagesListNav.error4xx);
-      console.log('ERROR', error);
+      console.log('ERROR ===>', error);
       break;
     case 500:
       router.go(pagesListNav.error5xx);

@@ -5,11 +5,10 @@ import ChatboardTemplate from './chatboard-page.hbs?raw';
 import Input from '../../components/input/input-component';
 import { chat, Modal } from '../../components';
 import { pagesListNav, router } from '../../index';
-import { form, Form } from '../../components/form/form-component';
+import { form } from '../../components/form/form-component';
 import { PagesEnum } from '../../shared/enums/Pages';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 import { chatlist } from '../../components';
-import { getChatsService } from '../../api-services/chat-service';
 
 type ChatboardProps = Props & {
   chats?: ChatsResponse[];
@@ -65,13 +64,14 @@ export class Chatboard extends Block {
         selector: 'search',
         placeholder: 'Search',
       }),
-      form: new Form({
+      form: new form({
         form: new Modal({
           name: 'title',
           placeholder: 'Enter the name of chat',
-          onClick: (e: MouseEvent) => {
-            e.preventDefault();
-            this.toggleCloseModal();
+          onClick: () => {
+            setTimeout(() => {
+              this.toggleCloseModal();
+            }, 0);
           },
         }),
         type: PagesEnum.modalAddChat,
@@ -93,11 +93,6 @@ export class Chatboard extends Block {
 
   render(): string {
     return ChatboardTemplate;
-  }
-
-  async init() {
-    super.init();
-    await getChatsService();
   }
 }
 

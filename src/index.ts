@@ -14,6 +14,7 @@ import PageContainer, {
 } from './components/page-container/page-container-component';
 import { PageListNav } from './shared/types/PageListNav';
 import { getUserService } from './api-services/user-service';
+import { UserResponse } from "./shared/interfaces/UserResponse";
 
 export const pagesListNav: PageListNav = {
   login: '/',
@@ -46,18 +47,20 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(pagesListNav.error4xx, PageContainer, { component: Error4xx })
 
   try {
-    const user  = await getUserService();
     router.start();
-    if (user) {
-      switch (window.location.pathname) {
-        case pagesListNav.login:
-        case pagesListNav.signup:
-          router.go(pagesListNav.chatboard);
-          break;
+    await getUserService().then(async (res: UserResponse) => {
+      if (res?.id) {
+        switch (window.location.pathname) {
+          case pagesListNav.login:
+          case pagesListNav.signup:
+            router.go(pagesListNav.chatboard);
+            return;
+        }
+      } else {
+        router.go(pagesListNav.login);
+        return;
       }
-    }
+    });
   } catch (e) {
-    router.start();
-    router.go(pagesListNav.login)
   }
 });

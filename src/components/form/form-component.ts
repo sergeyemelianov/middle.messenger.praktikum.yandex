@@ -114,8 +114,13 @@ export class Form extends Block {
     }
 
     if (type === PagesEnum.modalDeleteUser && this.activeChatId) {
-      userSearchByLoginService(formData).then((response) =>
-        deleteUserFromChatService(response, this.activeChatId),
+      userSearchByLoginService(formData).then((response) => {
+        if (!response) {
+          return;
+        }
+
+        deleteUserFromChatService(response, this.activeChatId)
+        }
       );
     }
 

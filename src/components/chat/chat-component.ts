@@ -20,7 +20,6 @@ export class Chat extends Block {
   constructor(props: ChatProps) {
     super({
       ...props,
-
       formAddUser: new form({
         form: new Modal({
           name: 'login',
