@@ -3,9 +3,11 @@ import { ValidateSourceType } from '../types/ValidateSourceType';
 
 const errors = {
   first_name:
-    'Latin or Cyrillic, first letter capitalized, no spaces, digits, or special characters (hyphen allowed)',
+    'Latin or Cyrillic, first letter capitalized, no spaces, digits,' +
+    ' or special characters (hyphen allowed)',
   login:
-    '3-20 characters, Latin letters, digits, no spaces, no special characters (hyphen and underscore allowed)',
+    '3-20 characters, Latin letters, digits, no spaces, no special characters' +
+    ' (hyphen and underscore allowed)',
   email: 'Latin letters, digits allowed, hyphen and underscore allowed, must contain @',
   password: '8 to 40 characters, one uppercase letter and one digit',
   phone: '10-15 characters, digits only, can start with a plus sign',
