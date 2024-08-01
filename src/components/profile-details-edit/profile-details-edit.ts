@@ -105,13 +105,6 @@ export const profileDetailsEdit = connect(ProfileDetailsEdit, (state: State) => 
           accept: 'image/*',
           size: 'big',
           img: state.user?.avatar,
-          events: {
-            change: (e: InputEvent) => {
-              if ((e.target as HTMLInputElement).value) {
-
-              }
-            }
-          }
         }),
       ],
       acceptButton: new Button({

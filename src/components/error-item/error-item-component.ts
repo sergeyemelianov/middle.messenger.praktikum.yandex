@@ -24,5 +24,5 @@ export class ErrorItem extends Block {
 }
 
 export const errorItem = connect(ErrorItem, (state: State) => ({
-  title: state?.error
+  title: state?.error,
 }));

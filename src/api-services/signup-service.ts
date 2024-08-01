@@ -23,14 +23,14 @@ export const signupService = (formData: Record<string, string>): void => {
       })
       .then((response) => {
         if (response.status !== 200) {
-          const res = JSON.parse(response.response)
-          setError(res?.reason)
+          const res = JSON.parse(response.response);
+          setError(res?.reason);
         }
         return response;
       })
       .then(async (response) => {
         if (response.status === 200) {
-          router.go(pagesListNav.chatboard)
+          router.go(pagesListNav.chatboard);
           await getUserService();
         }
       });

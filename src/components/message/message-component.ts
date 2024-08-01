@@ -1,5 +1,5 @@
 import './message-component.scss';
-import { Block, Props,  } from '../../core';
+import { Block, Props } from '../../core';
 import MessageTemplate from './message-component.hbs?raw';
 
 type MessageProps = Props & {

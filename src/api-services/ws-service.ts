@@ -23,7 +23,6 @@ export const requestChatToken = (userId: number, chatId: number): void => {
         console.log('REQUEST CHAT TOKEN RESPONSE ===>', data);
 
         if (data?.token) {
-
           wsService.initWS(userId, chatId, data?.token);
         }
         return data;
@@ -116,7 +115,7 @@ class WsService {
   }
 
   closeWs(): void {
-    this.socket?.close()
+    this.socket?.close();
     if (this.pingInterval) {
       clearInterval(this.pingInterval);
       this.pingInterval = 0;

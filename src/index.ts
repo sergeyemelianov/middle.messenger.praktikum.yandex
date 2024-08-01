@@ -15,11 +15,11 @@ import PageContainer, {
 
 import { PageListNav } from './shared/types/PageListNav';
 import { getUserService } from './api-services/user-service';
-import { UserResponse } from "./shared/interfaces/UserResponse";
+import { UserResponse } from './shared/interfaces/UserResponse';
 
 export const pagesListNav: PageListNav = {
   login: '/',
-  signup: '/signup',
+  signup: '/sign-up',
   profileDetails: '/settings',
   profileDetailsEdit: '/settings-edit',
   profilePasswordEdit: '/settings-password-edit',
@@ -45,10 +45,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(pagesListNav.profileDetailsEdit, PageContainer, { component: ProfileDetailsEditPage })
     .use(pagesListNav.profilePasswordEdit, PageContainer, { component: ProfilePasswordEditPage })
     .use(pagesListNav.error5xx, PageContainer, { component: Error5xx })
-    .use(pagesListNav.error4xx, PageContainer, { component: Error4xx })
+    .use(pagesListNav.error4xx, PageContainer, { component: Error4xx });
 
   try {
-
     await getUserService(true).then(async (res: UserResponse) => {
       if (res?.id) {
         switch (window.location.pathname) {

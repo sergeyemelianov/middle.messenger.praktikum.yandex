@@ -117,9 +117,8 @@ export class Form extends Block {
           return;
         }
 
-        deleteUserFromChatService(response, this.activeChatId)
-        }
-      );
+        deleteUserFromChatService(response, this.activeChatId);
+      });
     }
 
     if (type === PagesEnum.chatMessage) {

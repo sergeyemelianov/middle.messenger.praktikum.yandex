@@ -11,5 +11,5 @@ export enum PagesEnum {
   modalAddChat = 'modalAddChat',
   modalAddUser = 'modalAddUser',
   modalDeleteUser = 'modalDeleteUser',
-  chatMessage = 'chatMessage'
+  chatMessage = 'chatMessage',
 }

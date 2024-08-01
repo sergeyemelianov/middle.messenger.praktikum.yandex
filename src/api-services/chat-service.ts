@@ -31,7 +31,7 @@ export const getChatsService = async (): Promise<ChatsResponse[] | undefined> =>
         return data;
       });
   } catch (error) {
-    console.error(error.message)
+    console.error(error.message);
   }
 };
 
@@ -53,9 +53,10 @@ export const createChatsService = (formData: Record<string, string>): void => {
       .then((data) => {
         console.log('CREATE CHATS RESPONSE ===>', data);
         return data;
-      }).then(async () => {
+      })
+      .then(async () => {
         await getChatsService();
-    });
+      });
   } catch (error) {
     console.error(error.message);
   }
