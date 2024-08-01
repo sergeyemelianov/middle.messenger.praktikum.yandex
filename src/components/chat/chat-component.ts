@@ -4,7 +4,7 @@ import ChatTemplate from './chat-component.hbs?raw';
 import Button from '../button/button-component';
 import Input from '../input/input-component';
 import { Message } from '../message/message-component';
-import { requestChatToken, wsService } from '../../api-services/ws-service';
+import { requestChatToken } from '../../api-services/ws-service';
 import { WsChatResponse } from '../../shared/interfaces/WsChatResponse';
 import { form } from '../form/form-component';
 import { Modal } from '../modal/modal';
@@ -103,7 +103,6 @@ export class Chat extends Block {
         this.setProps({
           isActive: false,
         });
-        wsService.closeWs();
       }
     }
 

@@ -37,7 +37,7 @@ export class Form extends Block {
       events: {
         submit: (event: SubmitEvent) => {
           event?.preventDefault();
-
+          this.formInputList = this.children.form.lists.inputList;
           if (props.type === PagesEnum.profileAvatarEdit) {
             const avatarData = this.formInputList[0]
               .getContent()
@@ -48,8 +48,6 @@ export class Form extends Block {
               changeUserAvatarService(formDataPict);
             }
           }
-
-          this.formInputList = this.children.form.lists.inputList;
 
           const formData = this.getFormData();
           this.request(props.type, formData);

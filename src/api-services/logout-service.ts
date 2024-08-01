@@ -1,7 +1,6 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
 import { pagesListNav, router } from '../index';
-import { errorHandler } from './error-handler';
 
 export const logoutService = (): void => {
   const http = new HTTPTransport();
@@ -16,6 +15,6 @@ export const logoutService = (): void => {
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };

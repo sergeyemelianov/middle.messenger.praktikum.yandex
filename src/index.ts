@@ -12,6 +12,7 @@ import { Router } from './core';
 import PageContainer, {
   PageContainerClassNameEnum,
 } from './components/page-container/page-container-component';
+
 import { PageListNav } from './shared/types/PageListNav';
 import { getUserService } from './api-services/user-service';
 import { UserResponse } from "./shared/interfaces/UserResponse";
@@ -47,20 +48,23 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(pagesListNav.error4xx, PageContainer, { component: Error4xx })
 
   try {
-    router.start();
-    await getUserService().then(async (res: UserResponse) => {
+
+    await getUserService(true).then(async (res: UserResponse) => {
       if (res?.id) {
         switch (window.location.pathname) {
           case pagesListNav.login:
           case pagesListNav.signup:
             router.go(pagesListNav.chatboard);
-            return;
+            break;
         }
+        router.start();
       } else {
+        router.start();
         router.go(pagesListNav.login);
-        return;
       }
     });
   } catch (e) {
+    router.start();
+    router.go(pagesListNav.login);
   }
 });

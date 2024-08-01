@@ -1,17 +1,17 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
 import { pagesListNav, router } from '../index';
-import { errorHandler } from './error-handler';
 import store from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
-import {getChatsService} from "./chat-service";
+import { getChatsService } from './chat-service';
+import { setError } from '../shared/utils/setError';
 
 const params = {
   credentials: 'include',
   mode: 'cors',
 };
 
-export const getUserService = async (): Promise<UserResponse | undefined> => {
+export const getUserService = async (skipError = false): Promise<UserResponse | undefined> => {
   const http = new HTTPTransport();
 
   try {
@@ -32,10 +32,13 @@ export const getUserService = async (): Promise<UserResponse | undefined> => {
           });
           await getChatsService();
         }
+        if (!skipError) {
+          setError(data?.reason);
+        }
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -69,7 +72,7 @@ export const changeUserProfileService = (formData: Record<string, string>): void
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -92,7 +95,7 @@ export const changePasswordService = (formData: Record<string, string>): void =>
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -111,7 +114,7 @@ export const changeUserAvatarService = (formData: FormData): void => {
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -134,7 +137,7 @@ export const getUserByIdService = (id: number): void => {
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -158,6 +161,6 @@ export const userSearchByLoginService = async (
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };

@@ -1,7 +1,7 @@
 import { config } from '../config';
 import HTTPTransport from '../core/HTTPTransport';
-import { errorHandler } from './error-handler';
 import { getUserService } from './user-service';
+import { setError } from '../shared/utils/setError';
 import { pagesListNav, router } from '../index';
 
 const params = {
@@ -22,18 +22,19 @@ export const signinService = (formData: Record<string, string>): void => {
         },
       })
       .then((response) => {
-        console.log('RESPONSE IGNIN', response);
+        if (response.status !== 200) {
+          const res = JSON.parse(response.response)
+          setError(res?.reason)
+        }
         return response;
       })
-      .then((data) => {
-        console.log('SIGNIN DATA', data);
-        return data;
-      })
-      .then(async () => {
-        await getUserService();
-        router.go(pagesListNav.chatboard);
+      .then(async (response) => {
+        if (response.status === 200) {
+          router.go(pagesListNav.chatboard)
+          await getUserService();
+        }
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };

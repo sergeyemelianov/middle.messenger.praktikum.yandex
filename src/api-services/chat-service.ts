@@ -1,6 +1,5 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
-import { errorHandler } from './error-handler';
 import store from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
 import { ChatsResponse } from '../shared/interfaces/ChatsResponse';
@@ -32,7 +31,7 @@ export const getChatsService = async (): Promise<ChatsResponse[] | undefined> =>
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message)
   }
 };
 
@@ -54,9 +53,11 @@ export const createChatsService = (formData: Record<string, string>): void => {
       .then((data) => {
         console.log('CREATE CHATS RESPONSE ===>', data);
         return data;
-      });
+      }).then(async () => {
+        await getChatsService();
+    });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -84,7 +85,7 @@ export const addUserToChatService = (userData?: UserResponse[], chatId?: number)
         });
     }
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -114,7 +115,7 @@ export const deleteUserFromChatService = (userData?: UserResponse[], chatId?: nu
         });
     }
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -134,6 +135,6 @@ export const getCommonChatService = (id: number): void => {
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };

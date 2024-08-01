@@ -42,7 +42,7 @@ export class ProfileDetailsEdit extends Block {
     return ProfileDetailsEditTemplate;
   }
 
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  override componentDidUpdate(oldProps: any, newProps: any): boolean {
     if (oldProps.changeAvatar !== newProps.changeAvatar) {
       this.children.changeAvatar = newProps.changeAvatar;
     }
@@ -105,6 +105,13 @@ export const profileDetailsEdit = connect(ProfileDetailsEdit, (state: State) => 
           accept: 'image/*',
           size: 'big',
           img: state.user?.avatar,
+          events: {
+            change: (e: InputEvent) => {
+              if ((e.target as HTMLInputElement).value) {
+
+              }
+            }
+          }
         }),
       ],
       acceptButton: new Button({

@@ -49,6 +49,7 @@ export default class Input extends Block {
             value: props.value,
           });
         },
+        onChange: (e: InputEvent) => {props.onChange && props.onChange(e)}
       }),
     });
   }

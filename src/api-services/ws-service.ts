@@ -1,6 +1,5 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
-import { errorHandler } from './error-handler';
 import store from '../core/Store';
 
 const params = {
@@ -30,7 +29,7 @@ export const requestChatToken = (userId: number, chatId: number): void => {
         return data;
       });
   } catch (error) {
-    errorHandler(error);
+    console.error(error.message);
   }
 };
 
@@ -87,6 +86,10 @@ class WsService {
   }
 
   sendWsMessage(message: unknown): void {
+    if (!this.socket) {
+      throw new Error('Socket is not connected');
+    }
+
     this.socket.send(
       JSON.stringify({
         content: message,

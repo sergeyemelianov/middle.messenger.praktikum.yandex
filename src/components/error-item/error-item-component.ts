@@ -1,10 +1,11 @@
 import './error-item-component.scss';
-import { Block, Props } from '../../core';
+import { Block, connect, Props, State } from '../../core';
 import ErrorItemTemplate from './error-item-component.hbs?raw';
 
 type ErrorItemProps = Props & {
   title?: string;
   subtitle?: string;
+  type?: 'page' | 'header';
 };
 
 export class ErrorItem extends Block {
@@ -13,6 +14,7 @@ export class ErrorItem extends Block {
       ...props,
       title: props.title,
       subtitle: props.subtitle,
+      type: props.type,
     });
   }
 
@@ -20,3 +22,7 @@ export class ErrorItem extends Block {
     return ErrorItemTemplate;
   }
 }
+
+export const errorItem = connect(ErrorItem, (state: State) => ({
+  title: state?.error
+}));

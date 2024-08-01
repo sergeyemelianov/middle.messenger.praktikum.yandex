@@ -9,6 +9,7 @@ type ButtonProps = Props & {
   label?: string;
   iconName?: string;
   iconSize?: string;
+  disabled?: boolean;
 };
 
 export default class Button extends Block {

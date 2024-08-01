@@ -5,7 +5,6 @@ import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 import { ChatListItem } from '../chat-list-item/chat-list-item-component';
 import store from '../../core/Store';
 import { UserResponse } from '../../shared/interfaces/UserResponse';
-import { wsService } from '../../api-services/ws-service';
 
 type ChatListProps = Props & {
   chats?: ChatsResponse[];
@@ -21,7 +20,7 @@ export class ChatList extends Block {
     return ChatLisTemplate;
   }
 
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  override componentDidUpdate(oldProps: any, newProps: any): boolean {
     if (oldProps.chats !== newProps.chats) {
       this.lists.chats = newProps.chats?.map((chat: ChatsResponse) => {
         return chat;
@@ -46,7 +45,6 @@ export const chatlist = connect(ChatList, (state: State) => ({
         click: (e: MouseEvent) => {
           e.preventDefault();
           if (state.user) {
-            wsService.closeWs();
             setActiveChat(chats.id);
           }
         },

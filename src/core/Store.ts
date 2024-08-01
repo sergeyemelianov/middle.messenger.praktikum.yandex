@@ -8,6 +8,7 @@ export type State = {
   chats?: ChatsResponse[];
   activeChatId?: number;
   messages?: ChatsResponse[];
+  error?: string;
 };
 
 type Reducer = (state: State, action: Action) => State;
@@ -50,6 +51,10 @@ const reducer: Reducer = (state, action) => {
     case 'CURRENT_CHAT':
       newState.messages = action.messages;
       return newState;
+    case 'ERROR':
+      newState.error = action.error;
+      console.log('EEEEEEEEEEE', newState);
+      return newState;
     default:
       return state;
   }
@@ -60,6 +65,7 @@ const state: State = {
   chats: undefined,
   activeChatId: undefined,
   messages: undefined,
+  error: undefined,
 };
 
 // const setTextAction: Action = {

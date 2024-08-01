@@ -63,15 +63,17 @@ export class ProfileDetails extends Block {
   componentDidUpdate(oldProps: any, newProps: any): boolean {
     if (oldProps.avatar !== newProps.avatar) {
       this.children.avatar = newProps.avatar;
+      return true;
     }
 
     if (oldProps.inputList !== newProps.inputList) {
       this.lists.inputList = newProps.inputList.map((item: InputProps) => {
         return item;
       });
+      return true;
     }
 
-    return true;
+    return false;
   }
 }
 

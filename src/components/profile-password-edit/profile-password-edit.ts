@@ -58,9 +58,10 @@ export class ProfilePasswordEdit extends Block {
   componentDidUpdate(oldProps: any, newProps: any): boolean {
     if (oldProps.avatar !== newProps.avatar) {
       this.children.avatar = newProps.avatar;
+      return true;
     }
 
-    return true;
+    return false;
   }
 }
 
