@@ -78,7 +78,7 @@ export class ProfileDetails extends Block {
 }
 
 export const profileDetails = connect(ProfileDetails, (state: State) => ({
-  name: state.user?.first_name,
+  name: state.user?.display_name,
   avatar: new Avatar({
     avatar: state.user?.avatar ?? '',
     size: 'big',
@@ -97,6 +97,13 @@ export const profileDetails = connect(ProfileDetails, (state: State) => ({
       label: 'Login',
       name: 'login',
       placeholder: state.user?.login,
+    }),
+    new Input({
+      ...inputState,
+      type: 'text',
+      label: 'Display name',
+      name: 'display_name',
+      placeholder: state.user?.display_name,
     }),
     new Input({
       ...inputState,

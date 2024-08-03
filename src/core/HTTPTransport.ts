@@ -36,13 +36,13 @@ export default class HTTPTransport {
   get: HTTPMethodType = (url, options) =>
     this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  post: HTTPMethodType = (url: string, options) =>
+  post: HTTPMethodType = (url, options) =>
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  put: HTTPMethodType = (url: string, options) =>
+  put: HTTPMethodType = (url, options) =>
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  delete: HTTPMethodType = (url: string, options) =>
+  delete: HTTPMethodType = (url, options) =>
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (url: string, options: HTTPOptions, timeout = 5000): Promise<XMLHttpRequest> => {

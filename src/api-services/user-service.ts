@@ -111,6 +111,17 @@ export const changeUserAvatarService = (formData: FormData): void => {
       .then((response) => JSON.parse(response.response))
       .then((data) => {
         console.log('AVATAR CHANGE RESULT ===>', data);
+        if (data?.id) {
+          store.dispatch({
+            type: 'USER_INFO',
+            user: {
+              ...data,
+              avatar: data.avatar
+                ? `https://ya-praktikum.tech/api/v2/resources${data.avatar}`
+                : data.avatar,
+            },
+          });
+        }
         return data;
       });
   } catch (error) {

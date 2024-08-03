@@ -72,6 +72,6 @@ export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) =
       size: 'big',
       name: 'avatar',
     }),
-    name: state.user?.first_name,
+    name: state.user?.display_name,
   };
 });

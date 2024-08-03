@@ -53,14 +53,13 @@ const reducer: Reducer = (state, action) => {
       return newState;
     case 'ERROR':
       newState.error = action.error;
-      console.log('EEEEEEEEEEE', newState);
       return newState;
     default:
       return state;
   }
 };
 
-const state: State = {
+export const initState: State = {
   user: undefined,
   chats: undefined,
   activeChatId: undefined,
@@ -73,6 +72,6 @@ const state: State = {
 //   message: '',
 // };
 
-const store = Object.freeze(createStore(reducer, state));
+const store = Object.freeze(createStore(reducer, initState));
 
 export default store;
