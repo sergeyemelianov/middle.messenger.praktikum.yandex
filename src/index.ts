@@ -20,8 +20,8 @@ import { UserResponse } from './shared/interfaces/UserResponse';
 export const pagesListNav: PageListNav = {
   login: '/',
   signup: '/sign-up',
-  profileDetails: '/settings',
-  profileDetailsEdit: '/settings-edit',
+  profileDetails: '/profile',
+  profileDetailsEdit: '/settings',
   profilePasswordEdit: '/settings-password-edit',
   error5xx: '/error500',
   error4xx: '/error400',
