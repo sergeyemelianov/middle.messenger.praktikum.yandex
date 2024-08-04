@@ -9,6 +9,7 @@ import Avatar from '../avatar/avatar-component';
 
 type ProfilePasswordEditProps = Props & {
   user?: UserResponse;
+  avatar?: string;
 };
 
 const inputState = {
@@ -55,23 +56,21 @@ export class ProfilePasswordEdit extends Block {
     return ProfilePasswordEditTemplate;
   }
 
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  componentDidUpdate(
+    oldProps: ProfilePasswordEditProps,
+    newProps: ProfilePasswordEditProps,
+  ): boolean {
     if (oldProps.avatar !== newProps.avatar) {
-      this.children.avatar = newProps.avatar;
-      return true;
+      this.children.avatar = new Avatar({
+        avatar: newProps.user?.avatar ?? '',
+        size: 'big',
+        name: 'avatar',
+      });
     }
-
-    return false;
+    return true;
   }
 }
 
-export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) => {
-  return {
-    avatar: new Avatar({
-      avatar: state.user?.avatar ?? '',
-      size: 'big',
-      name: 'avatar',
-    }),
-    name: state.user?.display_name,
-  };
-});
+export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) => ({
+  name: state.user?.display_name,
+}));

@@ -67,6 +67,14 @@ export const initState: State = {
   error: undefined,
 };
 
+export enum ActionType {
+  USER_INFO = 'USER_INFO',
+  CHATS = 'CHATS',
+  ACTIVE_CHAT = 'ACTIVE_CHAT',
+  CURRENT_CHAT = 'CURRENT_CHAT',
+  ERROR = 'ERROR',
+}
+
 // const setTextAction: Action = {
 //   type: 'SET_TEXT',
 //   message: '',

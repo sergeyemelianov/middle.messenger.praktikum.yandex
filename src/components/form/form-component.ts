@@ -94,10 +94,6 @@ export class Form extends Block {
       changePasswordService(formData);
     }
 
-    if (type === PagesEnum.profilePasswordEdit) {
-      changePasswordService(formData);
-    }
-
     if (type === PagesEnum.modalAddChat) {
       createChatsService(formData);
     }

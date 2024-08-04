@@ -1,8 +1,8 @@
-import store from '../../core/Store';
+import store, { ActionType } from '../../core/Store';
 
 export const setError = (error?: string): void => {
   store.dispatch({
-    type: 'ERROR',
+    type: ActionType.ERROR,
     error: error || undefined,
   });
 };

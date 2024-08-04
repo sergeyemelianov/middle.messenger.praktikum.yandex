@@ -1,6 +1,6 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
-import store from '../core/Store';
+import store, { ActionType } from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
 import { ChatsResponse } from '../shared/interfaces/ChatsResponse';
 
@@ -24,7 +24,7 @@ export const getChatsService = async (): Promise<ChatsResponse[] | undefined> =>
         console.log('CHATS RESPONSE ===>', data);
         if (data) {
           store.dispatch({
-            type: 'CHATS',
+            type: ActionType.CHATS,
             chats: data,
           });
         }

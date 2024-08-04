@@ -1,7 +1,7 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
 import { pagesListNav, router } from '../index';
-import store from '../core/Store';
+import store, { ActionType } from '../core/Store';
 import { UserResponse } from '../shared/interfaces/UserResponse';
 import { getChatsService } from './chat-service';
 import { setError } from '../shared/utils/setError';
@@ -22,7 +22,7 @@ export const getUserService = async (skipError = false): Promise<UserResponse | 
         console.log('USER SERVICE RESPONSE ===>', data);
         if (data?.id) {
           store.dispatch({
-            type: 'USER_INFO',
+            type: ActionType.USER_INFO,
             user: {
               ...data,
               avatar: data.avatar
@@ -59,7 +59,7 @@ export const changeUserProfileService = (formData: Record<string, string>): void
         console.log('USER PROFILE UPDATED ===>', data);
         if (data?.id) {
           store.dispatch({
-            type: 'USER_INFO',
+            type: ActionType.USER_INFO,
             user: {
               ...data,
               avatar: data.avatar
@@ -113,7 +113,7 @@ export const changeUserAvatarService = (formData: FormData): void => {
         console.log('AVATAR CHANGE RESULT ===>', data);
         if (data?.id) {
           store.dispatch({
-            type: 'USER_INFO',
+            type: ActionType.USER_INFO,
             user: {
               ...data,
               avatar: data.avatar
@@ -140,7 +140,7 @@ export const getUserByIdService = (id: number): void => {
         console.log('USER BY ID RESPONSE ===>', data);
         if (data.id) {
           store.dispatch({
-            type: 'USER_INFO',
+            type: ActionType.USER_INFO,
             user: data,
           });
           router.go(pagesListNav.chatboard);

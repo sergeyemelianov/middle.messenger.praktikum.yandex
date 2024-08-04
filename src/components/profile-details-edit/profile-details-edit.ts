@@ -44,7 +44,10 @@ export class ProfileDetailsEdit extends Block {
     return ProfileDetailsEditTemplate;
   }
 
-  override componentDidUpdate(oldProps: any, newProps: any): boolean {
+  override componentDidUpdate(
+    oldProps: ProfileDetailsEditProps,
+    newProps: ProfileDetailsEditProps,
+  ): boolean {
     if (oldProps.user !== newProps.user) {
       this.children.changeAvatar = new Form({
         form: new AvatarChange({

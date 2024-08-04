@@ -1,5 +1,5 @@
 import './chat-list-component.scss';
-import { Block, connect, Props, State } from '../../core';
+import { ActionType, Block, connect, Props, State } from '../../core';
 import ChatLisTemplate from './chat-list-component.hbs?raw';
 import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
 import { ChatListItem } from '../chat-list-item/chat-list-item-component';
@@ -32,7 +32,7 @@ export class ChatList extends Block {
 
 export const setActiveChat = (chatId: number): void => {
   store.dispatch({
-    type: 'ACTIVE_CHAT',
+    type: ActionType.ACTIVE_CHAT,
     id: chatId,
   });
 };

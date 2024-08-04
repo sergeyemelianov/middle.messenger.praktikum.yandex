@@ -1,6 +1,6 @@
 import HTTPTransport from '../core/HTTPTransport';
 import { config } from '../config';
-import store from '../core/Store';
+import store, { ActionType } from '../core/Store';
 
 const params = {
   credentials: 'include',
@@ -67,7 +67,7 @@ class WsService {
 
         if (Array.isArray(message)) {
           store.dispatch({
-            type: 'CURRENT_CHAT',
+            type: ActionType.CURRENT_CHAT,
             messages: message,
           });
           return;

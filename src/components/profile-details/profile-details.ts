@@ -60,7 +60,7 @@ export class ProfileDetails extends Block {
     return ProfileTemplate;
   }
 
-  componentDidUpdate(oldProps: any, newProps: any): boolean {
+  componentDidUpdate(oldProps: ProfileDetailsProps, newProps: ProfileDetailsProps): boolean {
     if (oldProps.avatar !== newProps.avatar) {
       this.children.avatar = newProps.avatar;
       return true;

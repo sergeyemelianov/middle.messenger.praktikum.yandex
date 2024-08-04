@@ -88,9 +88,9 @@ export class Chat extends Block {
     });
   }
 
-  override componentDidUpdate(oldProps: any, newProps: any): boolean {
+  override componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
     if (oldProps.activeChatId !== newProps.activeChatId) {
-      if (typeof newProps.activeChatId === 'number') {
+      if (typeof newProps.activeChatId === 'number' && newProps.userId) {
         requestChatToken(newProps.userId, newProps.activeChatId);
         this.setProps({
           isActive: true,
@@ -102,7 +102,7 @@ export class Chat extends Block {
       }
     }
 
-    if (oldProps.messages !== newProps.messages) {
+    if (oldProps.messages !== newProps.messages && newProps.messages) {
       this.lists = {
         messages: newProps.messages.map(
           (el: WsChatResponse) =>
