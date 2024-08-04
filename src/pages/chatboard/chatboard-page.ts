@@ -19,10 +19,7 @@ export class Chatboard extends Block {
     super({
       ...props,
       list: new chatlist({}),
-      chat: new form({
-        form: new chat({}),
-        type: PagesEnum.chatMessage,
-      }),
+      chat: new chat({}),
       buttonAddChat: new Button({
         view: 'secondary',
         page: 'profile',

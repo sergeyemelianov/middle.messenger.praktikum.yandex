@@ -4,6 +4,7 @@ export type ValidateSourceType =
   | 'oldPassword'
   | 'newPassword'
   | 'first_name'
+  | 'display_name'
   | 'second_name'
   | 'email'
   | 'phone'

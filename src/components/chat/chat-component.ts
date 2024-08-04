@@ -2,13 +2,13 @@ import './chat-component.scss';
 import { Block, connect, Props, State } from '../../core';
 import ChatTemplate from './chat-component.hbs?raw';
 import Button from '../button/button-component';
-import Input from '../input/input-component';
 import { Message } from '../message/message-component';
 import { requestChatToken } from '../../api-services/ws-service';
 import { WsChatResponse } from '../../shared/interfaces/WsChatResponse';
 import { form } from '../form/form-component';
 import { Modal } from '../modal/modal';
 import { PagesEnum } from '../../shared/enums/Pages';
+import ChatInput from '../chat-input/chat-input';
 
 type ChatProps = Props & {
   activeChatId?: number;
@@ -43,10 +43,6 @@ export class Chat extends Block {
           },
         }),
         type: PagesEnum.modalDeleteUser,
-      }),
-      buttonSend: new Button({
-        view: 'confirmation',
-        iconName: 'arrow-confirm',
       }),
       buttonAddUser: new Button({
         type: 'button',
@@ -85,9 +81,9 @@ export class Chat extends Block {
           },
         },
       }),
-      buttonAttachFile: new Button({
-        view: 'no-text',
-        iconName: 'attach-file',
+      chatInput: new form({
+        form: new ChatInput({}),
+        type: PagesEnum.chatMessage,
       }),
     });
   }
@@ -107,23 +103,17 @@ export class Chat extends Block {
     }
 
     if (oldProps.messages !== newProps.messages) {
-      this.lists.messages = newProps.messages.map(
-        (el: WsChatResponse) =>
-          new Message({
-            message: el.content,
-            timestamp: el.time?.slice(11, 16),
-            isAuthor: el.user_id === newProps.userId,
-            isRead: el.is_read,
-          }),
-      );
-      this.lists.inputList = [
-        new Input({
-          name: 'message',
-          type: 'text',
-          selector: 'message',
-          placeholder: 'Type a message',
-        }),
-      ];
+      this.lists = {
+        messages: newProps.messages.map(
+          (el: WsChatResponse) =>
+            new Message({
+              message: el.content,
+              timestamp: el.time?.slice(11, 16),
+              isAuthor: el.user_id === newProps.userId,
+              isRead: el.is_read,
+            }),
+        ),
+      };
     }
     return true;
   }

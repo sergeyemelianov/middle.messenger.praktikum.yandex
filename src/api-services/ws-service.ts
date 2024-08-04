@@ -61,22 +61,26 @@ class WsService {
     });
 
     this.socket.addEventListener('message', (event) => {
-      console.log('Получены данные', JSON.parse(event.data));
-      const message = JSON.parse(event.data);
+      try {
+        console.log('Получены данные', JSON.parse(event.data));
+        const message = JSON.parse(event.data);
 
-      if (Array.isArray(message)) {
-        store.dispatch({
-          type: 'CURRENT_CHAT',
-          messages: message,
-        });
-        return;
+        if (Array.isArray(message)) {
+          store.dispatch({
+            type: 'CURRENT_CHAT',
+            messages: message,
+          });
+          return;
+        }
+
+        if (message.type === 'pong') {
+          return;
+        }
+
+        this.updateWsChat();
+      } catch (e) {
+        console.error(e);
       }
-
-      if (message.type === 'pong') {
-        return;
-      }
-
-      this.updateWsChat();
     });
 
     this.socket.addEventListener('error', (event: ErrorEvent) => {
