@@ -122,6 +122,7 @@ export class Form extends Block {
     }
 
     if (type === PagesEnum.chatMessage) {
+      (this.getContent() as HTMLFormElement).reset()
       wsService.sendWsMessage(formData.message);
     }
   }
