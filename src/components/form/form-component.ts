@@ -127,7 +127,6 @@ export class Form extends Block {
     const validation = validate(list.props?.name, val);
     list.setProps({
       error: validation || '',
-      value: val,
     });
   }
 
