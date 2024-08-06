@@ -1,13 +1,15 @@
 import './profile-password-edit.scss';
-import Block, { Props } from '../../core/Block';
-import { UserInterface } from '../../shared/interfaces/user-interface';
+import { Block, connect, Props, State } from '../../core';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import ProfilePasswordEditTemplate from './profile-password-edit.hbs?raw';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
+import { UserResponse } from '../../shared/interfaces/UserResponse';
+import Avatar from '../avatar/avatar-component';
 
 type ProfilePasswordEditProps = Props & {
-  userData?: UserInterface;
+  user?: UserResponse;
+  avatar?: string;
 };
 
 const inputState = {
@@ -24,13 +26,13 @@ export class ProfilePasswordEdit extends Block {
           ...inputState,
           selector: 'edit',
           label: 'Old password',
-          name: 'password',
+          name: 'oldPassword',
         }),
         new Input({
           ...inputState,
           selector: 'edit',
           label: 'New password',
-          name: 'password',
+          name: 'newPassword',
         }),
       ],
       buttonSave: new Button({
@@ -43,7 +45,7 @@ export class ProfilePasswordEdit extends Block {
         label: 'Cancel',
         events: {
           click: () => {
-            navigate(pagesList.profileDetails);
+            router.go(pagesListNav.profileDetails);
           },
         },
       }),
@@ -53,4 +55,22 @@ export class ProfilePasswordEdit extends Block {
   render(): string {
     return ProfilePasswordEditTemplate;
   }
+
+  componentDidUpdate(
+    oldProps: ProfilePasswordEditProps,
+    newProps: ProfilePasswordEditProps,
+  ): boolean {
+    if (oldProps.avatar !== newProps.avatar) {
+      this.children.avatar = new Avatar({
+        avatar: newProps.user?.avatar ?? '',
+        size: 'big',
+        name: 'avatar',
+      });
+    }
+    return true;
+  }
 }
+
+export const profilePasswordEdit = connect(ProfilePasswordEdit, (state: State) => ({
+  name: state.user?.display_name,
+}));

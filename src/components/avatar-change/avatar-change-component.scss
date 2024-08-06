@@ -1,0 +1,19 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
+.avatar-change {
+  img {
+    &:hover {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+
+  .input-component {
+    margin-bottom: 0;
+  }
+
+  .input {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 import './button-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import ButtonTemplate from './button-component.hbs?raw';
 
 type ButtonProps = Props & {
@@ -9,6 +9,7 @@ type ButtonProps = Props & {
   label?: string;
   iconName?: string;
   iconSize?: string;
+  disabled?: boolean;
 };
 
 export default class Button extends Block {

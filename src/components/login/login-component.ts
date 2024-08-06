@@ -1,9 +1,9 @@
 import './login-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Input from '../input/input-component';
 import Button from '../button/button-component';
 import LoginTemplate from './login-component.hbs?raw';
-import { navigate, pagesList } from '../../index';
+import { pagesListNav, router } from '../../index';
 
 type LoginProps = Props & {
   type?: string;
@@ -45,7 +45,7 @@ export class Login extends Block {
         label: 'Create account',
         events: {
           click: () => {
-            navigate(pagesList.signup);
+            router.go(pagesListNav.signup);
           },
         },
       }),

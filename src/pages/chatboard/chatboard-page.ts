@@ -1,21 +1,49 @@
 import './chatboard-page.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import Button from '../../components/button/button-component';
 import ChatboardTemplate from './chatboard-page.hbs?raw';
 import Input from '../../components/input/input-component';
-import { Chat, ChatList, ChatListItem, Conversation } from '../../components';
-import { messages } from '../../data-chat/messages';
-import { firstUtil } from '../../shared/utils/first.util';
-import { lastUtil } from '../../shared/utils/last.util';
-import { navigate, pagesList } from '../../index';
-import { Form } from '../../components/form/form-component';
+import { chat, Modal } from '../../components';
+import { pagesListNav, router } from '../../index';
+import { form } from '../../components/form/form-component';
+import { PagesEnum } from '../../shared/enums/Pages';
+import { ChatsResponse } from '../../shared/interfaces/ChatsResponse';
+import { chatlist } from '../../components';
 
-type ChatboardProps = Props;
+type ChatboardProps = Props & {
+  chats?: ChatsResponse[];
+};
 
 export class Chatboard extends Block {
   constructor(props: ChatboardProps) {
     super({
       ...props,
+      list: new chatlist({}),
+      chat: new chat({}),
+      buttonAddChat: new Button({
+        view: 'secondary',
+        page: 'profile',
+        selector: 'add-or-delete',
+        label: 'Create chat',
+        iconName: 'add',
+        iconSize: 'medium',
+        events: {
+          click: (e: MouseEvent) => {
+            e.preventDefault();
+            this.toggleShowModal();
+          },
+        },
+      }),
+      buttonModalClose: new Button({
+        view: 'secondary',
+        label: 'x',
+        events: {
+          click: (e: MouseEvent) => {
+            e.preventDefault();
+            this.toggleCloseModal();
+          },
+        },
+      }),
       buttonProfile: new Button({
         view: 'secondary',
         label: 'Profile',
@@ -24,7 +52,7 @@ export class Chatboard extends Block {
         iconSize: 'small',
         events: {
           click: () => {
-            navigate(pagesList.profileDetails);
+            router.go(pagesListNav.profileDetails);
           },
         },
       }),
@@ -33,16 +61,30 @@ export class Chatboard extends Block {
         selector: 'search',
         placeholder: 'Search',
       }),
-      chatList: new ChatList({
-        messages: messages.map((el) => {
-          return new ChatListItem({
-            id: el.chatId,
-            conversation: lastUtil(el.conversation),
-            unreadMessages: el.conversation.filter((elem: Conversation) => !elem.message.isRead)
-              .length,
-          });
+      form: new form({
+        form: new Modal({
+          name: 'title',
+          placeholder: 'Enter the name of chat',
+          onClick: () => {
+            setTimeout(() => {
+              this.toggleCloseModal();
+            }, 0);
+          },
         }),
+        type: PagesEnum.modalAddChat,
       }),
+    });
+  }
+
+  toggleShowModal(): void {
+    this.setProps({
+      showModal: true,
+    });
+  }
+
+  toggleCloseModal(): void {
+    this.setProps({
+      showModal: false,
     });
   }
 
@@ -51,6 +93,4 @@ export class Chatboard extends Block {
   }
 }
 
-export const ChatboardPage = new Chatboard({
-  chat: new Form({ form: new Chat({ message: firstUtil(messages)! }) }),
-});
+export const ChatboardPage = new Chatboard({});

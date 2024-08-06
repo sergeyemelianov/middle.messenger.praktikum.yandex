@@ -1,7 +1,7 @@
 import './page-container-component.scss';
-import Block, { Props } from '../../core/Block';
-import Navigation from '../navigation/navigation-component';
+import { Block, Props } from '../../core';
 import PageContainerTemplate from './page-container-component.hbs?raw';
+import { errorItem } from '../error-item/error-item-component';
 
 export enum PageContainerClassNameEnum {
   centered = 'centered',
@@ -9,11 +9,12 @@ export enum PageContainerClassNameEnum {
 
 type PageContainerProps = Props & {
   className?: string;
+  component?: Block | null;
 };
 
 export default class PageContainer extends Block {
   constructor(props: PageContainerProps) {
-    super({ ...props, navigation: new Navigation({}), component: props.component });
+    super({ ...props, errorItem: new errorItem({ type: 'header' }) });
   }
 
   render(): string {

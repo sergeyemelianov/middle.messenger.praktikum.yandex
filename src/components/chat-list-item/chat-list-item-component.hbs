@@ -1,16 +1,22 @@
-<li class="chat-list-item" {{#if id}}id={{id}}{{/if}}>
+<li class="chat-list-item">
   <div class="chat-list-item__avatar">
-    {{{ userAvatar }}}
+    {{#if avatar}}
+      <img class="avatar" src="{{avatar}}" alt="user-avatar">
+    {{else}}
+      <img class="avatar" src="../../assets/icons/avatar-default.svg" alt="user-avatar">
+    {{/if}}
   </div>
-
   <div class="chat-list-item__message">
-    <div class="chat-list-item__message-author">{{name}}</div>
-    <div class="chat-list-item__message-text">{{messageText}}</div>
+    <div class="chat-list-item__message-title"><span>{{title}}</div>
+
+    <div class="chat-list-item__message-author"><span>{{last_message.user.display_name}}</div>
+    <div class="chat-list-item__message-text">{{last_message.content}}</div>
   </div>
 
   <div class="chat-list-item__message-info">
-    <div class="chat-list-item__message-time">{{timestamp}}</div>
+    <div class="chat-list-item__message-time">{{time}}</div>
   </div>
-
-  <div class="chat-list-item__message-unread">{{unreadMessages}}</div>
+  {{#if unread_count}}
+      <div class="chat-list-item__message-unread">{{unread_count}}</div>
+  {{/if}}
 </li>

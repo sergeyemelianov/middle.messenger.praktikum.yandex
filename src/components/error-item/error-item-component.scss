@@ -1,1 +1,27 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
 
+.error {
+  display: none;
+
+  &_visible {
+    display: flex !important;
+  }
+
+  &_header {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+
+    .error__title {
+      color: $red-1;
+      @include text-9();
+    }
+  }
+}

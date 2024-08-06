@@ -1,8 +1,9 @@
 import './input-component.scss';
-import Block, { Props } from '../../core/Block';
+import { Block, Props } from '../../core';
 import InputTemplate from './input-component.hbs?raw';
-import { validate, ValidateSourceType } from '../../shared/utils/validation.util';
+import { validate } from '../../shared/utils/validation.util';
 import { InputField } from '../input-field/input-field-component';
+import { ValidateSourceType } from '../../shared/types/ValidateSourceType';
 
 export type InputProps = Props & {
   name?: ValidateSourceType;
@@ -14,10 +15,13 @@ export type InputProps = Props & {
   readonly?: boolean;
   autofocus?: boolean;
   required?: boolean;
+  img?: string;
+  size?: 'small' | 'medium' | 'big';
   showDivider?: boolean;
   page?: string;
   error?: string;
   onBlur?: (e: FocusEvent) => void;
+  onChange?: (e: InputEvent) => void;
 };
 
 export default class Input extends Block {
@@ -30,8 +34,11 @@ export default class Input extends Block {
         name: props.name,
         value: props.value,
         placeholder: props.placeholder,
+        img: props.img,
+        size: props.size,
         readonly: props.readonly,
         autofocus: props.autofocus,
+        accept: props.accept,
         onBlur: (e) => {
           e.preventDefault();
           const val = (e.target as HTMLInputElement)?.value;
@@ -41,6 +48,9 @@ export default class Input extends Block {
             error: validation || '',
             value: props.value,
           });
+        },
+        onChange: (e: InputEvent) => {
+          props.onChange && props.onChange(e);
         },
       }),
     });

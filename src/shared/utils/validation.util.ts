@@ -1,22 +1,17 @@
-import Block from '../../core/Block';
-
-export type ValidateSourceType =
-  | 'login'
-  | 'password'
-  | 'first_name'
-  | 'second_name'
-  | 'email'
-  | 'phone'
-  | 'message';
+import { Block } from '../../core';
+import { ValidateSourceType } from '../types/ValidateSourceType';
 
 const errors = {
   first_name:
-    'Латиница или кириллица, первая заглавная, без пробелов, цифр, спецсимволов (можно "-")',
-  login: '3-20 символов, латиница, цифры, без пробелов, спецсимволов (можно "-" и "_")',
-  email: 'Латиница, можно цифры, можно "-" и "_", содержит @',
-  password: 'от 8 до 40 символов, одна заглавная буква и цифра',
-  phone: '10-15 символов, только цифры, может начинается с плюса',
-  message: 'Пустой текст',
+    'Latin or Cyrillic, first letter capitalized, no spaces, digits,' +
+    ' or special characters (hyphen allowed)',
+  login:
+    '3-20 characters, Latin letters, digits, no spaces, no special characters' +
+    ' (hyphen and underscore allowed)',
+  email: 'Latin letters, digits allowed, hyphen and underscore allowed, must contain @',
+  password: '8 to 40 characters, one uppercase letter and one digit',
+  phone: '10-15 characters, digits only, can start with a plus sign',
+  message: 'Empty text',
 };
 
 export const validate = (type: ValidateSourceType | undefined, event = ''): string => {

@@ -1,20 +1,11 @@
 <div class="chat">
-  {{#if notActive}}
-    <div class="chat__default-message">
-      {{ emptyStateText }}
-    </div>
-  {{else}}
+  {{#if isActive}}
     <div class="chat__content">
       <div class="chat__header">
-        <div class="chat__author-info">
-          {{{ userAvatar }}}
-          <div class="chat__author-name">
-            {{ userName }}
-          </div>
-        </div>
 
         <div class="chat__settings">
-          <img src="../../assets/icons/conversation-settings.svg" alt="settings">
+          {{{ buttonAddUser }}}
+          {{{ buttonDeleteUser }}}
         </div>
       </div>
 
@@ -23,16 +14,36 @@
       </div>
 
       <div class="chat__footer">
-        <div class="chat__attach-file">
-          {{{ buttonAttachFile }}}
-        </div>
-        <div class="chat__message-input">
-          {{{ inputList }}}
-        </div>
-        <div class="chat__send-button">
-          {{{ buttonSend }}}
+        {{{ chatInput }}}
+      </div>
+    </div>
+
+    {{#if showAddUserModal}}
+      <div class="chat__modal" id="modal">
+        <div class="chat__modal-content">
+              <span class="chat__modal-close">
+                {{{ buttonModalClose }}}
+              </span>
+          <h2 class="chat__modal-title" id="modalTitle">Add new user</h2>
+          {{{ formAddUser }}}
         </div>
       </div>
+    {{/if}}
+
+    {{#if showDeleteUserModal}}
+      <div class="chat__modal" id="modal">
+        <div class="chat__modal-content">
+              <span class="chat__modal-close">
+                {{{ buttonModalClose }}}
+              </span>
+          <h2 class="chat__modal-title" id="modalTitle">Delete user from chat</h2>
+          {{{ formDeleteUser }}}
+        </div>
+      </div>
+    {{/if}}
+  {{else}}
+    <div class="chat__default-message">
+      Choose a chat to send a message
     </div>
   {{/if}}
 </div>
