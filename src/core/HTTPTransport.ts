@@ -1,4 +1,4 @@
-enum METHODS {
+export enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -14,7 +14,7 @@ type HTTPOptions = {
   timeout?: number;
 };
 
-type HTTPMethodType = (url: string, options: HTTPOptions) => Promise<XMLHttpRequest>;
+type HTTPMethodType = (url: string, options?: HTTPOptions) => Promise<XMLHttpRequest>;
 
 type PlainObject<T = unknown> = {
   [k in string]: T;
@@ -34,16 +34,16 @@ function queryStringify(data: PlainObject) {
 
 export default class HTTPTransport {
   get: HTTPMethodType = (url, options) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    this.request(url, { ...options, method: METHODS.GET }, options?.timeout);
 
   post: HTTPMethodType = (url, options) =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    this.request(url, { ...options, method: METHODS.POST }, options?.timeout);
 
   put: HTTPMethodType = (url, options) =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    this.request(url, { ...options, method: METHODS.PUT }, options?.timeout);
 
   delete: HTTPMethodType = (url, options) =>
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    this.request(url, { ...options, method: METHODS.DELETE }, options?.timeout);
 
   request = (url: string, options: HTTPOptions, timeout = 5000): Promise<XMLHttpRequest> => {
     const { headers = {}, method, data } = options;
