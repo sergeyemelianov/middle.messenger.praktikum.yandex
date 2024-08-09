@@ -1,7 +1,8 @@
-import { Block } from './block';
+
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Router } from './Router';
+import { Block } from './Block';
 
 describe('Router tests', () => {
   const router = new Router('app');
