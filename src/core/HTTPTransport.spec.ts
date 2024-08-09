@@ -27,7 +27,7 @@ describe('HTTPTransport Test', () => {
     expect(fakeReq[0].method).to.be.eq(METHODS.POST);
   });
 
-  it('.DELETE Method test', () => {
+  it('DELETE Method test', () => {
     http.delete('/');
     expect(fakeReq[0].method).to.be.eq(METHODS.DELETE);
   });
