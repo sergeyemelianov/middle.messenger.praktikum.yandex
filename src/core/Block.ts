@@ -158,11 +158,10 @@ export class Block<P extends Record<string, any> = any> {
     this._removeEvents();
 
     const newElement = fragment.content.firstElementChild;
-    if (newElement instanceof Element) {
-      if (this._element) {
-        this._element.replaceWith(newElement);
-      }
+    if (this._element) {
+      this._element.replaceWith(newElement as Element);
     }
+
     this._element = newElement as HTMLElement;
     this._addEvents();
     this.addAttributes();

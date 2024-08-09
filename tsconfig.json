@@ -2,9 +2,9 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "target": "es2017",
     "declaration": false,
-    "module": "commonjs",
+    "target": "ES2020",
+    "module": "ES2020",
     "strictNullChecks": true,
     "sourceMap": true,
     "noImplicitAny": true,
@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "typeRoots": ["node_modules/@types", "typings/index.d.ts"]
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
   }
 }
