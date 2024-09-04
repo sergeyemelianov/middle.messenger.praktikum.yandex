@@ -12,14 +12,35 @@
     "lint": "npx eslint \"**/*.{js,ts}\" --fix",
     "prettier": "prettier -w src/.",
     "pre-commit": "npm run prettier && npm run lint",
-    "stylelint": "npx stylelint \"**/*.scss\" --fix"
+    "stylelint": "npx stylelint \"**/*.scss\" --fix",
+    "prepare": "husky install",
+    "test": "mocha --es-module-specifier-resolution=node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test"
+    }
+  },
+  "targets": {
+    "default": {
+      "includeNodeModules": true
+    }
   },
   "engines": {
     "node": ">=12"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.14",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
+    "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "5.47.0",
     "@typescript-eslint/parser": "5.47.0",
+    "chai": "^5.1.0",
+    "jsdom": "^24.0.0",
+    "mocha": "^10.4.0",
+    "sinon": "^17.0.1",
+    "ts-node": "^10.9.2",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "eslint": "8.30.0",
@@ -28,19 +49,21 @@
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-prettier": "5.0.0",
-    "prettier": "^3.3.2",
-    "sass": "^1.77.6",
-    "scss": "^0.2.4",
+    "husky": "^8.0.3",
+    "prettier": "3.3.2",
+    "sass": "1.77.6",
+    "scss": "0.2.4",
     "stylelint": "^16.6.1",
-    "stylelint-scss": "^6.3.2",
+    "stylelint-scss": "6.3.2",
+    "tslib": "^2.6.2",
     "typescript": "4.6.2",
-    "vite": "^5.2.0",
-    "vite-plugin-checker": "^0.6.4",
-    "vite-plugin-static-copy": "^1.0.5"
+    "vite": "5.3.5",
+    "vite-plugin-checker": "0.6.4",
+    "vite-plugin-static-copy": "1.0.5"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "express-handlebars": "^7.1.2",
-    "handlebars": "^4.7.8"
+    "express": "4.19.2",
+    "express-handlebars": "7.1.2",
+    "handlebars": "4.7.8"
   }
 }
